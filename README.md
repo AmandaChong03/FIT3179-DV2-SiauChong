@@ -29,8 +29,8 @@ Links to each source are in the footer of the page.
 
 ## Author
 
-[Your name], [student ID]. October 2026.
+Siau Xian Chong, 32202806. October 2026.
 
 ## Use of AI
 
-[Say here which AI tools you used and what for.]
+
