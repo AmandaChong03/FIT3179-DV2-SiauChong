@@ -1,0 +1,140 @@
+/* ---------- Colours and fonts (change them here) ---------- */
+:root {
+  --page: #fbf8f3;        /* page background */
+  --panel: #ffffff;       /* chart box background */
+  --ink: #23303a;         /* main text */
+  --muted: #5d6b75;       /* captions and small text */
+  --teal: #0f6e6e;        /* headings and "ups" */
+  --amber: #b9770e;       /* accents and "downs" */
+  --rule: #e2ddd3;        /* thin lines */
+  --heading-font: "Fraunces", Georgia, serif;
+  --body-font: "Nunito Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--body-font);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+/* ---------- Page width: fits a small laptop with no sideways scrolling ---------- */
+.page-header, main, .page-footer {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ---------- Title ---------- */
+.page-header { padding-top: 48px; padding-bottom: 8px; }
+.kicker {
+  margin: 0 0 6px;
+  color: var(--amber);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+h1 {
+  margin: 0 0 12px;
+  font-family: var(--heading-font);
+  font-size: 2.6rem;
+  line-height: 1.12;
+  color: var(--teal);
+}
+.intro { max-width: 60ch; margin: 0; font-size: 1.1rem; }
+
+/* ---------- Sections ---------- */
+section { padding: 36px 0 8px; border-top: 1px solid var(--rule); margin-top: 36px; }
+h2 {
+  margin: 0 0 14px;
+  font-family: var(--heading-font);
+  font-size: 1.6rem;
+  line-height: 1.2;
+  color: var(--teal);
+}
+h2 .num {
+  display: inline-block;
+  width: 1.7em; height: 1.7em; line-height: 1.7em;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--teal);
+  color: #fff;
+  font-size: 0.7em;
+  text-align: center;
+  vertical-align: 0.15em;
+}
+h3 { margin: 0 0 6px; font-size: 1rem; }
+.section-intro { max-width: 65ch; margin: 0 0 16px; }
+
+/* ---------- Rows of boxes (these match the sketch layout) ---------- */
+.row { display: grid; gap: 20px; margin-bottom: 20px; align-items: stretch; }
+.row-2 { grid-template-columns: 1fr 1fr; }
+.row-3 { grid-template-columns: 1fr 1fr 1fr; }
+.row-text-3 { grid-template-columns: 0.7fr 1fr 1fr 1fr; }
+.row-2.narrow-wide { grid-template-columns: 0.8fr 1.2fr; }
+.row-2.wide-narrow { grid-template-columns: 1.3fr 0.7fr; }
+
+/* ---------- Chart boxes ---------- */
+.chart-box {
+  margin: 0;
+  padding: 14px;
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.chart {
+  flex: 1;
+  min-height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+  border: 1.5px dashed var(--rule);   /* placeholder look, removed once a chart loads */
+  border-radius: 6px;
+}
+.chart.loaded { border: none; display: block; min-height: 0; }
+.chart.loaded > * { max-width: 100%; }
+figcaption { margin-top: 8px; color: var(--muted); font-size: 0.78rem; line-height: 1.35; }
+
+/* ---------- Text boxes ---------- */
+.text-box { padding: 6px 4px; max-width: 46ch; }
+.text-box p { margin: 0 0 10px; }
+.checklist {
+  padding: 18px 20px;
+  background: var(--teal);
+  color: #fff;
+  border-radius: 10px;
+}
+.checklist ul { margin: 6px 0 0; padding-left: 1.2em; }
+.checklist li { margin-bottom: 4px; }
+
+/* ---------- Footer ---------- */
+.page-footer {
+  margin-top: 48px;
+  padding-top: 28px;
+  padding-bottom: 48px;
+  border-top: 3px solid var(--teal);
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.page-footer h2 { font-size: 1.25rem; }
+.page-footer h3 { color: var(--ink); margin-top: 12px; }
+.sources { margin: 0; padding-left: 1.2em; }
+.sources li { margin-bottom: 4px; }
+a { color: var(--teal); }
+
+/* ---------- Narrow screens: stack the boxes ---------- */
+@media (max-width: 860px) {
+  .row-2, .row-3, .row-text-3, .row-2.narrow-wide, .row-2.wide-narrow { grid-template-columns: 1fr; }
+  h1 { font-size: 2rem; }
+  .text-box { max-width: none; }
+}

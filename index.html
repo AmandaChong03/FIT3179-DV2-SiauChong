@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Who Cares for Australia's 31.6 Million Pets?</title>
+  <meta name="description" content="A data story about pets, vets and the cost of care in Australia. FIT3179 Data Visualisation 2.">
+
+  <!-- Fonts: Fraunces for headings, Nunito Sans for text -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Vega, Vega-Lite and Vega-Embed draw the charts -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+
+<body>
+
+  <!-- ============ TITLE ============ -->
+  <header class="page-header">
+    <p class="kicker">Pets and vets in Australia</p>
+    <h1>Who Cares for Australia's 31.6 Million Pets?</h1>
+    <p class="intro">
+      Australia has more pets than people. This page looks at who looks after them, what goes wrong,
+      what it costs, and what a pet owner can do about it.
+    </p>
+  </header>
+
+  <main>
+
+    <!-- ============ SECTION 1 ============ -->
+    <section id="section-1">
+      <h2><span class="num">1</span> A nation of pet lovers</h2>
+      <div class="row row-3">
+        <figure class="chart-box">
+          <div class="chart" id="chart01">Chart 1 · Waffle chart<br>73 in 100 households own a pet</div>
+          <figcaption>Source: Animal Medicines Australia, Pets in Australia 2025.</figcaption>
+        </figure>
+        <figure class="chart-box">
+          <div class="chart" id="chart02">Chart 2 · Bar chart<br>Where the $21.3 billion goes</div>
+          <figcaption>Source: Animal Medicines Australia, Pets in Australia 2025.</figcaption>
+        </figure>
+        <div class="text-box">
+          <p>Text for section 1 goes here. Two or three short sentences that say what the two charts show.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 2 ============ -->
+    <section id="section-2">
+      <h2><span class="num">2</span> Who looks after them</h2>
+      <p class="section-intro">
+        Australia is made up of six states and two territories. Most people live along the east and
+        south-east coast, and vets are not spread evenly between them.
+      </p>
+      <div class="row row-3">
+        <figure class="chart-box">
+          <div class="chart" id="chart03">Chart 3 · Choropleth map<br>Vet businesses with staff per 100,000 people</div>
+          <figcaption>Source: Australian Bureau of Statistics, June 2025. Businesses, not clinics.</figcaption>
+        </figure>
+        <figure class="chart-box">
+          <div class="chart" id="chart04">Chart 4 · Dot map<br>Where vets are trained</div>
+          <figcaption>Source: Australasian Veterinary Boards Council, 2025.</figcaption>
+        </figure>
+        <figure class="chart-box">
+          <div class="chart" id="chart05">Chart 5 · Population pyramid<br>Vets by age and gender</div>
+          <figcaption>Source: AVA Workforce Survey 2023/24.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 3 ============ -->
+    <section id="section-3">
+      <h2><span class="num">3</span> A profession stretched thin</h2>
+      <div class="row row-text-3">
+        <div class="text-box">
+          <p>Text for section 3 goes here.</p>
+        </div>
+        <figure class="chart-box">
+          <div class="chart" id="chart06">Chart 6 · Slope chart<br>How the profession changed, 2012 to 2023</div>
+          <figcaption>Source: AVA Workforce Survey 2023/24.</figcaption>
+        </figure>
+        <figure class="chart-box">
+          <div class="chart" id="chart07">Chart 7 · Proportional symbol map<br>Vet jobs still unfilled after a year</div>
+          <figcaption>Source: AVA Workforce Survey 2023/24. Few survey answers in ACT, NT and Tasmania.</figcaption>
+        </figure>
+        <figure class="chart-box">
+          <div class="chart" id="chart08">Chart 8 · Heatmap<br>Time to fill a vacancy, by practice size</div>
+          <figcaption>Source: AVA Workforce Survey 2023/24. Small survey numbers.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 4 ============ -->
+    <section id="section-4">
+      <h2><span class="num">4</span> Where pets get care, and what for</h2>
+      <div class="row row-2 narrow-wide">
+        <figure class="chart-box">
+          <div class="chart" id="chart09">Chart 9 · Pie chart<br>Where pets get care</div>
+          <figcaption>Source: AVA Workforce Survey 2023/24.</figcaption>
+        </figure>
+        <figure class="chart-box">
+          <div class="chart" id="chart10">Chart 10 · Bar chart with dog/cat switch<br>Top 10 conditions by average cost</div>
+          <figcaption>Source: PetSure Pet Health Monitor 2026.</figcaption>
+        </figure>
+      </div>
+      <div class="row row-2">
+        <figure class="chart-box">
+          <div class="chart" id="chart11">Chart 11 · Dumbbell chart<br>The emergencies that cost the most</div>
+          <figcaption>Source: PetSure Pet Health Monitor 2026.</figcaption>
+        </figure>
+        <figure class="chart-box">
+          <div class="chart" id="chart12">Chart 12 · Line chart<br>Cost of treating gastro, 2015 to 2025</div>
+          <figcaption>Source: PetSure Pet Health Monitor 2026.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ SECTION 5 ============ -->
+    <section id="section-5">
+      <h2><span class="num">5</span> Caring for pets when money is tight</h2>
+      <div class="row row-2">
+        <figure class="chart-box">
+          <div class="chart" id="chart13">Chart 13 · Dot plot<br>What owners cut back on</div>
+          <figcaption>Source: Animal Medicines Australia, Pets in Australia 2025.</figcaption>
+        </figure>
+        <figure class="chart-box">
+          <div class="chart" id="chart14">Chart 14 · Bar chart<br>A year of prevention vs one emergency</div>
+          <figcaption>Sources: Animal Medicines Australia 2025 and PetSure 2026. Figures from two different reports.</figcaption>
+        </figure>
+      </div>
+      <div class="row row-2 wide-narrow">
+        <figure class="chart-box">
+          <div class="chart" id="chart15">Chart 15 · Streamgraph<br>Animals entering RSPCA shelters, 2005–06 to 2024–25</div>
+          <figcaption>Source: RSPCA Australia annual statistics. RSPCA shelters only.</figcaption>
+        </figure>
+        <div class="text-box checklist">
+          <h3>What a responsible owner does</h3>
+          <ul>
+            <li>Vaccinate</li>
+            <li>Desex</li>
+            <li>Microchip</li>
+            <li>Get a yearly check-up</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER: sources, author, date, AI note ============ -->
+  <footer class="page-footer">
+    <h2>About this page</h2>
+    <div class="row row-2">
+      <div>
+        <h3>Data sources</h3>
+        <ul class="sources">
+          <li><a href="https://animalmedicinesaustralia.org.au/wp-content/uploads/2025/09/SNR-2403006-Pet-Ownership-Study-2025-Designed_F3.pdf">Animal Medicines Australia, Pets in Australia 2025</a></li>
+          <li><a href="https://ava.com.au/siteassets/advocacy/workforce-survey/ava-2023_2024-workforce-survey-report.pdf">Australian Veterinary Association, Workforce Survey 2023/24</a></li>
+          <li><a href="https://petsure.com.au/wp-content/uploads/2024/07/PHM-2026_Digital.pdf">PetSure, Pet Health Monitor 2026</a></li>
+          <li><a href="https://www.abs.gov.au/statistics/economy/business-indicators/counts-australian-businesses-including-entries-and-exits/jul2021-jun2025">Australian Bureau of Statistics, Counts of Australian Businesses, June 2025</a></li>
+          <li><a href="https://www.abs.gov.au/statistics/people/population/national-state-and-territory-population/jun-2025">Australian Bureau of Statistics, National, state and territory population, June 2025</a></li>
+          <li><a href="https://rspca.org.au/about/annual-statistics">RSPCA Australia, annual statistics</a></li>
+          <li><a href="https://avbc.asn.au/wp-content/uploads/2025/04/VetScienceInAustralia-Apr2025.pdf">Australasian Veterinary Boards Council, Veterinary Science in Australia, 2025</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Author</h3>
+        <p>[Your name], [student ID]. FIT3179 Data Visualisation 2, Monash University. October 2026.</p>
+        <h3>Use of AI</h3>
+        <p>[Say here which AI tools you used and what for.]</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ CHART LOADER ============ -->
+  <script>
+    // Add one line here for each chart or map once its JSON file exists.
+    // "id" is the box on the page. "spec" is the path to the JSON file.
+    // Paths start from this page, so inside each JSON file write data paths
+    // the same way, for example "data/vet_businesses_by_state.csv".
+    const charts = [
+      // { id: "chart01", spec: "charts/01_pet_ownership_waffle.json" },
+      // { id: "chart03", spec: "maps/03_vet_businesses_choropleth.json" },
+    ];
+
+    charts.forEach(function (c) {
+      vegaEmbed("#" + c.id, c.spec, { actions: false })
+        .then(function () { document.getElementById(c.id).classList.add("loaded"); })
+        .catch(console.error);
+    });
+  </script>
+
+</body>
+</html>
