@@ -1,0 +1,111 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "title": {
+    "text": ["Vet care is a small slice of pet spending"],
+    "subtitle": [
+      "Share of the $21.3 billion Australians spent",
+      "on their pets in the year to March 2025"
+    ],
+    "anchor": "start",
+    "fontSize": 16,
+    "color": "#23303a",
+    "subtitleFontSize": 12,
+    "subtitleColor": "#5d6b75",
+    "offset": 14
+  },
+  "width": "container",
+  "height": 180,
+  "data": {
+    "url": "https://amandachong03.github.io/FIT3179-DV2-SiauChong/data/pet_spending.csv"
+  },
+  "transform": [{"calculate": "datum.share_percent + '%'", "as": "label"}],
+  "encoding": {
+    "y": {
+      "field": "category",
+      "type": "nominal",
+      "sort": [
+        "Food",
+        "Health products",
+        "Vet services",
+        "Products and accessories",
+        "Everything else"
+      ],
+      "axis": {
+        "title": null,
+        "domain": true,
+        "ticks": false,
+        "labelFontSize": 12,
+        "labelColor": "#23303a",
+        "labelPadding": 8,
+        "minExtent": 150,
+        "maxExtent": 150
+      }
+    },
+    "x": {
+      "field": "share_percent",
+      "type": "quantitative",
+      "scale": {"domain": [0, 56]},
+      "axis": {
+        "title": "Source: Animal Medicines Australia, Pets in Australia 2025",
+        "titleAnchor": "start",
+        "titleX": -150,
+        "titleFontSize": 10,
+        "titleFontWeight": "normal",
+        "titleColor": "#5d6b75",
+        "titlePadding": 12,
+        "domain": false,
+        "ticks": false,
+        "labels": false,
+        "grid": false
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {"type": "bar", "height": 22, "cornerRadiusEnd": 4},
+      "encoding": {
+        "color": {
+          "condition": [
+            {"test": "datum.category == 'Vet services'", "value": "#b9770e"},
+            {"test": "datum.category == 'Everything else'", "value": "#d3d9dc"}
+          ],
+          "value": "#8fb3b2"
+        },
+        "tooltip": [
+          {"field": "category", "type": "nominal", "title": "Category:"},
+          {
+            "field": "share_percent",
+            "type": "quantitative",
+            "title": "Share of spending:"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {"type": "text", "align": "left", "dx": 6, "fontSize": 12},
+      "encoding": {
+        "text": {"field": "label", "type": "nominal"},
+        "color": {
+          "condition": {
+            "test": "datum.category == 'Vet services'",
+            "value": "#23303a"
+          },
+          "value": "#5d6b75"
+        }
+      }
+    },
+    {
+      "transform": [{"filter": "datum.category == 'Vet services'"}],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 36,
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "color": "#23303a"
+      },
+      "encoding": {"text": {"value": "about $1.9 billion"}}
+    }
+  ],
+  "config": {"view": {"stroke": null}}
+}
