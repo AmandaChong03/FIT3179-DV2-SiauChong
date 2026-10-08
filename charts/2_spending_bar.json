@@ -35,6 +35,13 @@
         "domain": true,
         "ticks": false,
         "labelFontSize": 12,
+        "labelFontWeight": {
+          "condition": {
+            "test": "datum.value == 'Vet services'",
+            "value": "bold"
+          },
+          "value": "normal"
+        },
         "labelColor": "#23303a",
         "labelPadding": 8,
         "minExtent": 150,
