@@ -1,0 +1,55 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "title": {
+    "text": ["73 in 100 Australian households have a pet"],
+    "subtitle": ["Each square is 1 in every 100 households, year 2025"],
+    "anchor": "start",
+    "fontSize": 16,
+    "color": "#23303a",
+    "subtitleFontSize": 12,
+    "subtitleColor": "#5d6b75",
+    "offset": 14
+  },
+  "data": {
+    "url": "https://amandachong03.github.io/FIT3179-DV2-SiauChong/data/1_pet_ownership.csv"
+  },
+  "transform": [
+    {"filter": "datum.year == 2025"},
+    {"calculate": "sequence(0,100)", "as": "square"},
+    {"flatten": ["square"]},
+    {"calculate": "datum.square % 10", "as": "column"},
+    {"calculate": "floor(datum.square / 10)", "as": "row"},
+    {
+      "calculate": "datum.square < datum.households_with_pets_percent?'Has a pet':'No pet'",
+      "as": "status"
+    }
+  ],
+  "width": 240,
+  "height": 240,
+  "mark": {"type": "rect", "stroke": "white", "strokeWidth": 3},
+  "encoding": {
+    "x": {
+      "field": "column",
+      "type": "ordinal",
+      "axis": {
+        "title": "Source: Animal Medicines Australia, Pets in Australia 2025",
+        "titleAnchor": "start",
+        "titleFontSize": 10,
+        "titleFontWeight": "normal",
+        "titleColor": "#5d6b75",
+        "titlePadding": 12,
+        "domain": false,
+        "ticks": false,
+        "labels": false
+      }
+    },
+    "y": {
+      "field": "row",
+      "type": "ordinal",
+      "sort": "descending",
+      "axis": null
+    },
+    "color": {"field": "status", "type": "nominal"}
+  },
+  "config": {}
+}
