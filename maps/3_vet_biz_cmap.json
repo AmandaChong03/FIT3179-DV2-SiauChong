@@ -1,0 +1,66 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "title": {
+    "text": ["Vet businesses per person are lowest in Victoria and the ACT"],
+    "subtitle": [
+      "Vet businesses with at least one employee,",
+      "per 100,000 people, June 2025"
+    ],
+    "anchor": "start",
+    "fontSize": 16,
+    "color": "#23303a",
+    "subtitleFontSize": 12,
+    "subtitleColor": "#5d6b75",
+    "offset": 14
+  },
+  "width": 300,
+  "height": 260,
+  "projection": {
+    "type": "conicEqualArea",
+    "parallels": [-18, -36],
+    "rotate": [-132, 0]
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "https://amandachong03.github.io/FIT3179-DV2-SiauChong/maps/3_australia_states.topojson",
+        "format": {"type": "topojson", "feature": "states"}
+      },
+      "transform": [
+        {
+          "lookup": "properties.name",
+          "from": {
+            "data": {
+              "url": "https://amandachong03.github.io/FIT3179-DV2-SiauChong/data/3_vet_businesses_by_state.csv"
+            },
+            "key": "state",
+            "fields": ["employing_businesses_per_100k"]
+          }
+        }
+      ],
+      "mark": "geoshape",
+      "encoding": {
+        "color": {
+          "field": "employing_businesses_per_100k",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "data": {"values": [{}]},
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "top",
+        "fontSize": 10,
+        "color": "#5d6b75"
+      },
+      "encoding": {
+        "x": {"value": 0},
+        "y": {"value": 272},
+        "text": {"value": "Source: Australian Bureau of Statistics, June 2025"}
+      }
+    }
+  ],
+  "config": {"view": {"stroke": null}}
+}
