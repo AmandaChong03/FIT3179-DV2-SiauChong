@@ -1,0 +1,235 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "title": {
+    "text": ["Young vets are mostly women,"],
+    "subtitle": ["older vets mostly men"],
+    "anchor": "start",
+    "fontSize": 16,
+    "color": "#c2185b",
+    "subtitleFontSize": 16,
+    "subtitleFontWeight": "bold",
+    "subtitleColor": "#1f5fa8",
+    "subtitlePadding": 2,
+    "offset": 8
+  },
+  "width": 320,
+  "height": 270,
+  "data": {
+    "url": "https://amandachong03.github.io/FIT3179-DV2-SiauChong/data/5_vets_age_gender.csv"
+  },
+  "transform": [
+    {
+      "calculate": "datum.gender=='Women' ? -datum.respondents : datum.respondents",
+      "as": "signed_respondents"
+    },
+    {
+      "joinaggregate": [
+        {"op": "sum", "field": "respondents", "as": "age_group_total"}
+      ],
+      "groupby": ["age_group"]
+    },
+    {
+      "calculate": "datum.respondents / datum.age_group_total",
+      "as": "share_of_age_group"
+    },
+    {
+      "calculate": "datum.age_group == '75+' ? '75 and over' : replace(datum.age_group, '-', '–')",
+      "as": "age_label"
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "age_label",
+      "type": "ordinal",
+      "sort": [
+        "75 and over",
+        "70–74",
+        "65–69",
+        "60–64",
+        "55–59",
+        "50–54",
+        "45–49",
+        "40–44",
+        "35–39",
+        "30–34",
+        "25–29",
+        "20–24"
+      ],
+      "axis": {
+        "title": null,
+        "domain": false,
+        "ticks": false,
+        "labelColor": "#23303a",
+        "labelFontSize": 10,
+        "labelPadding": 4
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {"type": "bar", "height": 16},
+      "encoding": {
+        "x": {
+          "field": "signed_respondents",
+          "type": "quantitative",
+          "scale": {"domain": [-260, 260]},
+          "axis": {
+            "title": "Number of vets who answered",
+            "titleFontSize": 10,
+            "titleFontWeight": "normal",
+            "titleColor": "#5d6b75",
+            "labelExpr": "abs(datum.value)",
+            "labelColor": "#5d6b75",
+            "values": [-200, -100, 0, 100, 200],
+            "domain": false,
+            "ticks": false,
+            "gridColor": "#e6eaec"
+          }
+        },
+        "color": {
+          "field": "gender",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Women", "Men"],
+            "range": ["#c2185b", "#1f5fa8"]
+          },
+          "legend": null
+        },
+        "tooltip": [
+          {"field": "age_label", "type": "nominal", "title": "Age"},
+          {"field": "gender", "type": "nominal", "title": "Gender"},
+          {
+            "field": "respondents",
+            "type": "quantitative",
+            "title": "Number of vets"
+          },
+          {
+            "field": "share_of_age_group",
+            "type": "quantitative",
+            "title": "Share of this age group",
+            "format": ".0%"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {"label": "Women", "x": -140, "colour": "#c2185b"},
+          {"label": "Men", "x": 140, "colour": "#1f5fa8"}
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "baseline": "bottom",
+        "dy": 3
+      },
+      "encoding": {
+        "x": {"field": "x", "type": "quantitative"},
+        "y": {"value": 0},
+        "text": {"field": "label"},
+        "color": {"field": "colour", "type": "nominal", "scale": null}
+      }
+    },
+    {
+      "data": {"values": [{}]},
+      "mark": {
+        "type": "rule",
+        "color": "#5d6b75",
+        "strokeWidth": 1,
+        "strokeDash": [4, 3],
+        "yOffset": 1
+      },
+      "encoding": {
+        "x": {"datum": -280},
+        "x2": {"datum": 280},
+        "y": {"datum": "65–69", "bandPosition": 1}
+      }
+    },
+    {
+      "data": {"values": [{}]},
+      "mark": {"type": "rect", "fill": "white", "yOffset": -29, "y2Offset": -1},
+      "encoding": {
+        "x": {"datum": 104},
+        "x2": {"datum": 270},
+        "y": {"datum": "65–69", "bandPosition": 1},
+        "y2": {"datum": "65–69", "bandPosition": 1}
+      }
+    },
+    {
+      "data": {"values": [{}]},
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "top",
+        "fontSize": 9,
+        "fontWeight": "bold",
+        "color": "#23303a",
+        "lineBreak": "|",
+        "dy": -23
+      },
+      "encoding": {
+        "x": {"datum": 110},
+        "y": {"datum": "65–69", "bandPosition": 1},
+        "text": {"value": "From 65, men|outnumber women"}
+      }
+    },
+    {
+      "data": {"values": [{}]},
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "fontSize": 9,
+        "fontWeight": "bold",
+        "color": "white"
+      },
+      "encoding": {
+        "x": {"datum": -246},
+        "y": {"datum": "30–34", "bandPosition": 0.5},
+        "text": {"value": "Largest group: 252 women"}
+      }
+    },
+    {
+      "data": {"values": [{}]},
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "top",
+        "fontSize": 10,
+        "color": "#5d6b75",
+        "lineBreak": "|"
+      },
+      "encoding": {
+        "x": {"value": -62},
+        "y": {"value": -42},
+        "text": {
+          "value": "Vets who answered the 2023/24 workforce|survey, by age and gender"
+        }
+      }
+    },
+    {
+      "data": {"values": [{}]},
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "top",
+        "fontSize": 9,
+        "color": "#5d6b75"
+      },
+      "encoding": {
+        "x": {"value": -62},
+        "y": {"value": 310},
+        "text": {
+          "value": [
+            "Source: Australian Veterinary Association,",
+            "Workforce Survey 2023/24"
+          ]
+        }
+      }
+    }
+  ],
+  "config": {"view": {"stroke": null}}
+}
