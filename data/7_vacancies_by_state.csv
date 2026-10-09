@@ -1,0 +1,9 @@
+state,vacancies_reported,unfilled_after_12_months,percent_unfilled,highlight,symbol_longitude,symbol_latitude,label_longitude,label_latitude,callout_longitude,callout_latitude
+Western Australia,19,7,37,false,122.0,-24.5,122.0,-28.6,,
+Northern Territory,6,4,67,true,133.4,-18.3,133.4,-22.4,,
+South Australia,24,8,33,false,135.6,-27.2,135.6,-29.0,,
+Queensland,58,15,26,false,144.6,-22.0,144.6,-25.2,,
+New South Wales,60,30,50,false,147.4,-30.3,146.6,-32.3,,
+Victoria,58,16,28,false,142.7,-37.0,145.9,-36.05,,
+Tasmania,10,7,70,true,154.3,-44.4,154.3,-45.75,146.8,-42.1
+Australian Capital Territory,4,1,25,false,160.0,-35.8,160.0,-37.25,149.1,-35.4
