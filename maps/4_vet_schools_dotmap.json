@@ -1,0 +1,142 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "title": {
+    "text": ["Where Australia's vets are trained"],
+    "subtitle": [
+      "Each dot is one vet school. There are none",
+      "in Tasmania, the Northern Territory or the",
+      "Australian Capital Territory"
+    ],
+    "anchor": "start",
+    "fontSize": 16,
+    "color": "#23303a",
+    "subtitleFontSize": 12,
+    "subtitleColor": "#5d6b75",
+    "offset": 14
+  },
+  "width": 300,
+  "height": 260,
+  "projection": {
+    "type": "conicEqualArea",
+    "parallels": [-18, -36],
+    "rotate": [-132, 0],
+    "scale": 390,
+    "translate": [124, -236]
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "https://amandachong03.github.io/FIT3179-DV2-SiauChong/maps/3_australia_states.topojson",
+        "format": {"type": "topojson", "feature": "states"}
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#e6eaec",
+        "stroke": "white",
+        "strokeWidth": 1
+      }
+    },
+    {
+      "data": {
+        "url": "https://amandachong03.github.io/FIT3179-DV2-SiauChong/data/4_state_labels.csv"
+      },
+      "mark": {
+        "type": "text",
+        "lineBreak": "|",
+        "baseline": "top",
+        "fontSize": 7,
+        "color": "#6b7780",
+        "align": {"expr": "datum.label_align"}
+      },
+      "encoding": {
+        "longitude": {"field": "label_longitude", "type": "quantitative"},
+        "latitude": {"field": "label_latitude", "type": "quantitative"},
+        "text": {"field": "label", "type": "nominal"}
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "from_lon": 149.1,
+            "from_lat": -35.4,
+            "to_lon": 151.7,
+            "to_lat": -38.6
+          }
+        ]
+      },
+      "mark": {"type": "rule", "color": "#9aa5ad", "strokeWidth": 0.7},
+      "encoding": {
+        "longitude": {"field": "from_lon", "type": "quantitative"},
+        "latitude": {"field": "from_lat", "type": "quantitative"},
+        "longitude2": {"field": "to_lon"},
+        "latitude2": {"field": "to_lat"}
+      }
+    },
+    {
+      "data": {
+        "url": "https://amandachong03.github.io/FIT3179-DV2-SiauChong/data/4_vet_schools.csv",
+        "format": {"parse": {"label_dx": "number", "label_dy": "number"}}
+      },
+      "layer": [
+        {
+          "mark": {
+            "type": "circle",
+            "size": 80,
+            "opacity": 1,
+            "color": "#c96a00",
+            "stroke": "white",
+            "strokeWidth": 1
+          },
+          "encoding": {
+            "longitude": {"field": "longitude", "type": "quantitative"},
+            "latitude": {"field": "latitude", "type": "quantitative"},
+            "tooltip": [
+              {"field": "university", "type": "nominal", "title": "University"},
+              {"field": "school", "type": "nominal", "title": "School"},
+              {"field": "campus", "type": "nominal", "title": "Campus"},
+              {"field": "state", "type": "nominal", "title": "State"}
+            ]
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "fontSize": 10,
+            "fontWeight": "bold",
+            "color": "#23303a",
+            "align": {"expr": "datum.label_align"},
+            "dx": {"expr": "datum.label_dx"},
+            "dy": {"expr": "datum.label_dy"}
+          },
+          "encoding": {
+            "longitude": {"field": "longitude", "type": "quantitative"},
+            "latitude": {"field": "latitude", "type": "quantitative"},
+            "text": {"field": "campus", "type": "nominal"}
+          }
+        }
+      ]
+    },
+    {
+      "data": {"values": [{}]},
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "top",
+        "fontSize": 8,
+        "color": "#5d6b75"
+      },
+      "encoding": {
+        "x": {"value": 0},
+        "y": {"value": 272},
+        "text": {
+          "value": [
+            "Source: Australasian Veterinary Boards Council, 2025.",
+            "Map: Natural Earth."
+          ]
+        }
+      }
+    }
+  ],
+  "config": {"view": {"stroke": null}}
+}
