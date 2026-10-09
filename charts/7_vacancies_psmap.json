@@ -1,0 +1,256 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "title": {
+    "text": [
+      "Tasmania and the Northern Territory report",
+      "the highest shares of long-unfilled vet jobs"
+    ],
+    "subtitle": [
+      "Percentage of advertised veterinary jobs remaining unfilled",
+      "after 12 months, by state or territory, 2023–24"
+    ],
+    "anchor": "start",
+    "fontSize": 20,
+    "fontWeight": "bold",
+    "color": "#1f2d35",
+    "subtitleFontSize": 13,
+    "subtitleFontWeight": "normal",
+    "subtitleColor": "#52616a",
+    "offset": 16
+  },
+  "width": 600,
+  "height": 460,
+  "projection": {
+    "type": "conicEqualArea",
+    "parallels": [-18, -36],
+    "rotate": [-132, 0],
+    "scale": 580,
+    "translate": [240, -352]
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "https://amandachong03.github.io/FIT3179-DV2-SiauChong/maps/3_australia_states.topojson",
+        "format": {"type": "topojson", "feature": "states"}
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#e9edef",
+        "stroke": "#ffffff",
+        "strokeWidth": 1.3
+      }
+    },
+    {
+      "data": {
+        "url": "https://amandachong03.github.io/FIT3179-DV2-SiauChong/data/7_vacancies_by_state.csv",
+        "format": {
+          "parse": {
+            "highlight": "boolean",
+            "callout_longitude": "number",
+            "callout_latitude": "number"
+          }
+        }
+      },
+      "transform": [
+        {"calculate": "datum.percent_unfilled + '%'", "as": "percent_label"},
+        {
+          "calculate": "replace(datum.state, 'Australian Capital Territory', 'Australian|Capital Territory')",
+          "as": "name_label"
+        }
+      ],
+      "layer": [
+        {
+          "transform": [{"filter": "isValid(datum.callout_longitude)"}],
+          "layer": [
+            {
+              "mark": {"type": "rule", "color": "#89969e", "strokeWidth": 0.9},
+              "encoding": {
+                "longitude": {
+                  "field": "callout_longitude",
+                  "type": "quantitative"
+                },
+                "latitude": {
+                  "field": "callout_latitude",
+                  "type": "quantitative"
+                },
+                "longitude2": {"field": "symbol_longitude"},
+                "latitude2": {"field": "symbol_latitude"}
+              }
+            },
+            {
+              "mark": {
+                "type": "circle",
+                "size": 15,
+                "color": "#607986",
+                "opacity": 1
+              },
+              "encoding": {
+                "longitude": {
+                  "field": "callout_longitude",
+                  "type": "quantitative"
+                },
+                "latitude": {
+                  "field": "callout_latitude",
+                  "type": "quantitative"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "mark": {
+            "type": "circle",
+            "opacity": 0.88,
+            "stroke": "white",
+            "strokeWidth": 1.5
+          },
+          "encoding": {
+            "longitude": {"field": "symbol_longitude", "type": "quantitative"},
+            "latitude": {"field": "symbol_latitude", "type": "quantitative"},
+            "size": {
+              "field": "percent_unfilled",
+              "type": "quantitative",
+              "scale": {"domain": [0, 70], "range": [0, 820]},
+              "legend": null
+            },
+            "color": {
+              "condition": {"test": "datum.highlight", "value": "#b84d33"},
+              "value": "#607986"
+            },
+            "tooltip": [
+              {
+                "field": "state",
+                "type": "nominal",
+                "title": "State or territory"
+              },
+              {
+                "field": "percent_label",
+                "type": "nominal",
+                "title": "Unfilled after 12 months"
+              },
+              {
+                "field": "unfilled_after_12_months",
+                "type": "quantitative",
+                "title": "Jobs unfilled after 12 months"
+              },
+              {
+                "field": "vacancies_reported",
+                "type": "quantitative",
+                "title": "Vacancies reported"
+              }
+            ]
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "fontSize": 8.5,
+            "color": "#2f3d45",
+            "baseline": "top",
+            "lineBreak": "|",
+            "lineHeight": 10
+          },
+          "encoding": {
+            "longitude": {"field": "label_longitude", "type": "quantitative"},
+            "latitude": {"field": "label_latitude", "type": "quantitative"},
+            "text": {"field": "name_label"}
+          }
+        },
+        {
+          "transform": [{"filter": "datum.highlight"}],
+          "mark": {
+            "type": "text",
+            "fontSize": 11.5,
+            "fontWeight": "bold",
+            "color": "#ffffff",
+            "baseline": "middle"
+          },
+          "encoding": {
+            "longitude": {"field": "symbol_longitude", "type": "quantitative"},
+            "latitude": {"field": "symbol_latitude", "type": "quantitative"},
+            "text": {"field": "percent_label"}
+          }
+        },
+        {
+          "transform": [{"filter": "!datum.highlight"}],
+          "mark": {
+            "type": "text",
+            "fontSize": 11.5,
+            "fontWeight": "bold",
+            "color": "#425963",
+            "baseline": "top",
+            "dy": {
+              "expr": "datum.state == 'Australian Capital Territory' ? 24 : 12"
+            }
+          },
+          "encoding": {
+            "longitude": {"field": "label_longitude", "type": "quantitative"},
+            "latitude": {"field": "label_latitude", "type": "quantitative"},
+            "text": {"field": "percent_label"}
+          }
+        }
+      ]
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "text": "Circle area is proportional to the share unfilled",
+            "y": 5,
+            "size": 10.5,
+            "colour": "#52616a"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "top",
+        "lineBreak": "|",
+        "lineHeight": 14,
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "x": {"value": 3},
+        "y": {"field": "y", "type": "quantitative", "scale": null},
+        "text": {"field": "text"},
+        "size": {"field": "size", "type": "quantitative", "scale": null},
+        "color": {"field": "colour", "type": "nominal", "scale": null}
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "text": "Note: Tasmania, the Northern Territory and the Australian Capital Territory|are based on only 10, 6 and 4 reported vacancies respectively.",
+            "y": 400,
+            "size": 10.5,
+            "colour": "#5d6b73"
+          },
+          {
+            "text": "Source: Australian Veterinary Association, Workforce Survey 2023/24, Table 09.|Map boundaries: Natural Earth.",
+            "y": 440,
+            "size": 10,
+            "colour": "#6a767d"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "top",
+        "lineBreak": "|",
+        "lineHeight": 14,
+        "fontWeight": "normal"
+      },
+      "encoding": {
+        "x": {"value": 3},
+        "y": {"field": "y", "type": "quantitative", "scale": null},
+        "text": {"field": "text"},
+        "size": {"field": "size", "type": "quantitative", "scale": null},
+        "color": {"field": "colour", "type": "nominal", "scale": null}
+      }
+    }
+  ],
+  "config": {"font": "Arial", "view": {"stroke": null}}
+}
