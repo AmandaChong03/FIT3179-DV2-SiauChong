@@ -1,0 +1,185 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "title": {
+    "text": ["The most common problems are", "not the costliest to treat"],
+    "subtitle": {
+      "expr": "['The ten problems pet insurance paid out for most often', 'for ' + lower(animal) + ' in 2025, most common at the top. Bars show', 'the average cost per pet over the year, in Australian dollars.']"
+    },
+    "anchor": "start",
+    "fontSize": 16,
+    "color": "#23303a",
+    "subtitleFontSize": 12,
+    "subtitleColor": "#5d6b75",
+    "offset": 20
+  },
+  "params": [
+    {
+      "name": "animal",
+      "value": "Dogs",
+      "bind": {"input": "radio", "options": ["Dogs", "Cats"], "name": "Show:"}
+    }
+  ],
+  "width": 330,
+  "height": 280,
+  "data": {
+    "url": "https://amandachong03.github.io/FIT3179-DV2-SiauChong/data/10_top_conditions.csv",
+    "format": {
+      "parse": {
+        "rank": "number",
+        "average_cost": "number",
+        "highest_cost": "number"
+      }
+    }
+  },
+  "transform": [
+    {"filter": "datum.animal == animal"},
+    {
+      "joinaggregate": [
+        {"op": "max", "field": "average_cost", "as": "max_cost"}
+      ]
+    },
+    {"calculate": "datum.average_cost == datum.max_cost", "as": "is_costliest"},
+    {"calculate": "datum.rank + '.  ' + datum.condition", "as": "row_label"},
+    {"calculate": "'$' + format(datum.average_cost, ',')", "as": "cost_label"}
+  ],
+  "encoding": {
+    "y": {
+      "field": "row_label",
+      "type": "nominal",
+      "sort": {"field": "rank", "op": "min", "order": "ascending"},
+      "axis": {
+        "title": null,
+        "domain": false,
+        "ticks": false,
+        "labelFontSize": 11,
+        "labelColor": "#23303a",
+        "labelPadding": 6
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {"type": "bar", "height": {"band": 0.72}},
+      "encoding": {
+        "x": {
+          "field": "average_cost",
+          "type": "quantitative",
+          "scale": {"domain": [0, 1800]},
+          "axis": null
+        },
+        "color": {
+          "condition": {"test": "datum.is_costliest", "value": "#0f6e6e"},
+          "value": "#a9cbc8"
+        },
+        "tooltip": [
+          {
+            "field": "rank",
+            "type": "ordinal",
+            "title": "Rank (1 = most common)"
+          },
+          {"field": "condition", "type": "nominal", "title": "Problem"},
+          {
+            "field": "report_name",
+            "type": "nominal",
+            "title": "Name in the report"
+          },
+          {
+            "field": "average_cost",
+            "type": "quantitative",
+            "title": "Average cost (AUD)",
+            "format": "$,"
+          },
+          {
+            "field": "highest_cost",
+            "type": "quantitative",
+            "title": "Highest cost (AUD)",
+            "format": "$,"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 4,
+        "fontSize": 11,
+        "color": "#23303a"
+      },
+      "encoding": {
+        "x": {"field": "average_cost", "type": "quantitative"},
+        "text": {"field": "cost_label"}
+      }
+    },
+    {
+      "transform": [{"filter": "datum.is_costliest"}],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "middle",
+        "dx": -6,
+        "fontSize": 10,
+        "fontWeight": "bold",
+        "color": "white"
+      },
+      "encoding": {
+        "x": {"field": "average_cost", "type": "quantitative"},
+        "text": {"value": "Costliest of the ten"}
+      }
+    },
+    {
+      "data": {"values": [{}]},
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "bottom",
+        "fontSize": 10,
+        "fontWeight": "bold",
+        "color": "#5d6b75"
+      },
+      "encoding": {
+        "x": {"value": -6},
+        "y": {"value": -6},
+        "text": {"value": "Most common first"}
+      }
+    },
+    {
+      "data": {"values": [{}]},
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "bottom",
+        "fontSize": 10,
+        "fontWeight": "bold",
+        "color": "#5d6b75"
+      },
+      "encoding": {
+        "x": {"value": 0},
+        "y": {"value": -6},
+        "text": {"value": "Average cost per pet in a year →"}
+      }
+    },
+    {
+      "data": {"values": [{}]},
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "top",
+        "fontSize": 10,
+        "color": "#5d6b75"
+      },
+      "encoding": {
+        "x": {"value": -170},
+        "y": {"value": 292},
+        "text": {
+          "value": [
+            "Source: PetSure, Pet Health Monitor 2026, pages 17–18",
+            "(2025 insurance claims)."
+          ]
+        }
+      }
+    }
+  ],
+  "config": {"view": {"stroke": null}, "font": "Arial"}
+}
