@@ -1,0 +1,21 @@
+animal,rank,condition,report_name,average_cost,highest_cost
+Dogs,1,Skin infections or allergies,Skin infections/allergies,700,15894
+Dogs,2,Stomach and gut problems,Gastrointestinal conditions,956,33077
+Dogs,3,Ear infections,Ear infections,459,22142
+Dogs,4,Teeth and gum problems,Dental conditions,884,16311
+Dogs,5,Lumps and bumps,Mass lesions (lumps and bumps),1014,21285
+Dogs,6,Limping,Musculoskeletal conditions (limping),668,21672
+Dogs,7,Arthritis (worn joints),Osteoarthritis,828,21157
+Dogs,8,Wounds from injuries or bites,Wounds from traumatic injuries and fights/bites,873,21266
+Dogs,9,Anal gland problems,Anal sac disorders,389,15087
+Dogs,10,Eye problems,Eye conditions,490,18869
+Cats,1,Stomach and gut problems,Gastrointestinal conditions,956,21042
+Cats,2,Bladder and urinary problems,Urinary tract disorder,1497,41849
+Cats,3,Teeth and gum problems,Dental conditions,1042,7064
+Cats,4,Skin infections or allergies,Skin infections/allergies,473,11757
+Cats,5,Fight or bite wounds,Fight or bite wounds,632,32268
+Cats,6,Behaviour problems,Behavioural problems,131,1295
+Cats,7,Breathing problems,Respiratory tract conditions,525,15574
+Cats,8,Heart problems,Circulatory/heart conditions,1621,34025
+Cats,9,Ear infections,Ear infections,425,9770
+Cats,10,Arthritis (worn joints),Osteoarthritis,865,11214
