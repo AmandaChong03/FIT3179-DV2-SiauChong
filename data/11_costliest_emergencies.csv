@@ -1,0 +1,11 @@
+animal,rank,condition,report_name,average_cost,highest_cost
+Dogs,1,Hip surgery,Hip surgery,9268,31582
+Dogs,2,Lymphoma (a blood cancer),Lymphoma,6056,46288
+Dogs,3,Twisted stomach (bloat),Gastric dilatation volvulus (GDV),5223,32263
+Dogs,4,Slipped disc in the back,Intervertebral disc disease (IVDD),4924,72732
+Dogs,5,Broken bone repair,Fracture repair,4356,38787
+Cats,1,Broken bone repair,Fracture repair,4471,27050
+Cats,2,Lymphoma (a blood cancer),Lymphoma,4327,32781
+Cats,3,Other cancers,Malignant cancer,3677,32148
+Cats,4,Snake bite,Snake bite,3508,68053
+Cats,5,Swallowed poison or objects,Ingestion of toxin/foreign bodies,3042,27681
