@@ -1,0 +1,250 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "title": {
+    "text": ["The worst bill can be many", "times the average bill"],
+    "subtitle": {
+      "expr": "['The five problems with the highest average bill for ' + lower(animal) + ',', 'pet insurance claims in 2025, in Australian dollars. Each row', 'joins the average bill to the highest bill paid for that problem.']"
+    },
+    "anchor": "start",
+    "fontSize": 16,
+    "color": "#23303a",
+    "subtitleFontSize": 12,
+    "subtitleColor": "#5d6b75",
+    "offset": 14
+  },
+  "params": [
+    {
+      "name": "animal",
+      "value": "Dogs",
+      "bind": {"input": "radio", "options": ["Dogs", "Cats"], "name": "Show: "}
+    }
+  ],
+  "width": 300,
+  "height": 280,
+  "data": {
+    "url": "https://amandachong03.github.io/FIT3179-DV2-SiauChong/data/11_costliest_emergencies.csv",
+    "format": {
+      "parse": {
+        "rank": "number",
+        "average_cost": "number",
+        "highest_cost": "number"
+      }
+    }
+  },
+  "transform": [
+    {"filter": "datum.animal == animal"},
+    {
+      "calculate": "datum.highest_cost / datum.average_cost",
+      "as": "times_average"
+    },
+    {
+      "joinaggregate": [
+        {"op": "max", "field": "times_average", "as": "max_times"}
+      ]
+    },
+    {
+      "calculate": "'$' + format(datum.average_cost, ',')",
+      "as": "average_label"
+    },
+    {
+      "calculate": "'Worst bill: about ' + format(datum.times_average, '.0f') + ' times the average'",
+      "as": "times_label"
+    },
+    {
+      "calculate": "'$' + format(datum.highest_cost, ',')",
+      "as": "highest_label"
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "condition",
+      "type": "nominal",
+      "sort": {"field": "rank", "op": "min", "order": "ascending"},
+      "scale": {"padding": 0.5},
+      "axis": {
+        "title": null,
+        "domain": false,
+        "ticks": false,
+        "labelFontSize": 11,
+        "labelColor": "#23303a",
+        "labelPadding": 10
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {"type": "rule", "color": "#c9d1d6", "strokeWidth": 3},
+      "encoding": {
+        "x": {
+          "field": "average_cost",
+          "type": "quantitative",
+          "scale": {"domain": [0, 80000]},
+          "axis": null
+        },
+        "x2": {"field": "highest_cost"}
+      }
+    },
+    {
+      "mark": {"type": "circle", "size": 110, "opacity": 1, "color": "#7d8b94"},
+      "encoding": {
+        "x": {"field": "average_cost", "type": "quantitative"},
+        "tooltip": [
+          {"field": "condition", "type": "nominal", "title": "Problem"},
+          {
+            "field": "report_name",
+            "type": "nominal",
+            "title": "Name in the report"
+          },
+          {
+            "field": "average_cost",
+            "type": "quantitative",
+            "title": "Average bill (AUD)",
+            "format": "$,"
+          },
+          {
+            "field": "highest_cost",
+            "type": "quantitative",
+            "title": "Highest bill (AUD)",
+            "format": "$,"
+          },
+          {
+            "field": "times_average",
+            "type": "quantitative",
+            "title": "Highest ÷ average",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {"type": "circle", "size": 110, "opacity": 1, "color": "#b84d33"},
+      "encoding": {
+        "x": {"field": "highest_cost", "type": "quantitative"},
+        "tooltip": [
+          {"field": "condition", "type": "nominal", "title": "Problem"},
+          {
+            "field": "report_name",
+            "type": "nominal",
+            "title": "Name in the report"
+          },
+          {
+            "field": "average_cost",
+            "type": "quantitative",
+            "title": "Average bill (AUD)",
+            "format": "$,"
+          },
+          {
+            "field": "highest_cost",
+            "type": "quantitative",
+            "title": "Highest bill (AUD)",
+            "format": "$,"
+          },
+          {
+            "field": "times_average",
+            "type": "quantitative",
+            "title": "Highest ÷ average",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "top",
+        "dy": 9,
+        "fontSize": 10,
+        "color": "#5d6b75"
+      },
+      "encoding": {
+        "x": {"field": "average_cost", "type": "quantitative"},
+        "text": {"field": "average_label"}
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 9,
+        "fontSize": 10,
+        "fontWeight": "bold",
+        "color": "#b84d33"
+      },
+      "encoding": {
+        "x": {"field": "highest_cost", "type": "quantitative"},
+        "text": {"field": "highest_label"}
+      }
+    },
+    {
+      "transform": [{"filter": "datum.rank == 1"}],
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "bottom",
+        "dy": -9,
+        "fontSize": 10,
+        "fontWeight": "bold",
+        "color": "#5d6b75"
+      },
+      "encoding": {
+        "x": {"field": "average_cost", "type": "quantitative"},
+        "text": {"value": "Average bill"}
+      }
+    },
+    {
+      "transform": [{"filter": "datum.rank == 1"}],
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "bottom",
+        "dy": -9,
+        "fontSize": 10,
+        "fontWeight": "bold",
+        "color": "#b84d33"
+      },
+      "encoding": {
+        "x": {"field": "highest_cost", "type": "quantitative"},
+        "text": {"value": "Highest bill"}
+      }
+    },
+    {
+      "transform": [{"filter": "datum.times_average == datum.max_times"}],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "top",
+        "dy": 9,
+        "fontSize": 10,
+        "fontStyle": "italic",
+        "color": "#23303a"
+      },
+      "encoding": {
+        "x": {"field": "highest_cost", "type": "quantitative"},
+        "text": {"field": "times_label"}
+      }
+    },
+    {
+      "data": {"values": [{}]},
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "top",
+        "fontSize": 10,
+        "color": "#5d6b75"
+      },
+      "encoding": {
+        "x": {"value": -160},
+        "y": {"value": 292},
+        "text": {
+          "value": [
+            "Source: PetSure, Pet Health Monitor 2026, pages 19–20",
+            "(2025 insurance claims)."
+          ]
+        }
+      }
+    }
+  ],
+  "config": {"view": {"stroke": null}, "font": "Arial"}
+}
