@@ -1,0 +1,5 @@
+clinic_type,vets,percent_of_vets,slice_order,includes,label_x,label_y,anchor_x,anchor_y
+Everyday local clinics,1145,76.3,1,General practice (76.3%),188,160,,
+Specialist and emergency hospitals,163,14.0,2,"Specialist (7.5%), specialist and emergency (3.4%), emergency (3.1%)",-4,104,57,77
+Mobile vets (home visits),67,4.5,3,Mobile practice (4.5%),-4,52,103,34
+Other,78,5.2,4,"Other types (5.0%), online consultations only (0.2%)",-4,8,133,24
