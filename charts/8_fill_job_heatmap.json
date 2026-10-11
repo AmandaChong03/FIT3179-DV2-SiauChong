@@ -1,0 +1,173 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "title": {
+    "text": ["Clinics with only one vet wait", "longest to fill a job"],
+    "subtitle": [
+      "Each row shows how long jobs took to fill at clinics",
+      "of that size, 2023/24. Each row adds up to 100%."
+    ],
+    "anchor": "start",
+    "fontSize": 16,
+    "color": "#23303a",
+    "subtitleFontSize": 12,
+    "subtitleColor": "#5d6b75",
+    "offset": 14
+  },
+  "width": 330,
+  "height": 230,
+  "data": {
+    "url": "https://amandachong03.github.io/FIT3179-DV2-SiauChong/data/8_time_to_fill_by_clinic_size.csv"
+  },
+  "transform": [
+    {
+      "calculate": "'Clinics with ' + datum.clinic_size + '|' + datum.clinic_job_openings + ' job openings'",
+      "as": "size_label"
+    },
+    {
+      "calculate": "format(datum.percent_of_clinic_size, '.0f') + '%'",
+      "as": "percent_label"
+    }
+  ],
+  "layer": [
+    {
+      "encoding": {
+        "x": {
+          "field": "time_to_fill",
+          "type": "ordinal",
+          "sort": {"field": "time_order"},
+          "axis": {
+            "title": "How long the job took to fill →",
+            "titleAnchor": "start",
+            "titleFontSize": 10,
+            "titleFontWeight": "bold",
+            "titleColor": "#23303a",
+            "orient": "top",
+            "labelAngle": 0,
+            "labelFontSize": 9,
+            "labelColor": "#23303a",
+            "domain": false,
+            "ticks": false,
+            "labelPadding": 4
+          }
+        },
+        "y": {
+          "field": "size_label",
+          "type": "ordinal",
+          "sort": {"field": "size_order"},
+          "axis": {
+            "title": null,
+            "labelExpr": "split(datum.value, '|')",
+            "labelLineHeight": 13,
+            "labelFontSize": 10,
+            "labelColor": "#23303a",
+            "domain": false,
+            "ticks": false
+          }
+        }
+      },
+      "layer": [
+        {
+          "mark": {"type": "rect", "stroke": "white", "strokeWidth": 2},
+          "encoding": {
+            "color": {
+              "field": "percent_of_clinic_size",
+              "type": "quantitative",
+              "scale": {"domain": [0, 70], "range": ["#f6efe3", "#9a6100"]},
+              "legend": null
+            },
+            "tooltip": [
+              {
+                "field": "clinic_size",
+                "type": "nominal",
+                "title": "Clinic size"
+              },
+              {
+                "field": "time_to_fill",
+                "type": "nominal",
+                "title": "Time to fill"
+              },
+              {
+                "field": "job_openings",
+                "type": "quantitative",
+                "title": "Job openings"
+              },
+              {
+                "field": "percent_label",
+                "type": "nominal",
+                "title": "Share of this clinic size"
+              }
+            ]
+          }
+        },
+        {
+          "mark": {"type": "text", "fontSize": 11, "fontWeight": "bold"},
+          "encoding": {
+            "text": {"field": "percent_label"},
+            "color": {
+              "condition": {
+                "test": "datum.percent_of_clinic_size >= 60",
+                "value": "white"
+              },
+              "value": "#23303a"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "data": {"values": [{}]},
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "bottom",
+        "fontSize": 10,
+        "fontWeight": "bold",
+        "color": "#23303a"
+      },
+      "encoding": {
+        "x": {"value": -6},
+        "y": {"value": 10},
+        "text": {"value": "Clinic size"}
+      }
+    },
+    {
+      "data": {"values": [{}]},
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "fontSize": 10,
+        "color": "#23303a",
+        "lineBreak": "|"
+      },
+      "encoding": {
+        "x": {"value": 340},
+        "y": {"value": 15},
+        "text": {
+          "value": "7 in 10 jobs at|one-vet clinics|stayed empty for|over a year"
+        }
+      }
+    },
+    {
+      "data": {"values": [{}]},
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "top",
+        "fontSize": 10,
+        "color": "#5d6b75"
+      },
+      "encoding": {
+        "x": {"value": -150},
+        "y": {"value": 245},
+        "text": {
+          "value": [
+            "Source: Australian Veterinary Association, Workforce Survey 2023/24,",
+            "Table 11."
+          ]
+        }
+      }
+    }
+  ],
+  "config": {"view": {"stroke": null}}
+}
