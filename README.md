@@ -2,7 +2,7 @@
 
 FIT3179 Data Visualisation 2, Monash University. A data story about pets, vets and the cost of care in Australia.
 
-**Live page:** https://amandachong03.github.io/FIT3179-DV2-SiauChong/
+**Live page:** 
 
 ## What is in this repository
 
