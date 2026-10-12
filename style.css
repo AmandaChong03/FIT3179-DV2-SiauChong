@@ -1,0 +1,212 @@
+:root {                                   
+  --page: #eef5f4;                        /* pale mint page background */
+  --panel: #ffffff;                       /* white chart cards */
+  --ink: #1f2d33;                         /* main text colour (near black) */
+  --muted: #56666d;                       /* grey for small, less important text */
+  --teal: #0f6e6e;                        /* links; same teal as the charts */
+  --deep: #0b4a4d;                        /* dark teal for the banner, footer and headings */
+  --mint: #cfe3e0;                        /* soft mint for text cards */
+  --amber: #f2c46d;                       /* number badges, kicker label, ticks */
+  --rule: #d6e4e2;                        /* thin lines, dashed placeholder border */
+  --shadow: 0 1px 2px rgba(11, 74, 77, 0.06), 0 6px 18px rgba(11, 74, 77, 0.08);  /* two soft shadows: a tight one + a wide blurry one */
+  --heading-font: "Lexend", "Helvetica Neue", Arial, sans-serif;    /* first font that loads is used; the others are backups */
+  --body-font: "Nunito Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+
+/* Basics for the whole page */
+* { box-sizing: border-box; }             /* width includes padding and border, so sizes add up as expected */
+body {
+  margin: 0;                              /* remove the browser's default gap around the page */
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--body-font);
+  font-size: 16px;
+  line-height: 1.6;                       /* space between lines of text (1.6 × the text size) */
+  overflow-x: hidden;                     /* never allow sideways scrolling */
+}
+
+/* the title, the story and the footer share one centred column */
+.page-header, main, .page-footer {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;                        /* 24 px gap from the screen edges on small screens */
+}
+
+
+/* Title */
+.page-header {
+  position: relative;                     /* lets the paw print (::after) be placed inside it */
+  padding-top: 64px;                      /* space above the title */
+  padding-bottom: 64px;                   /* space below the intro */
+  color: #fff;                            /* white text */
+  background: var(--deep);
+  box-shadow: 0 0 0 100vmax var(--deep);  /* a huge shadow in the same colour stretches the band to both screen edges */
+  clip-path: inset(0 -100vmax);           /* cuts that shadow off above and below, keeping only the sides */
+}
+/* soft circles in the corner, a hint of paw pads (drawn by CSS, no image file) */
+.page-header::after {                     /* ::after = an extra decorative box added after the header's content */
+  content: "";                            /* needed for ::after to appear; empty because it is only a picture */
+  position: absolute;                     /* placed freely inside the header */
+  right: 24px; top: 50%;                  /* right side, vertically in the middle */
+  width: 170px; height: 150px;
+  transform: translateY(-50%);            /* moves it up by half its height so it is truly centred */
+  background:                             /* five see-through white circles: one big pad + four toes */
+    radial-gradient(circle at 50% 72%, rgba(255,255,255,.12) 0 38px, transparent 39px),
+    radial-gradient(circle at 18% 34%, rgba(255,255,255,.12) 0 17px, transparent 18px),
+    radial-gradient(circle at 40% 14%, rgba(255,255,255,.12) 0 17px, transparent 18px),
+    radial-gradient(circle at 62% 14%, rgba(255,255,255,.12) 0 17px, transparent 18px),
+    radial-gradient(circle at 84% 34%, rgba(255,255,255,.12) 0 17px, transparent 18px);
+}
+.kicker {                                 /* the small amber label above the title */
+  display: inline-block;                  /* only as wide as its text, so it looks like a pill */
+  margin: 0 0 14px;                       /* margin order: top right bottom left (left/right missing = same as right) */
+  padding: 4px 12px;                      /* 4 px top and bottom, 12 px left and right */
+  border-radius: 999px;                   /* very round corners = pill shape */
+  background: var(--amber);
+  color: var(--deep);
+  font-weight: 700;                       /* bold */
+  font-size: 0.8rem;                      /* 0.8 × 16 px ≈ 13 px */
+  letter-spacing: 0.06em;                 /* a little space between letters */
+  text-transform: uppercase;              /* shown in CAPITALS (the HTML text stays normal) */
+}
+h1 {                                      /* the main page title */
+  margin: 0 0 14px;
+  max-width: 20ch;                        /* about 20 characters per line, so the title breaks nicely */
+  font-family: var(--heading-font);
+  font-weight: 600;                       /* semi-bold */
+  font-size: 2.9rem; 
+  line-height: 1.12;                      /* tight lines for big text */
+  color: #fff;
+}
+.intro {
+  max-width: 58ch;                        
+  margin: 0;
+  font-size: 1.15rem;
+  color: #d9ecea;                         
+}
+
+
+/* Sections */
+section { padding: 30px 0 8px; margin-top: 0; border-top: none; }
+h2 {                                      /* section headings */
+  display: flex; align-items: center; gap: 12px;
+  font-family: var(--heading-font);
+  font-weight: 600;
+  font-size: 1.6rem;
+  line-height: 1.2;
+  color: var(--deep);
+}
+h2 .num {                                 /* the amber number badge inside each h2 */
+  flex: none;                             
+  width: 40px; height: 40px; line-height: 40px;
+  border-radius: 63px; 
+  background: var(--amber);
+  color: var(--deep);
+  font-size: 1.05rem;
+  text-align: center;
+}
+h3 { margin: 0 0 6px; font-family: var(--heading-font); font-weight: 600; font-size: 1rem; color: var(--deep); }   /* small headings (footer, checklist) */
+.section-intro { max-width: 65ch; margin: 0 0 20px 52px; } 
+
+
+/* ---------- Rows ----------
+   Cards hug their chart: each card is exactly as wide as its chart
+   plus a small padding. Cards sit side by side and drop to the next
+   line only if the screen is too narrow (no sideways scrolling).      */
+.row {
+  display: flex;                          /* put the cards in a row */
+  flex-wrap: wrap;                        /* if they do not fit, move the last ones to a new line */
+  justify-content: center;                /* centre the cards in the row */
+  align-items: flex-start;                /* each card keeps its own chart height: no empty space at the bottom */
+  gap: 18px;                              /* space between cards */
+  margin-bottom: 18px;                    /* space below the row */
+}
+
+
+/* Chart cards */
+.chart-box {                              /* the white card around one chart */
+  flex: 0 0 auto;                         /* do not stretch or shrink: size = chart size */
+  max-width: 100%;                        /* but never wider than the screen */
+  margin: 0;                              /* <figure> has a browser margin by default; remove it */
+  padding: 10px;                          /* small, even breathing space around the chart */
+  background: var(--panel);
+  border-radius: 14px;                    /* rounded corners */
+  box-shadow: var(--shadow);              /* soft shadow so the card lifts off the page */
+  display: flex;
+  justify-content: center;                /* chart centred inside the card */
+  align-items: flex-start;
+}
+/* placeholder look before a chart is plugged in */
+.chart {
+  width: 320px;                           /* placeholder size only */
+  min-height: 260px;
+  display: flex; align-items: center; justify-content: center;   /* placeholder text in the middle */
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+  border: 2px dashed var(--rule);         /* dashed outline = "chart goes here" */
+  border-radius: 10px;
+}
+/* once the chart has loaded (the loader adds class "loaded"): no placeholder, the card wraps the chart exactly */
+.chart.loaded { width: auto; min-height: 0; border: none; display: block; }   /* size now comes from the chart itself */
+.chart.loaded .vega-embed { display: block; padding: 0; }                    /* the wrapper Vega-Embed adds: no extra space */
+.chart.loaded svg { display: block; max-width: 100%; height: auto; }         /* the chart picture; only shrinks on screens narrower than the chart */
+.chart.loaded .vega-bindings { margin-top: 6px; }                            /* the Dogs/Cats switch under charts 10 and 11 */
+
+
+/* Text cards */
+.text-box {                               /* mint card for story text */
+  padding: 18px 20px;                     /* 18 px top and bottom, 20 px left and right */
+  background: var(--mint);
+  border-radius: 14px;
+  flex: 1 1 220px;                        /* starts at 220 px wide, may grow or shrink to fill the row */
+  max-width: 340px;                       /* but never wider than 340 px (long lines are hard to read) */
+}
+.text-box p { margin: 0 0 10px; }         /* space between paragraphs inside a text card */
+.checklist {                              /* the "responsible owner" card: dark instead of mint */
+  background: var(--deep);
+  color: #fff;
+}
+.checklist h3 { color: #fff; font-size: 1.15rem; }
+.checklist ul { list-style: none; margin: 10px 0 0; padding: 0; }    /* remove the normal bullet points */
+.checklist li { position: relative; margin-bottom: 10px; padding-left: 34px; }   /* room on the left for the tick */
+.checklist li::before {                   /* the amber tick circle before each item */
+  content: "✓";                           /* the tick character */
+  position: absolute; left: 0; top: 0;    /* placed in the left gap made above */
+  width: 24px; height: 24px; line-height: 24px;
+  border-radius: 50%;                     /* 50% = a perfect circle */
+  background: var(--amber);
+  color: var(--deep);
+  font-weight: 700;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+
+/* Footer */
+.page-footer {
+  margin-top: 50px;                       /* space between the last section and the footer */
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background: var(--deep);
+  box-shadow: 0 0 0 100vmax var(--deep);  /* same full-width trick as the banner */
+  clip-path: inset(0 -100vmax);
+  font-size: 0.9rem;                      /* slightly smaller text */
+  color: #cfe3e0;                         /* light mint text on dark teal */
+}
+.page-footer h2 { font-size: 1.3rem; color: #fff; }
+.page-footer h3 { color: #fff; margin-top: 3px; }
+.sources { margin: 0; padding-left: 1.2em; }       /* source list: small indent for the bullets */
+.sources li { margin-bottom: 4px; }                /* a little space between sources */
+a { color: var(--teal); }                          /* link colour on the light page */
+.page-footer a { color: #9fe0d6; }                 /* lighter link colour so it shows on the dark footer */
+
+
+/* Phones and narrow windows (860 px wide or less) */
+@media (max-width: 860px) {               /* rules inside here apply only on narrow screens */
+  .text-box { max-width: none; flex-basis: 100%; }   /* text cards use the full width */
+  h1 { font-size: 2.1rem; }               /* smaller title so it fits */
+  .page-header::after { display: none; }  /* hide the paw print, no room for it */
+  .section-intro { margin-left: 0; }      /* no indent on small screens */
+}
