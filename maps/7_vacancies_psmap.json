@@ -155,24 +155,6 @@
             "latitude": {"field": "label_latitude", "type": "quantitative"},
             "text": {"field": "name_label"}
           }
-        },
-        {
-          "transform": [{"filter": "!datum.highlight"}],
-          "mark": {
-            "type": "text",
-            "fontSize": 11.5,
-            "fontWeight": "bold",
-            "color": "#425963",
-            "baseline": "top",
-            "dy": {
-              "expr": "datum.state == 'Australian Capital Territory' ? 24 : 12"
-            }
-          },
-          "encoding": {
-            "longitude": {"field": "label_longitude", "type": "quantitative"},
-            "latitude": {"field": "label_latitude", "type": "quantitative"},
-            "text": {"field": "percent_label"}
-          }
         }
       ]
     },
