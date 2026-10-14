@@ -157,21 +157,6 @@
           }
         },
         {
-          "transform": [{"filter": "datum.highlight"}],
-          "mark": {
-            "type": "text",
-            "fontSize": 11.5,
-            "fontWeight": "bold",
-            "color": "#ffffff",
-            "baseline": "middle"
-          },
-          "encoding": {
-            "longitude": {"field": "symbol_longitude", "type": "quantitative"},
-            "latitude": {"field": "symbol_latitude", "type": "quantitative"},
-            "text": {"field": "percent_label"}
-          }
-        },
-        {
           "transform": [{"filter": "!datum.highlight"}],
           "mark": {
             "type": "text",
