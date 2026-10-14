@@ -1,0 +1,7 @@
+action,report_wording,dog_owners,cat_owners,row_order,highlight
+Shopped around for a lower price,Shopped around for a lower price,24,31,1,false
+Bought pet food in bulk,Bought usual food in bulk,24,30,2,false
+"Cut back on vet care|(check-ups, vaccines, medicine)","Skipped check-ups, skipped vaccinations, reduced medication or gave human medication (combined)",14,18,3,true
+"Spent less on toys, beds, treats","Spent less on optional items (toys, bedding, treats)",17,17,4,false
+Switched to a cheaper brand,Switched to a cheaper brand,14,16,5,false
+Fed their pet less often,Fed less often,4,6,6,false
