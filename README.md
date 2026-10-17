@@ -11,7 +11,7 @@ FIT3179 Data Visualisation 2, Monash University. A data story about pets, vets a
 | `index.html` | The web page |
 | `style.css` | Layout, fonts and colours |
 | `charts/` | The 12 charts, one Vega-Lite JSON file each |
-| `maps/` | The 3 maps (Vega-Lite JSON) and the Australian state shapes |
+| `maps/` | The 3 maps (Vega-Lite JSON) and the Australian state shapes (TOPOJSON) |
 | `data/` | The CSV data files the charts and maps read |
 | `sketch.pdf` | The hand-drawn sketch of the page |
 
