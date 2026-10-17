@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">           
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  
   <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&amp;family=Lexend:wght@400;600;700&amp;family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&amp;display=swap" rel="stylesheet">  
-  <link rel="stylesheet" href="style.css?v=20261016">       
+  <link rel="stylesheet" href="style.css?v=20261017">       
   
   <!-- Vega, Vega-Lite and Vega-Embed draw the charts (version 6 to match the charts' schema) -->
   <script src="https://cdn.jsdelivr.net/npm/vega@6"></script>
@@ -246,10 +246,10 @@
     ];
 
     charts.forEach(function (c) { 
-      vegaEmbed("#" + c.id, c.spec, { actions: false, renderer: "svg" })
+      vegaEmbed("#" + c.id, c.spec, { actions: true, scaleFactor: 2, renderer: "svg" })
         .then(function () {
           const el = document.getElementById(c.id);
-          const svg = el.querySelector("svg");
+          const svg = el.querySelector("svg.marks");
           if (svg) svg.style.maxWidth = svg.getAttribute("width") + "px";   /* fill the card, but never blow a chart up past its drawn size */
           el.classList.add("loaded");
         })

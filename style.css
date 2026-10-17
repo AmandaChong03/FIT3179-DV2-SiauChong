@@ -169,7 +169,7 @@ h3 { margin: 0 0 6px; font-family: var(--heading-font); font-weight: 600; font-s
 /* once the chart has loaded (the loader adds class "loaded"): no placeholder, the card wraps the chart exactly */
 .chart.loaded { width: 100%; min-height: 0; border: none; display: block; }   /* use the card width so small charts do not sit in a corner */
 .chart.loaded .vega-embed { display: block; width: 100%; padding: 0; }        /* the wrapper Vega-Embed adds: no extra space */
-.chart.loaded svg { display: block; width: 100%; max-width: 100%; height: auto; } /* scale each SVG evenly to its card */
+.chart.loaded svg.marks { display: block; width: 100%; max-width: 100%; height: auto; } /* scale each SVG evenly to its card */
 .chart.loaded .vega-bindings { margin-top: 6px; }                            /* the Dogs/Cats switch under charts 10 and 11 */
 
 
@@ -486,7 +486,7 @@ h2 { margin-bottom: 8px; }
 /* Chart cards: the chart fills the card width and sits in the middle
    when its partner in the row is taller. */
 .story-grid .chart-box { align-items: center; }
-.chart.loaded svg { margin: 0 auto; }
+.chart.loaded svg.marks { margin: 0 auto; }
 #section-1 .ownership-copy, #section-1 .spending-copy { align-items: flex-start; }
 
 /* Section 5: the right-hand column stretches to the bottom of the streamgraph */
