@@ -1,0 +1,264 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "title": {
+    "text": [
+      "To save money, some owners",
+      "cut back on their pet's vet care"
+    ],
+    "subtitle": [
+      "Out of every 100 dog owners and 100 cat owners,",
+      "how many did each thing to save money on their",
+      "pet in the last 12 months.",
+      "Each icon = 2 owners in 100 (rounded). Australia, 2025."
+    ],
+    "anchor": "start",
+    "font": "Georgia, 'Times New Roman', serif",
+    "fontSize": 17,
+    "color": "#243238",
+    "subtitleFont": "Arial",
+    "subtitleFontSize": 12,
+    "subtitleColor": "#56616B",
+    "offset": 14
+  },
+  "width": 338,
+  "height": 290,
+  "data": {
+    "url": "https://amandachong03.github.io/FIT3179-DV2-SiauChong/data/13_money_saving_actions.csv",
+    "format": {
+      "parse": {
+        "dog_owners": "number",
+        "cat_owners": "number",
+        "row_order": "number",
+        "highlight": "boolean"
+      }
+    }
+  },
+  "transform": [
+    {
+      "fold": [
+        "dog_owners",
+        "cat_owners"
+      ],
+      "as": [
+        "owner",
+        "percent"
+      ]
+    },
+    {
+      "calculate": "datum.owner == 'dog_owners' ? 'Dog owners' : 'Cat owners'",
+      "as": "owner_label"
+    },
+    {
+      "calculate": "round(datum.percent / 2)",
+      "as": "icons"
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "action",
+      "type": "nominal",
+      "sort": {
+        "field": "row_order",
+        "op": "min",
+        "order": "ascending"
+      },
+      "scale": {
+        "paddingInner": 0.22,
+        "paddingOuter": 0.1
+      },
+      "axis": {
+        "title": null,
+        "domain": false,
+        "ticks": false,
+        "labelPadding": 10,
+        "labelFontSize": 11,
+        "labelColor": "#243238",
+        "labelLineHeight": 13,
+        "labelBaseline": "middle",
+        "labelExpr": "split(datum.label, '|')",
+        "labelFontWeight": {
+          "expr": "indexof(datum.label, 'vet care') >= 0 ? 'bold' : 'normal'"
+        }
+      }
+    }
+  },
+  "layer": [
+    {
+      "transform": [
+        {
+          "filter": "datum.highlight && datum.owner == 'dog_owners'"
+        }
+      ],
+      "mark": {
+        "type": "rect",
+        "color": "#F6E4DE",
+        "cornerRadius": 4
+      },
+      "encoding": {
+        "x": {
+          "value": -4
+        },
+        "x2": {
+          "value": 342
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "calculate": "sequence(1, datum.icons + 1)",
+          "as": "icon_number"
+        },
+        {
+          "flatten": [
+            "icon_number"
+          ]
+        },
+        {
+          "calculate": "datum.owner == 'dog_owners' ? 'https://amandachong03.github.io/FIT3179-DV2-SiauChong/icons/dog.svg' : 'https://amandachong03.github.io/FIT3179-DV2-SiauChong/icons/cat.svg'",
+          "as": "icon_url"
+        }
+      ],
+      "mark": {
+        "type": "image",
+        "width": 15,
+        "height": 15
+      },
+      "encoding": {
+        "x": {
+          "field": "icon_number",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0.4,
+              19
+            ]
+          },
+          "axis": null
+        },
+        "tooltip": [
+          {
+            "field": "report_wording",
+            "type": "nominal",
+            "title": "In the report"
+          },
+          {
+            "field": "owner_label",
+            "type": "nominal",
+            "title": "Who"
+          },
+          {
+            "field": "percent",
+            "type": "quantitative",
+            "title": "Share (%)"
+          }
+        ],
+        "yOffset": {
+          "field": "owner",
+          "type": "nominal",
+          "sort": [
+            "dog_owners",
+            "cat_owners"
+          ],
+          "scale": {
+            "type": "band",
+            "paddingInner": 0,
+            "paddingOuter": 0
+          }
+        },
+        "url": {
+          "field": "icon_url",
+          "type": "nominal"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "calculate": "datum.percent + '%'",
+          "as": "lab"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 11,
+        "fontSize": 11,
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "x": {
+          "field": "icons",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "lab"
+        },
+        "color": {
+          "field": "owner",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "dog_owners",
+              "cat_owners"
+            ],
+            "range": [
+              "#3978A8",
+              "#9A6210"
+            ]
+          },
+          "legend": null
+        },
+        "yOffset": {
+          "field": "owner",
+          "type": "nominal",
+          "sort": [
+            "dog_owners",
+            "cat_owners"
+          ],
+          "scale": {
+            "type": "band",
+            "paddingInner": 0,
+            "paddingOuter": 0
+          }
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {}
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "top",
+        "fontSize": 10,
+        "color": "#56616B",
+        "fontStyle": "italic"
+      },
+      "encoding": {
+        "x": {
+          "value": -215
+        },
+        "y": {
+          "value": 302
+        },
+        "text": {
+          "value": [
+            "Source: Animal Medicines Australia, Pets in Australia 2025, page 37",
+            "(1,188 dog owners, 779 cat owners). Icons: Phosphor Icons (MIT licence)."
+          ]
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "Arial"
+  }
+}

@@ -1,25 +1,37 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "title": {
-    "text": ["The worst bill can be many", "times the average bill"],
+    "text": [
+      "The worst bill can be many",
+      "times the average bill"
+    ],
     "subtitle": {
-      "expr": "['The five problems with the highest average bill for ' + lower(animal) + ',', 'pet insurance claims in 2025, in Australian dollars. Each row', 'joins the average bill to the highest bill paid for that problem.']"
+      "expr": "['The five problems with the highest average bill for ' + lower(animal) + ',', 'Pet insurance claims in 2025, in Australian dollars.', 'Each row joins the average bill to the highest bill', 'paid for that problem.']"
     },
     "anchor": "start",
-    "fontSize": 16,
-    "color": "#23303a",
+    "fontSize": 17,
+    "color": "#243238",
     "subtitleFontSize": 12,
-    "subtitleColor": "#5d6b75",
-    "offset": 14
+    "subtitleColor": "#56616B",
+    "offset": 14,
+    "font": "Georgia, 'Times New Roman', serif",
+    "subtitleFont": "Arial"
   },
   "params": [
     {
       "name": "animal",
       "value": "Dogs",
-      "bind": {"input": "radio", "options": ["Dogs", "Cats"], "name": "Show: "}
+      "bind": {
+        "input": "radio",
+        "options": [
+          "Dogs",
+          "Cats"
+        ],
+        "name": "Show: "
+      }
     }
   ],
-  "width": 300,
+  "width": 386,
   "height": 280,
   "data": {
     "url": "https://amandachong03.github.io/FIT3179-DV2-SiauChong/data/11_costliest_emergencies.csv",
@@ -32,14 +44,20 @@
     }
   },
   "transform": [
-    {"filter": "datum.animal == animal"},
+    {
+      "filter": "datum.animal == animal"
+    },
     {
       "calculate": "datum.highest_cost / datum.average_cost",
       "as": "times_average"
     },
     {
       "joinaggregate": [
-        {"op": "max", "field": "times_average", "as": "max_times"}
+        {
+          "op": "max",
+          "field": "times_average",
+          "as": "max_times"
+        }
       ]
     },
     {
@@ -59,37 +77,80 @@
     "y": {
       "field": "condition",
       "type": "nominal",
-      "sort": {"field": "rank", "op": "min", "order": "ascending"},
-      "scale": {"padding": 0.5},
+      "sort": {
+        "field": "rank",
+        "op": "min",
+        "order": "ascending"
+      },
+      "scale": {
+        "padding": 0.5
+      },
       "axis": {
         "title": null,
         "domain": false,
         "ticks": false,
         "labelFontSize": 11,
-        "labelColor": "#23303a",
-        "labelPadding": 10
+        "labelColor": "#243238",
+        "labelPadding": 15
       }
     }
   },
   "layer": [
     {
-      "mark": {"type": "rule", "color": "#c9d1d6", "strokeWidth": 3},
+      "mark": {
+        "type": "rule",
+        "color": "#c9d1d6",
+        "strokeWidth": 3
+      },
       "encoding": {
         "x": {
           "field": "average_cost",
           "type": "quantitative",
-          "scale": {"domain": [0, 80000]},
+          "scale": {
+            "domain": [
+              0,
+              80000
+            ]
+          },
           "axis": null
         },
-        "x2": {"field": "highest_cost"}
+        "x2": {
+          "field": "highest_cost"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.times_average == datum.max_times",
+            "value": "#E3B3A6"
+          },
+          "value": "#C9D1D6"
+        },
+        "strokeWidth": {
+          "condition": {
+            "test": "datum.times_average == datum.max_times",
+            "value": 5
+          },
+          "value": 3
+        }
       }
     },
     {
-      "mark": {"type": "circle", "size": 110, "opacity": 1, "color": "#7d8b94"},
+      "mark": {
+        "type": "circle",
+        "size": 110,
+        "opacity": 1,
+        "color": "#7d8b94"
+      },
       "encoding": {
-        "x": {"field": "average_cost", "type": "quantitative"},
+        "x": {
+          "field": "average_cost",
+          "type": "quantitative"
+        },
         "tooltip": [
-          {"field": "condition", "type": "nominal", "title": "Problem"},
+          {
+            "field": "condition",
+            "type": "nominal",
+            "title": "Problem"
+          },
           {
             "field": "report_name",
             "type": "nominal",
@@ -117,11 +178,23 @@
       }
     },
     {
-      "mark": {"type": "circle", "size": 110, "opacity": 1, "color": "#b84d33"},
+      "mark": {
+        "type": "circle",
+        "size": 110,
+        "opacity": 1,
+        "color": "#B84D33"
+      },
       "encoding": {
-        "x": {"field": "highest_cost", "type": "quantitative"},
+        "x": {
+          "field": "highest_cost",
+          "type": "quantitative"
+        },
         "tooltip": [
-          {"field": "condition", "type": "nominal", "title": "Problem"},
+          {
+            "field": "condition",
+            "type": "nominal",
+            "title": "Problem"
+          },
           {
             "field": "report_name",
             "type": "nominal",
@@ -155,11 +228,16 @@
         "baseline": "top",
         "dy": 9,
         "fontSize": 10,
-        "color": "#5d6b75"
+        "color": "#56616B"
       },
       "encoding": {
-        "x": {"field": "average_cost", "type": "quantitative"},
-        "text": {"field": "average_label"}
+        "x": {
+          "field": "average_cost",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "average_label"
+        }
       }
     },
     {
@@ -170,15 +248,24 @@
         "dx": 9,
         "fontSize": 10,
         "fontWeight": "bold",
-        "color": "#b84d33"
+        "color": "#B84D33"
       },
       "encoding": {
-        "x": {"field": "highest_cost", "type": "quantitative"},
-        "text": {"field": "highest_label"}
+        "x": {
+          "field": "highest_cost",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "highest_label"
+        }
       }
     },
     {
-      "transform": [{"filter": "datum.rank == 1"}],
+      "transform": [
+        {
+          "filter": "datum.rank == 1"
+        }
+      ],
       "mark": {
         "type": "text",
         "align": "center",
@@ -186,15 +273,24 @@
         "dy": -9,
         "fontSize": 10,
         "fontWeight": "bold",
-        "color": "#5d6b75"
+        "color": "#56616B"
       },
       "encoding": {
-        "x": {"field": "average_cost", "type": "quantitative"},
-        "text": {"value": "Average bill"}
+        "x": {
+          "field": "average_cost",
+          "type": "quantitative"
+        },
+        "text": {
+          "value": "Average bill"
+        }
       }
     },
     {
-      "transform": [{"filter": "datum.rank == 1"}],
+      "transform": [
+        {
+          "filter": "datum.rank == 1"
+        }
+      ],
       "mark": {
         "type": "text",
         "align": "center",
@@ -202,41 +298,64 @@
         "dy": -9,
         "fontSize": 10,
         "fontWeight": "bold",
-        "color": "#b84d33"
+        "color": "#B84D33"
       },
       "encoding": {
-        "x": {"field": "highest_cost", "type": "quantitative"},
-        "text": {"value": "Highest bill"}
+        "x": {
+          "field": "highest_cost",
+          "type": "quantitative"
+        },
+        "text": {
+          "value": "Highest bill"
+        }
       }
     },
     {
-      "transform": [{"filter": "datum.times_average == datum.max_times"}],
+      "transform": [
+        {
+          "filter": "datum.times_average == datum.max_times"
+        }
+      ],
       "mark": {
         "type": "text",
         "align": "right",
         "baseline": "top",
         "dy": 9,
-        "fontSize": 10,
+        "fontSize": 11,
         "fontStyle": "italic",
-        "color": "#23303a"
+        "color": "#243238"
       },
       "encoding": {
-        "x": {"field": "highest_cost", "type": "quantitative"},
-        "text": {"field": "times_label"}
+        "x": {
+          "field": "highest_cost",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "times_label"
+        }
       }
     },
     {
-      "data": {"values": [{}]},
+      "data": {
+        "values": [
+          {}
+        ]
+      },
       "mark": {
         "type": "text",
         "align": "left",
         "baseline": "top",
         "fontSize": 10,
-        "color": "#5d6b75"
+        "fontStyle": "italic",
+        "color": "#56616B"
       },
       "encoding": {
-        "x": {"value": -160},
-        "y": {"value": 292},
+        "x": {
+          "value": -160
+        },
+        "y": {
+          "value": 292
+        },
         "text": {
           "value": [
             "Source: PetSure, Pet Health Monitor 2026, pages 19–20",
@@ -246,5 +365,10 @@
       }
     }
   ],
-  "config": {"view": {"stroke": null}, "font": "Arial"}
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "Arial"
+  }
 }

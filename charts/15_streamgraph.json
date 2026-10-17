@@ -1,0 +1,689 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "title": {
+    "text": [
+      "Far fewer dogs and cats now end",
+      "up in RSPCA shelters"
+    ],
+    "subtitle": [
+      "Animals received by RSPCA shelters across Australia each year,",
+      "2005–06 to 2024–25.",
+      "Top: thicker bands represent more animals.",
+      "Bottom: each group appears separately."
+    ],
+    "anchor": "start",
+    "font": "Georgia, 'Times New Roman', serif",
+    "fontSize": 17,
+    "color": "#243238",
+    "subtitleFont": "Arial",
+    "subtitleFontSize": 12,
+    "subtitleColor": "#56616B",
+    "offset": 14
+  },
+  "data": {
+    "url": "https://amandachong03.github.io/FIT3179-DV2-SiauChong/data/15_rspca_animals_received.csv",
+    "format": {
+      "parse": {
+        "start_year": "number",
+        "animals_received": "number",
+        "layer_order": "number"
+      }
+    }
+  },
+  "vconcat": [
+    {
+      "width": 717,
+      "height": 240,
+      "transform": [
+        {
+          "stack": "animals_received",
+          "groupby": [
+            "start_year"
+          ],
+          "sort": [
+            {
+              "field": "layer_order",
+              "order": "ascending"
+            }
+          ],
+          "offset": "center",
+          "as": [
+            "y0",
+            "y1"
+          ]
+        },
+        {
+          "calculate": "(datum.y0 + datum.y1) / 2",
+          "as": "y_mid"
+        },
+        {
+          "joinaggregate": [
+            {
+              "op": "min",
+              "field": "y0",
+              "as": "year_bottom"
+            },
+            {
+              "op": "max",
+              "field": "y1",
+              "as": "year_top"
+            },
+            {
+              "op": "sum",
+              "field": "animals_received",
+              "as": "year_total"
+            }
+          ],
+          "groupby": [
+            "start_year"
+          ]
+        }
+      ],
+      "encoding": {
+        "x": {
+          "field": "start_year",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              2005,
+              2024
+            ],
+            "nice": false
+          },
+          "axis": {
+            "title": null,
+            "values": [
+              2005,
+              2009,
+              2013,
+              2017,
+              2021,
+              2024
+            ],
+            "labelExpr": "datum.value + '–' + slice(toString(datum.value + 1), 2)",
+            "grid": false,
+            "domainColor": "#B8C2C5",
+            "tickColor": "#B8C2C5",
+            "labelColor": "#56616B",
+            "labelFontSize": 10
+          }
+        }
+      },
+      "layer": [
+        {
+          "mark": {
+            "type": "area",
+            "interpolate": "monotone",
+            "stroke": "white",
+            "strokeWidth": 0.8
+          },
+          "encoding": {
+            "y": {
+              "field": "y0",
+              "type": "quantitative",
+              "axis": null,
+              "scale": {
+                "domain": [
+                  -22000,
+                  172000
+                ]
+              }
+            },
+            "y2": {
+              "field": "y1"
+            },
+            "color": {
+              "field": "animal",
+              "type": "nominal",
+              "scale": {
+                "domain": [
+                  "Dogs",
+                  "Cats",
+                  "Other animals"
+                ],
+                "range": [
+                  "#3978A8",
+                  "#D96B55",
+                  "#B8C2C5"
+                ]
+              },
+              "legend": null
+            },
+            "tooltip": [
+              {
+                "field": "financial_year",
+                "type": "nominal",
+                "title": "Year"
+              },
+              {
+                "field": "animal",
+                "type": "nominal",
+                "title": "Animal"
+              },
+              {
+                "field": "animals_received",
+                "type": "quantitative",
+                "title": "Received",
+                "format": ","
+              },
+              {
+                "field": "year_total",
+                "type": "quantitative",
+                "title": "All animals that year",
+                "format": ","
+              }
+            ],
+            "opacity": {
+              "condition": {
+                "test": "focus == 'All animals' || datum.animal == focus",
+                "value": 1
+              },
+              "value": 0.18
+            }
+          }
+        },
+        {
+          "transform": [
+            {
+              "filter": "focus != 'All animals' && datum.animal == focus"
+            }
+          ],
+          "mark": {
+            "type": "line",
+            "interpolate": "monotone",
+            "color": "#243238",
+            "strokeWidth": 1.6
+          },
+          "encoding": {
+            "y": {
+              "field": "y0",
+              "type": "quantitative"
+            }
+          }
+        },
+        {
+          "transform": [
+            {
+              "filter": "focus != 'All animals' && datum.animal == focus"
+            }
+          ],
+          "mark": {
+            "type": "line",
+            "interpolate": "monotone",
+            "color": "#243238",
+            "strokeWidth": 1.6
+          },
+          "encoding": {
+            "y": {
+              "field": "y1",
+              "type": "quantitative"
+            }
+          }
+        },
+        {
+          "transform": [
+            {
+              "filter": "(datum.animal == 'Dogs' && datum.start_year == 2008) || (datum.animal == 'Cats' && datum.start_year == 2008) || (datum.animal == 'Other animals' && datum.start_year == 2015)"
+            }
+          ],
+          "mark": {
+            "type": "text",
+            "fontSize": 13,
+            "fontWeight": "bold",
+            "color": "white"
+          },
+          "encoding": {
+            "y": {
+              "field": "y_mid",
+              "type": "quantitative"
+            },
+            "text": {
+              "field": "animal"
+            },
+            "opacity": {
+              "condition": {
+                "test": "focus == 'All animals' || datum.animal == focus",
+                "value": 1
+              },
+              "value": 0.35
+            }
+          }
+        },
+        {
+          "transform": [
+            {
+              "filter": "datum.start_year == 2024"
+            },
+            {
+              "calculate": "format(datum.animals_received, ',')",
+              "as": "lab"
+            },
+            {
+              "calculate": "datum.animal == 'Dogs' ? '#3978A8' : datum.animal == 'Cats' ? '#A94738' : '#56616B'",
+              "as": "lab_color"
+            }
+          ],
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "dx": 6,
+            "fontSize": 10.5,
+            "fontWeight": "bold"
+          },
+          "encoding": {
+            "y": {
+              "field": "y_mid",
+              "type": "quantitative"
+            },
+            "text": {
+              "field": "lab"
+            },
+            "color": {
+              "field": "lab_color",
+              "type": "nominal",
+              "scale": null
+            },
+            "opacity": {
+              "condition": {
+                "test": "focus == 'All animals' || datum.animal == focus",
+                "value": 1
+              },
+              "value": 0.3
+            }
+          }
+        },
+        {
+          "transform": [
+            {
+              "filter": "(datum.start_year == 2007 || datum.start_year == 2024) && datum.animal == 'Dogs'"
+            }
+          ],
+          "mark": {
+            "type": "rule",
+            "color": "#56616B",
+            "strokeDash": [
+              3,
+              3
+            ]
+          },
+          "encoding": {
+            "y": {
+              "field": "year_bottom",
+              "type": "quantitative"
+            },
+            "y2": {
+              "field": "year_top"
+            }
+          }
+        },
+        {
+          "transform": [
+            {
+              "filter": "(datum.start_year == 2007 || datum.start_year == 2024) && datum.animal == 'Dogs'"
+            },
+            {
+              "calculate": "datum.start_year == 2007 ? 'Peak: ' + format(datum.year_total, ',') + '|animals in 2007–08' : format(datum.year_total, ',') + ' animals|in 2024–25'",
+              "as": "lab"
+            },
+            {
+              "calculate": "datum.start_year == 2007 ? 'center' : 'right'",
+              "as": "al"
+            },
+            {
+              "calculate": "datum.start_year == 2007 ? datum.year_top : datum.year_bottom",
+              "as": "ly"
+            },
+            {
+              "calculate": "datum.start_year == 2007 ? 'bottom' : 'top'",
+              "as": "bl"
+            },
+            {
+              "calculate": "datum.start_year == 2007 ? -20 : 14",
+              "as": "ddy"
+            }
+          ],
+          "mark": {
+            "type": "text",
+            "fontSize": 10.5,
+            "color": "#243238",
+            "lineBreak": "|",
+            "align": {
+              "expr": "datum.al"
+            },
+            "baseline": {
+              "expr": "datum.bl"
+            },
+            "dy": {
+              "expr": "datum.ddy"
+            }
+          },
+          "encoding": {
+            "y": {
+              "field": "ly",
+              "type": "quantitative"
+            },
+            "text": {
+              "field": "lab"
+            }
+          }
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "x": 2016.5,
+                "y": -11000
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "align": "center",
+            "baseline": "middle",
+            "fontSize": 11,
+            "fontWeight": "bold",
+            "color": "#3978A8"
+          },
+          "encoding": {
+            "x": {
+              "field": "x",
+              "type": "quantitative"
+            },
+            "y": {
+              "field": "y",
+              "type": "quantitative"
+            },
+            "text": {
+              "value": "Dogs: 70,514 in 2007–08 → 15,852 in 2024–25 (down 78%)"
+            },
+            "opacity": {
+              "condition": {
+                "test": "focus == 'All animals' || focus == 'Dogs'",
+                "value": 1
+              },
+              "value": 0.3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "text": [
+          "Each group separately (same scale)",
+          "Change since the 2007–08 peak"
+        ],
+        "anchor": "start",
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "color": "#243238",
+        "font": "Arial",
+        "offset": 24
+      },
+      "transform": [
+        {
+          "calculate": "datum.start_year == 2007 ? datum.animals_received : null",
+          "as": "peak_val"
+        },
+        {
+          "calculate": "datum.start_year == 2024 ? datum.animals_received : null",
+          "as": "last_val"
+        },
+        {
+          "joinaggregate": [
+            {
+              "op": "max",
+              "field": "peak_val",
+              "as": "v2007"
+            },
+            {
+              "op": "max",
+              "field": "last_val",
+              "as": "v2024"
+            }
+          ],
+          "groupby": [
+            "animal"
+          ]
+        },
+        {
+          "calculate": "round((datum.v2024 - datum.v2007) / datum.v2007 * 100)",
+          "as": "pct"
+        },
+        {
+          "calculate": "format(datum.v2007, ',') + ' → ' + format(datum.v2024, ',') + '  (' + (datum.pct > 0 ? 'up ' : 'down ') + abs(datum.pct) + '%)'",
+          "as": "change_label"
+        },
+        {
+          "calculate": "datum.animal == 'Dogs' ? '#3978A8' : datum.animal == 'Cats' ? '#A94738' : '#56616B'",
+          "as": "text_color"
+        }
+      ],
+      "facet": {
+        "column": {
+          "field": "animal",
+          "type": "nominal",
+          "sort": [
+            "Dogs",
+            "Cats",
+            "Other animals"
+          ],
+          "header": null
+        }
+      },
+      "spacing": 18,
+      "spec": {
+        "width": 227,
+        "height": 70,
+        "encoding": {
+          "x": {
+            "field": "start_year",
+            "type": "quantitative",
+            "scale": {
+              "domain": [
+                2005,
+                2024
+              ],
+              "nice": false
+            },
+            "axis": {
+              "title": null,
+              "values": [
+                2005,
+                2024
+              ],
+              "labelExpr": "datum.value + '–' + slice(toString(datum.value + 1), 2)",
+              "grid": false,
+              "domainColor": "#B8C2C5",
+              "tickColor": "#B8C2C5",
+              "labelColor": "#56616B",
+              "labelFontSize": 9,
+              "labelFlush": true
+            }
+          }
+        },
+        "layer": [
+          {
+            "mark": {
+              "type": "area",
+              "interpolate": "monotone",
+              "opacity": 0.85
+            },
+            "encoding": {
+              "y": {
+                "field": "animals_received",
+                "type": "quantitative",
+                "scale": {
+                  "domain": [
+                    0,
+                    72000
+                  ]
+                },
+                "axis": null
+              },
+              "color": {
+                "field": "animal",
+                "type": "nominal",
+                "scale": {
+                  "domain": [
+                    "Dogs",
+                    "Cats",
+                    "Other animals"
+                  ],
+                  "range": [
+                    "#3978A8",
+                    "#D96B55",
+                    "#B8C2C5"
+                  ]
+                },
+                "legend": null
+              },
+              "tooltip": [
+                {
+                  "field": "financial_year",
+                  "title": "Year"
+                },
+                {
+                  "field": "animal",
+                  "title": "Animal"
+                },
+                {
+                  "field": "animals_received",
+                  "type": "quantitative",
+                  "title": "Received",
+                  "format": ","
+                }
+              ],
+              "opacity": {
+                "condition": {
+                  "test": "focus == 'All animals' || datum.animal == focus",
+                  "value": 0.85
+                },
+                "value": 0.15
+              }
+            }
+          },
+          {
+            "transform": [
+              {
+                "filter": "datum.start_year == 2005"
+              }
+            ],
+            "mark": {
+              "type": "text",
+              "align": "left",
+              "baseline": "bottom",
+              "fontSize": 11,
+              "fontWeight": "bold",
+              "x": 0,
+              "y": -16
+            },
+            "encoding": {
+              "text": {
+                "field": "animal"
+              },
+              "color": {
+                "field": "text_color",
+                "type": "nominal",
+                "scale": null
+              },
+              "opacity": {
+                "condition": {
+                  "test": "focus == 'All animals' || datum.animal == focus",
+                  "value": 1
+                },
+                "value": 0.35
+              }
+            }
+          },
+          {
+            "transform": [
+              {
+                "filter": "datum.start_year == 2005"
+              }
+            ],
+            "mark": {
+              "type": "text",
+              "align": "left",
+              "baseline": "bottom",
+              "fontSize": 10,
+              "x": 0,
+              "y": -3
+            },
+            "encoding": {
+              "text": {
+                "field": "change_label"
+              },
+              "color": {
+                "field": "text_color",
+                "type": "nominal",
+                "scale": null
+              },
+              "opacity": {
+                "condition": {
+                  "test": "focus == 'All animals' || datum.animal == focus",
+                  "value": 1
+                },
+                "value": 0.35
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "width": 717,
+      "height": 1,
+      "data": {
+        "values": [
+          {}
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "top",
+        "fontSize": 10,
+        "color": "#56616B",
+        "fontStyle": "italic",
+        "x": 0,
+        "y": 0
+      },
+      "encoding": {
+        "text": {
+          "value": [
+            "Source: RSPCA Australia, national statistics reports 2009–10, 2011–12, 2016–17,",
+            "2019–20 and 2024–25 (RSPCA shelters only; other animals include rabbits, birds,",
+            "horses, livestock and wildlife)."
+          ]
+        }
+      }
+    }
+  ],
+  "spacing": 22,
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "Arial",
+    "concat": {
+      "spacing": 22
+    }
+  },
+  "params": [
+    {
+      "name": "focus",
+      "value": "All animals",
+      "bind": {
+        "input": "select",
+        "options": [
+          "All animals",
+          "Dogs",
+          "Cats",
+          "Other animals"
+        ],
+        "name": "Look at: "
+      }
+    }
+  ]
+}

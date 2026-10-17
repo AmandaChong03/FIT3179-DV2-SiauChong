@@ -1,19 +1,23 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "title": {
-    "text": ["3 in 4 vets work at an everyday local clinic"],
+    "text": [
+      "3 in 4 vets work at an everyday local clinic"
+    ],
     "subtitle": [
       "Share of 1,500 vets in clinical practice, by",
       "type of workplace, Australia, 2023/24"
     ],
     "anchor": "start",
-    "fontSize": 16,
-    "color": "#23303a",
+    "fontSize": 17,
+    "color": "#243238",
     "subtitleFontSize": 12,
-    "subtitleColor": "#5d6b75",
-    "offset": 14
+    "subtitleColor": "#56616B",
+    "offset": 14,
+    "font": "Georgia, 'Times New Roman', serif",
+    "subtitleFont": "Arial"
   },
-  "width": 300,
+  "width": 295,
   "height": 260,
   "data": {
     "url": "https://amandachong03.github.io/FIT3179-DV2-SiauChong/data/9_where_vets_work.csv",
@@ -46,7 +50,10 @@
           "type": "quantitative",
           "stack": true
         },
-        "order": {"field": "slice_order", "type": "quantitative"},
+        "order": {
+          "field": "slice_order",
+          "type": "quantitative"
+        },
         "color": {
           "field": "clinic_type",
           "type": "nominal",
@@ -57,7 +64,12 @@
               "Mobile vets (home visits)",
               "Other"
             ],
-            "range": ["#0f6e6e", "#6fa5a2", "#a9cbc8", "#d3e1e2"]
+            "range": [
+              "#3978A8",
+              "#8DB3CF",
+              "#B7CEDF",
+              "#D5DFE6"
+            ]
           },
           "legend": null
         },
@@ -67,62 +79,123 @@
             "type": "nominal",
             "title": "Type of clinic"
           },
-          {"field": "vets", "type": "quantitative", "title": "Vets"},
+          {
+            "field": "vets",
+            "type": "quantitative",
+            "title": "Vets"
+          },
           {
             "field": "percent_of_vets",
             "type": "quantitative",
             "title": "Share of vets (%)",
             "format": ".1f"
           },
-          {"field": "includes", "type": "nominal", "title": "Includes"}
+          {
+            "field": "includes",
+            "type": "nominal",
+            "title": "Includes"
+          }
         ]
       }
     },
     {
-      "transform": [{"filter": "isValid(datum.anchor_x)"}],
-      "mark": {"type": "rule", "color": "#9aa5ad", "strokeWidth": 0.8},
+      "transform": [
+        {
+          "filter": "isValid(datum.anchor_x)"
+        }
+      ],
+      "mark": {
+        "type": "rule",
+        "color": "#9aa5ad",
+        "strokeWidth": 0.8
+      },
       "encoding": {
-        "x": {"field": "anchor_x", "type": "quantitative", "scale": null},
-        "y": {"field": "anchor_y", "type": "quantitative", "scale": null},
-        "x2": {"field": "label_x", "offset": 4},
-        "y2": {"field": "label_y"}
+        "x": {
+          "field": "anchor_x",
+          "type": "quantitative",
+          "scale": null
+        },
+        "y": {
+          "field": "anchor_y",
+          "type": "quantitative",
+          "scale": null
+        },
+        "x2": {
+          "field": "label_x",
+          "offset": 4
+        },
+        "y2": {
+          "field": "label_y"
+        }
       }
     },
     {
-      "transform": [{"filter": "isValid(datum.anchor_x)"}],
+      "transform": [
+        {
+          "filter": "isValid(datum.anchor_x)"
+        }
+      ],
       "mark": {
         "type": "text",
         "align": "right",
         "baseline": "bottom",
         "fontSize": 10,
-        "color": "#23303a",
+        "color": "#243238",
         "dy": -1
       },
       "encoding": {
-        "x": {"field": "label_x", "type": "quantitative", "scale": null},
-        "y": {"field": "label_y", "type": "quantitative", "scale": null},
-        "text": {"field": "clinic_type"}
+        "x": {
+          "field": "label_x",
+          "type": "quantitative",
+          "scale": null
+        },
+        "y": {
+          "field": "label_y",
+          "type": "quantitative",
+          "scale": null
+        },
+        "text": {
+          "field": "clinic_type"
+        }
       }
     },
     {
-      "transform": [{"filter": "isValid(datum.anchor_x)"}],
+      "transform": [
+        {
+          "filter": "isValid(datum.anchor_x)"
+        }
+      ],
       "mark": {
         "type": "text",
         "align": "right",
         "baseline": "top",
         "fontSize": 11,
         "fontWeight": "bold",
-        "color": "#0f6e6e",
+        "color": "#243238",
         "dy": 1
       },
       "encoding": {
-        "x": {"field": "label_x", "type": "quantitative", "scale": null},
-        "y": {"field": "label_y", "type": "quantitative", "scale": null},
-        "text": {"field": "percent_label"}
+        "x": {
+          "field": "label_x",
+          "type": "quantitative",
+          "scale": null
+        },
+        "y": {
+          "field": "label_y",
+          "type": "quantitative",
+          "scale": null
+        },
+        "text": {
+          "field": "percent_label"
+        }
       }
     },
     {
-      "transform": [{"filter": "!isValid(datum.anchor_x)"}],
+      "transform": [
+        {
+          "filter": "!isValid(datum.anchor_x)"
+        }
+      ],
       "mark": {
         "type": "text",
         "align": "center",
@@ -132,13 +205,27 @@
         "color": "white"
       },
       "encoding": {
-        "x": {"field": "label_x", "type": "quantitative", "scale": null},
-        "y": {"field": "label_y", "type": "quantitative", "scale": null},
-        "text": {"field": "percent_label"}
+        "x": {
+          "field": "label_x",
+          "type": "quantitative",
+          "scale": null
+        },
+        "y": {
+          "field": "label_y",
+          "type": "quantitative",
+          "scale": null
+        },
+        "text": {
+          "field": "percent_label"
+        }
       }
     },
     {
-      "transform": [{"filter": "!isValid(datum.anchor_x)"}],
+      "transform": [
+        {
+          "filter": "!isValid(datum.anchor_x)"
+        }
+      ],
       "mark": {
         "type": "text",
         "align": "center",
@@ -149,23 +236,42 @@
         "dy": 2
       },
       "encoding": {
-        "x": {"field": "label_x", "type": "quantitative", "scale": null},
-        "y": {"field": "label_y", "type": "quantitative", "scale": null},
-        "text": {"value": "Everyday|local clinics"}
+        "x": {
+          "field": "label_x",
+          "type": "quantitative",
+          "scale": null
+        },
+        "y": {
+          "field": "label_y",
+          "type": "quantitative",
+          "scale": null
+        },
+        "text": {
+          "value": "Everyday|local clinics"
+        }
       }
     },
     {
-      "data": {"values": [{}]},
+      "data": {
+        "values": [
+          {}
+        ]
+      },
       "mark": {
         "type": "text",
         "align": "left",
         "baseline": "top",
         "fontSize": 10,
-        "color": "#5d6b75"
+        "fontStyle":"italic",
+        "color": "#56616B"
       },
       "encoding": {
-        "x": {"value": -160},
-        "y": {"value": 275},
+        "x": {
+          "value": -160
+        },
+        "y": {
+          "value": 275
+        },
         "text": {
           "value": [
             "Source: Australian Veterinary Association, Workforce",
@@ -175,5 +281,9 @@
       }
     }
   ],
-  "config": {"view": {"stroke": null}}
+  "config": {
+    "view": {
+      "stroke": null
+    }
+  }
 }

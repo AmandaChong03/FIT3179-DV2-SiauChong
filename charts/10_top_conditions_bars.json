@@ -1,26 +1,38 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "title": {
-    "text": ["The most common problems are", "not the costliest to treat"],
+    "text": [
+      "The most common problems are",
+      "not the costliest to treat"
+    ],
     "subtitle": {
-      "expr": "['The ten problems pet insurance paid out for most often', 'for ' + lower(animal) + ' in 2025, most common at the top. Bars show', 'the average cost per pet over the year, in Australian dollars.']"
+      "expr": "['The ten problems pet insurance paid most often', 'for ' + lower(animal) + ' in 2025, ranked most common first.', 'Bars show the average yearly cost per pet', 'in Australian dollars.']"
     },
     "anchor": "start",
-    "fontSize": 16,
-    "color": "#23303a",
+    "fontSize": 17,
+    "color": "#243238",
     "subtitleFontSize": 12,
-    "subtitleColor": "#5d6b75",
-    "offset": 20
+    "subtitleColor": "#56616B",
+    "offset": 20,
+    "font": "Georgia, 'Times New Roman', serif",
+    "subtitleFont": "Arial"
   },
   "params": [
     {
       "name": "animal",
       "value": "Dogs",
-      "bind": {"input": "radio", "options": ["Dogs", "Cats"], "name": "Show:"}
+      "bind": {
+        "input": "radio",
+        "options": [
+          "Dogs",
+          "Cats"
+        ],
+        "name": "Show:"
+      }
     }
   ],
-  "width": 330,
-  "height": 280,
+  "width": 488,
+  "height": 250,
   "data": {
     "url": "https://amandachong03.github.io/FIT3179-DV2-SiauChong/data/10_top_conditions.csv",
     "format": {
@@ -32,44 +44,84 @@
     }
   },
   "transform": [
-    {"filter": "datum.animal == animal"},
+    {
+      "filter": "datum.animal == animal"
+    },
     {
       "joinaggregate": [
-        {"op": "max", "field": "average_cost", "as": "max_cost"}
+        {
+          "op": "max",
+          "field": "average_cost",
+          "as": "max_cost"
+        }
       ]
     },
-    {"calculate": "datum.average_cost == datum.max_cost", "as": "is_costliest"},
-    {"calculate": "datum.rank + '.  ' + datum.condition", "as": "row_label"},
-    {"calculate": "'$' + format(datum.average_cost, ',')", "as": "cost_label"}
+    {
+      "calculate": "datum.average_cost == datum.max_cost",
+      "as": "is_costliest"
+    },
+    {
+      "calculate":"datum.rank == 1",
+      "as":"is_most_common"
+    },
+    {
+      "calculate":"datum.is_costliest ? 'Costliest of the ten' : 'Most Common'",
+      "as":"highlight_label"
+    },
+    {
+      "calculate": "datum.rank + '.  ' + datum.condition",
+      "as": "row_label"
+    },
+    {
+      "calculate": "'$' + format(datum.average_cost, ',')",
+      "as": "cost_label"
+    }
   ],
   "encoding": {
     "y": {
       "field": "row_label",
       "type": "nominal",
-      "sort": {"field": "rank", "op": "min", "order": "ascending"},
+      "sort": {
+        "field": "rank",
+        "op": "min",
+        "order": "ascending"
+      },
       "axis": {
         "title": null,
         "domain": false,
         "ticks": false,
-        "labelFontSize": 11,
-        "labelColor": "#23303a",
+        "labelFontSize": 12,
+        "labelColor": "#243238",
         "labelPadding": 6
       }
     }
   },
   "layer": [
     {
-      "mark": {"type": "bar", "height": {"band": 0.72}},
+      "mark": {
+        "type": "bar",
+        "height": {
+          "band": 0.72
+        }
+      },
       "encoding": {
         "x": {
           "field": "average_cost",
           "type": "quantitative",
-          "scale": {"domain": [0, 1800]},
+          "scale": {
+            "domain": [
+              0,
+              1800
+            ]
+          },
           "axis": null
         },
         "color": {
-          "condition": {"test": "datum.is_costliest", "value": "#0f6e6e"},
-          "value": "#a9cbc8"
+          "condition": {
+            "test": "datum.is_costliest || datum.is_most_common",
+            "value": "#3978A8"
+          },
+          "value": "#A8D3DA"
         },
         "tooltip": [
           {
@@ -77,7 +129,11 @@
             "type": "ordinal",
             "title": "Rank (1 = most common)"
           },
-          {"field": "condition", "type": "nominal", "title": "Problem"},
+          {
+            "field": "condition",
+            "type": "nominal",
+            "title": "Problem"
+          },
           {
             "field": "report_name",
             "type": "nominal",
@@ -104,74 +160,117 @@
         "align": "left",
         "baseline": "middle",
         "dx": 4,
-        "fontSize": 11,
-        "color": "#23303a"
+        "fontSize": 12,
+        "color": "#243238"
       },
       "encoding": {
-        "x": {"field": "average_cost", "type": "quantitative"},
-        "text": {"field": "cost_label"}
+        "x": {
+          "field": "average_cost",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "cost_label"
+        }
       }
     },
     {
-      "transform": [{"filter": "datum.is_costliest"}],
+      "transform": [
+        {
+          "filter": "datum.is_costliest || datum.is_most_common"
+        }
+      ],
       "mark": {
         "type": "text",
         "align": "right",
         "baseline": "middle",
         "dx": -6,
-        "fontSize": 10,
+        "fontSize": 11,
         "fontWeight": "bold",
         "color": "white"
       },
       "encoding": {
-        "x": {"field": "average_cost", "type": "quantitative"},
-        "text": {"value": "Costliest of the ten"}
+        "x": {
+          "field": "average_cost",
+          "type": "quantitative"
+        },
+        "text": {
+          "field":"highlight_label"
+        }
       }
     },
     {
-      "data": {"values": [{}]},
+      "data": {
+        "values": [
+          {}
+        ]
+      },
       "mark": {
         "type": "text",
         "align": "right",
         "baseline": "bottom",
-        "fontSize": 10,
+        "fontSize": 11,
         "fontWeight": "bold",
-        "color": "#5d6b75"
+        "color": "#56616B"
       },
       "encoding": {
-        "x": {"value": -6},
-        "y": {"value": -6},
-        "text": {"value": "Most common first"}
+        "x": {
+          "value": -6
+        },
+        "y": {
+          "value": -2
+        },
+        "text": {
+          "value": "Most common first"
+        }
       }
     },
     {
-      "data": {"values": [{}]},
+      "data": {
+        "values": [
+          {}
+        ]
+      },
       "mark": {
         "type": "text",
         "align": "left",
         "baseline": "bottom",
-        "fontSize": 10,
+        "fontSize": 11,
         "fontWeight": "bold",
-        "color": "#5d6b75"
+        "color": "#56616B"
       },
       "encoding": {
-        "x": {"value": 0},
-        "y": {"value": -6},
-        "text": {"value": "Average cost per pet in a year →"}
+        "x": {
+          "value": 0
+        },
+        "y": {
+          "value": -10
+        },
+        "text": {
+          "value": "Average cost per pet in a year →"
+        }
       }
     },
     {
-      "data": {"values": [{}]},
+      "data": {
+        "values": [
+          {}
+        ]
+      },
       "mark": {
         "type": "text",
         "align": "left",
         "baseline": "top",
         "fontSize": 10,
-        "color": "#5d6b75"
+        "fontStyle":"italic",
+        "color": "#56616B"
       },
       "encoding": {
-        "x": {"value": -170},
-        "y": {"value": 292},
+        "x": {
+          "value": -170
+        },
+        "y": {
+          "value": 262
+        },
         "text": {
           "value": [
             "Source: PetSure, Pet Health Monitor 2026, pages 17–18",
@@ -181,5 +280,10 @@
       }
     }
   ],
-  "config": {"view": {"stroke": null}, "font": "Arial"}
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "Arial"
+  }
 }

@@ -1,24 +1,37 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "title": {
-    "text": ["Vet care is a small slice of pet spending"],
+    "text": [
+      "Vet care is a small slice of pet spending"
+    ],
     "subtitle": [
       "Share of the $21.3 billion Australians spent",
       "on their pets in the year to March 2025"
     ],
     "anchor": "start",
-    "fontSize": 16,
-    "color": "#23303a",
+    "fontSize": 17,
+    "color": "#243238",
     "subtitleFontSize": 12,
-    "subtitleColor": "#5d6b75",
-    "offset": 14
+    "subtitleColor": "#56616B",
+    "offset": 14,
+    "font": "Georgia, 'Times New Roman', serif",
+    "subtitleFont": "Arial"
   },
-  "width": "container",
-  "height": 180,
+  "width": 407,
+  "height": 282,
   "data": {
-    "url": "https://amandachong03.github.io/FIT3179-DV2-SiauChong/data/pet_spending.csv"
+    "url": "https://amandachong03.github.io/FIT3179-DV2-SiauChong/data/2_pet_spending.csv"
   },
-  "transform": [{"calculate": "datum.share_percent + '%'", "as": "label"}],
+  "transform": [
+    {
+      "calculate": "datum.share_percent + '%'",
+      "as": "label"
+    },
+    {
+      "calculate": "'about $' + format(datum.share_percent / 100 * 21.3, '.1f') + ' billion'",
+      "as": "amount"
+    }
+  ],
   "encoding": {
     "y": {
       "field": "category",
@@ -32,9 +45,15 @@
       ],
       "axis": {
         "title": null,
-        "domain": true,
+        "domain": false,
         "ticks": false,
-        "labelFontSize": 12,
+        "labelFontSize": {
+          "condition": {
+            "test": "datum.value == 'Vet services'",
+            "value": 15
+          },
+          "value":12
+        },
         "labelFontWeight": {
           "condition": {
             "test": "datum.value == 'Vet services'",
@@ -42,7 +61,7 @@
           },
           "value": "normal"
         },
-        "labelColor": "#23303a",
+        "labelColor": "#243238",
         "labelPadding": 8,
         "minExtent": 150,
         "maxExtent": 150
@@ -51,15 +70,21 @@
     "x": {
       "field": "share_percent",
       "type": "quantitative",
-      "scale": {"domain": [0, 56]},
+      "scale": {
+        "domain": [
+          0,
+          56
+        ]
+      },
       "axis": {
         "title": "Source: Animal Medicines Australia, Pets in Australia 2025",
         "titleAnchor": "start",
         "titleX": -150,
         "titleFontSize": 10,
         "titleFontWeight": "normal",
-        "titleColor": "#5d6b75",
+        "titleColor": "#56616B",
         "titlePadding": 12,
+        "titleFontStyle":"italic",
         "domain": false,
         "ticks": false,
         "labels": false,
@@ -69,50 +94,86 @@
   },
   "layer": [
     {
-      "mark": {"type": "bar", "height": 22, "cornerRadiusEnd": 4},
+      "mark": {
+        "type": "bar",
+        "height": 30,
+        "cornerRadiusEnd": 4
+      },
       "encoding": {
         "color": {
-          "condition": [
-            {"test": "datum.category == 'Vet services'", "value": "#b9770e"},
-            {"test": "datum.category == 'Everything else'", "value": "#d3d9dc"}
-          ],
-          "value": "#8fb3b2"
+          "condition": {
+              "test": "datum.category == 'Vet services'",
+              "value": "#E3A44F"
+          },
+          "value": "#D9E0E2"
         },
         "tooltip": [
-          {"field": "category", "type": "nominal", "title": "Category:"},
           {
-            "field": "share_percent",
-            "type": "quantitative",
-            "title": "Share of spending:"
+            "field": "category",
+            "type": "nominal",
+            "title": "Category:"
+          },
+          {
+            "field": "label",
+            "type": "nominal",
+            "title": "Share:"
+          },
+          {
+            "field": "amount",
+            "type": "nominal",
+            "title": "Amount:"
           }
         ]
       }
     },
     {
-      "mark": {"type": "text", "align": "left", "dx": 6, "fontSize": 12},
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 6,
+        "fontSize": 12,
+        "fontWeight": {
+          "expr":"datum.category == 'Vet services' ? 'bold' : 'normal'" 
+        }
+      },
       "encoding": {
-        "text": {"field": "label", "type": "nominal"},
+        "text": {
+          "field": "label",
+          "type": "nominal"
+        },
         "color": {
           "condition": {
             "test": "datum.category == 'Vet services'",
-            "value": "#23303a"
+            "value": "#243238"
           },
-          "value": "#5d6b75"
+          "value": "#56616B"
         }
       }
     },
     {
-      "transform": [{"filter": "datum.category == 'Vet services'"}],
+      "transform": [
+        {
+          "filter": "datum.category == 'Vet services'"
+        }
+      ],
       "mark": {
         "type": "text",
         "align": "left",
         "dx": 36,
-        "fontSize": 11,
+        "fontSize": 12,
         "fontWeight": "bold",
-        "color": "#23303a"
+        "color": "#243238"
       },
-      "encoding": {"text": {"value": "about $1.9 billion"}}
+      "encoding": {
+        "text": {
+          "value": "about $1.9 billion"
+        }
+      }
     }
   ],
-  "config": {"view": {"stroke": null}}
+  "config": {
+    "view": {
+      "stroke": null
+    }
+  }
 }

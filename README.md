@@ -13,6 +13,7 @@ FIT3179 Data Visualisation 2, Monash University. A data story about pets, vets a
 | `charts/` | The 12 charts, one Vega-Lite JSON file each |
 | `maps/` | The 3 maps (Vega-Lite JSON) and the Australian state shapes |
 | `data/` | The CSV data files the charts and maps read |
+| `sketch.pdf` | The hand-drawn sketch of the page |
 
 ## Data sources
 
@@ -28,6 +29,8 @@ Links to each source are in the footer of the page.
 
 ## Author
 
-Siau Xian Chong, 32202806. October 2026.
+[Your name], [student ID]. October 2026.
 
+## Use of AI
 
+[Say here which AI tools you used and what for.]

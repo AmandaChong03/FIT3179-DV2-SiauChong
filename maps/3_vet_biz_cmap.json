@@ -1,20 +1,25 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "title": {
-    "text": ["Vet businesses per person are lowest in Victoria and the ACT"],
+    "text": [
+      "Victoria and the Australian Capital",
+      "Territory have the fewest vet businesses"
+    ],
     "subtitle": [
       "Vet businesses with at least one employee,",
-      "per 100,000 people, June 2025"
+      "per 100,000 people, by state or territory, June 2025"
     ],
     "anchor": "start",
-    "fontSize": 16,
-    "color": "#23303a",
+    "fontSize": 17,
+    "font": "Georgia, 'Times New Roman', serif",
+    "color": "#243238",
+    "subtitleFont": "Arial",
     "subtitleFontSize": 12,
-    "subtitleColor": "#5d6b75",
+    "subtitleColor": "#56616B",
     "offset": 14
   },
-  "width": 300,
-  "height": 260,
+  "width": 557,
+  "height": 330,
   "projection": {
     "type": "conicEqualArea",
     "parallels": [-18, -36],
@@ -24,7 +29,10 @@
     {
       "data": {
         "url": "https://amandachong03.github.io/FIT3179-DV2-SiauChong/maps/3_australia_states.topojson",
-        "format": {"type": "topojson", "feature": "states"}
+        "format": {
+          "type": "topojson",
+          "feature": "states"
+        }
       },
       "transform": [
         {
@@ -34,33 +42,220 @@
               "url": "https://amandachong03.github.io/FIT3179-DV2-SiauChong/data/3_vet_businesses_by_state.csv"
             },
             "key": "state",
-            "fields": ["employing_businesses_per_100k"]
+            "fields": [
+              "employing_businesses_per_100k",
+              "employing_businesses_2025",
+              "population_june_2025"
+            ]
           }
         }
       ],
-      "mark": "geoshape",
+      "mark": {
+        "type": "geoshape",
+        "stroke": "white",
+        "strokeWidth": 1
+      },
       "encoding": {
         "color": {
           "field": "employing_businesses_per_100k",
+          "type": "quantitative",
+          "scale": {
+            "range": ["#E6F1EF", "#A8D2D0", "#579EA8", "#176273"],
+            "domain": [6, 10]
+          },
+          "legend": {
+            "title": "Vet businesses per 100,000 people",
+            "orient": "none",
+            "direction": "horizontal",
+            "legendX": 0,
+            "legendY": 280,
+            "gradientLength": 220,
+            "gradientThickness": 10,
+            "titleFontSize": 11,
+            "titleFontWeight": "normal",
+            "titleColor": "#243238",
+            "labelFontSize": 10,
+            "labelColor": "#56616B"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "properties.name",
+            "type": "nominal",
+            "title": "State or territory"
+          },
+          {
+            "field": "employing_businesses_per_100k",
+            "type": "quantitative",
+            "title": "Vet businesses per 100,000 people",
+            "format": ".1f"
+          },
+          {
+            "field": "employing_businesses_2025",
+            "type": "quantitative",
+            "title": "Vet businesses with staff",
+            "format": ","
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "from_lon": 149.1,
+            "from_lat": -35.4,
+            "to_lon": 154.2,
+            "to_lat": -38.6
+          },
+          {
+            "from_lon": 142.9,
+            "from_lat": -42.1,
+            "to_lon": 145.8,
+            "to_lat": -42.0
+          }
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "color": "#9aa5ad",
+        "strokeWidth": 0.8
+      },
+      "encoding": {
+        "longitude": {
+          "field": "from_lon",
           "type": "quantitative"
+        },
+        "latitude": {
+          "field": "from_lat",
+          "type": "quantitative"
+        },
+        "longitude2": {
+          "field": "to_lon"
+        },
+        "latitude2": {
+          "field": "to_lat"
         }
       }
     },
     {
-      "data": {"values": [{}]},
+      "data": {
+        "url": "https://amandachong03.github.io/FIT3179-DV2-SiauChong/data/4_state_labels.csv"
+      },
+      "transform": [
+        {
+          "lookup": "state",
+          "from": {
+            "data": {
+              "url": "https://amandachong03.github.io/FIT3179-DV2-SiauChong/data/3_vet_businesses_by_state.csv"
+            },
+            "key": "state",
+            "fields": ["employing_businesses_per_100k"]
+          }
+        },
+        {
+          "calculate": "datum.employing_businesses_per_100k >= 8.5 && datum.state != 'Tasmania' ? 'white' : '#243238'",
+          "as": "ink"
+        },
+        {
+          "calculate": "datum.state == 'New South Wales' ? 'New South|Wales' : datum.label",
+          "as": "label"
+        },
+        {
+          "calculate": "datum.state == 'Australian Capital Territory' ? 154.8 : datum.state == 'Tasmania' ? 142.6 : datum.label_longitude",
+          "as": "label_longitude"
+        },
+        {
+          "calculate": "datum.state == 'Tasmania' ? -41.5 : datum.label_latitude",
+          "as": "label_latitude"
+        }
+      ],
+      "encoding": {
+        "longitude": {
+          "field": "label_longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "label_latitude",
+          "type": "quantitative"
+        }
+      },
+      "layer": [
+        {
+          "mark": {
+            "type": "text",
+            "lineBreak": "|",
+            "baseline": "top",
+            "fontSize": 10,
+            "align": {
+              "expr": "datum.label_align"
+            },
+            "color": {
+              "expr": "datum.ink"
+            }
+          },
+          "encoding": {
+            "text": {
+              "field": "label",
+              "type": "nominal"
+            }
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "baseline": "top",
+            "dy": {
+              "expr": "indexof(datum.label, '|') >= 0 ? 25 : 13"
+            },
+            "fontSize": 13,
+            "fontWeight": "bold",
+            "align": {
+              "expr": "datum.label_align"
+            },
+            "color": {
+              "expr": "datum.ink"
+            }
+          },
+          "encoding": {
+            "text": {
+              "field": "employing_businesses_per_100k",
+              "type": "quantitative",
+              "format": ".1f"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "data": {
+        "values": [{}]
+      },
       "mark": {
         "type": "text",
         "align": "left",
         "baseline": "top",
         "fontSize": 10,
-        "color": "#5d6b75"
+        "fontStyle": "italic",
+        "color": "#56616B"
       },
       "encoding": {
-        "x": {"value": 0},
-        "y": {"value": 272},
-        "text": {"value": "Source: Australian Bureau of Statistics, June 2025"}
+        "x": {
+          "value": 0
+        },
+        "y": {
+          "value": 330
+        },
+        "text": {
+          "value": "Source: Australian Bureau of Statistics, June 2025"
+        }
       }
     }
   ],
-  "config": {"view": {"stroke": null}}
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "Arial"
+  }
 }

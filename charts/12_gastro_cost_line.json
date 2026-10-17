@@ -1,0 +1,426 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "title": {
+    "text": [
+      "Treating a stomach upset now",
+      "costs twice as much as in 2015"
+    ],
+    "subtitle": [
+      "Average cost per pet over a year for gastroenteritis (a",
+      "stomach and gut infection), pet insurance claims, in Australian dollars"
+    ],
+    "anchor": "start",
+    "fontSize": 17,
+    "color": "#243238",
+    "subtitleFontSize": 12,
+    "subtitleColor": "#56616B",
+    "offset": 14,
+    "font": "Georgia, 'Times New Roman', serif",
+    "subtitleFont": "Arial"
+  },
+  "width": 492,
+  "height": 293,
+  "data": {
+    "url": "https://amandachong03.github.io/FIT3179-DV2-SiauChong/data/12_gastro_cost_by_year.csv",
+    "format": {
+      "parse": {
+        "year": "number",
+        "average_cost": "number"
+      }
+    }
+  },
+  "layer": [
+    {
+      "data": {
+        "values": [
+          {
+            "start": 2024,
+            "end": 2025
+          }
+        ]
+      },
+      "mark": {
+        "type": "rect",
+        "color": "#F7E8CF"
+      },
+      "encoding": {
+        "x": {
+          "field": "start",
+          "type": "quantitative"
+        },
+        "x2": {
+          "field": "end"
+        }
+      }
+    },
+    {
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              2014.6,
+              2025
+            ],
+            "zero": false,
+            "nice": false
+          },
+          "axis": {
+            "title": null,
+            "format": "d",
+            "values": [
+              2015,
+              2017,
+              2019,
+              2021,
+              2023,
+              2025
+            ],
+            "grid": false,
+            "domainColor": "#B8C2C5",
+            "tickColor": "#B8C2C5",
+            "labelColor": "#56616B",
+            "labelFontSize": 10
+          }
+        },
+        "y": {
+          "field": "average_cost",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0,
+              1000
+            ]
+          },
+          "axis": {
+            "title": null,
+            "format": "$,.0f",
+            "values": [
+              0,
+              250,
+              500,
+              750,
+              1000
+            ],
+            "domain": false,
+            "ticks": false,
+            "gridColor": "#e6eaec",
+            "labelColor": "#56616B",
+            "labelFontSize": 10
+          }
+        },
+        "color": {
+          "field": "animal",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Dogs",
+              "Cats"
+            ],
+            "range": [
+              "#3978A8",
+              "#D96B55"
+            ]
+          },
+          "legend": {
+            "title": null,
+            "orient": "top-left",
+            "direction": "vertical",
+            "symbolType": "stroke",
+            "symbolStrokeWidth": 2.5,
+            "symbolSize": 400,
+            "labelFontSize": 11,
+            "labelColor": "#243238",
+            "labelFontWeight": "bold",
+            "offset": 6,
+            "padding": 4,
+            "fillColor": "white"
+          }
+        }
+      },
+      "layer": [
+        {
+          "mark": {
+            "type": "line",
+            "strokeWidth": 2.5
+          },
+          "encoding": {
+            "strokeDash": {
+              "field": "animal",
+              "type": "nominal",
+              "scale": {
+                "domain": [
+                  "Dogs",
+                  "Cats"
+                ],
+                "range": [
+                  [
+                    1,
+                    0
+                  ],
+                  [
+                    5,
+                    3
+                  ]
+                ]
+              },
+              "legend": {
+                "title": null,
+                "orient": "top-left",
+                "direction": "vertical",
+                "symbolType": "stroke",
+                "symbolStrokeWidth": 2.5,
+                "symbolSize": 400,
+                "labelFontSize": 11,
+                "labelColor": "#243238",
+                "labelFontWeight": "bold",
+                "offset": 6,
+                "padding": 4,
+                "fillColor": "white"
+              }
+            }
+          }
+        },
+        {
+          "mark": {
+            "type": "point",
+            "opacity": 1,
+            "strokeWidth": 2
+          },
+          "encoding": {
+            "shape": {
+              "value": "circle"
+            },
+            "size": {
+              "condition": {
+                "test": "datum.animal == 'Cats'",
+                "value": 75
+              },
+              "value": 30
+            },
+            "fill": {
+              "condition": {
+                "test": "datum.animal == 'Cats'",
+                "value": "white"
+              },
+              "value": "#3978A8"
+            },
+            "fillOpacity": {
+              "condition": {
+                "test": "datum.animal == 'Cats'",
+                "value": 0
+              },
+              "value": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 2015,
+            "average_cost": 457,
+            "text": "$457",
+            "dy": 15,
+            "dx": -4
+          },
+          {
+            "year": 2025,
+            "average_cost": 956,
+            "text": "$956",
+            "dy": -12,
+            "dx": 0
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "color": "#243238",
+        "align": "center",
+        "dy": {
+          "expr": "datum.dy"
+        },
+        "dx": {
+          "expr": "datum.dx"
+        }
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "average_cost",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "text"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 2023.85,
+            "average_cost": 985
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "fontSize": 10,
+        "color": "#243238",
+        "align": "right",
+        "baseline": "middle",
+        "lineBreak": "|",
+        "lineHeight": 12
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "average_cost",
+          "type": "quantitative"
+        },
+        "text": {
+          "value": "Up $218 (30%)|in one year (2024 to 2025)"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "year": 2019.5,
+            "average_cost": 330
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "fontSize": 10,
+        "fontStyle": "italic",
+        "color": "#56616B",
+        "align": "center",
+        "lineBreak": "|",
+        "lineHeight": 12
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "average_cost",
+          "type": "quantitative"
+        },
+        "text": {
+          "value": "Dogs and cats cost almost the same,|so the two lines sit on top of each other"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {}
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "top",
+        "fontSize": 10,
+        "fontStyle":"italic",
+        "color": "#56616B"
+      },
+      "encoding": {
+        "x": {
+          "value": -40
+        },
+        "y": {
+          "value": 321
+        },
+        "text": {
+          "value": [
+            "Source: PetSure, Pet Health Monitor 2026, page 30",
+            "(insurance claims 2015 to 2025)."
+          ]
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "pivot": "animal",
+          "value": "average_cost",
+          "groupby": [
+            "year"
+          ]
+        },
+        {
+          "calculate": "datum.year - 0.5",
+          "as": "x0"
+        },
+        {
+          "calculate": "datum.year + 0.5",
+          "as": "x1"
+        }
+      ],
+      "mark": {
+        "type": "rect",
+        "color": "white",
+        "opacity": 0.001
+      },
+      "encoding": {
+        "x": {
+          "field": "x0",
+          "type": "quantitative"
+        },
+        "x2": {
+          "field": "x1"
+        },
+        "y": {
+          "datum": 0,
+          "type": "quantitative"
+        },
+        "y2": {
+          "datum": 1000
+        },
+        "tooltip": [
+          {
+            "field": "year",
+            "type": "quantitative",
+            "title": "Year",
+            "format": "d"
+          },
+          {
+            "field": "Dogs",
+            "type": "quantitative",
+            "title": "Dogs (Australian Dollar)",
+            "format": "$,.0f"
+          },
+          {
+            "field": "Cats",
+            "type": "quantitative",
+            "title": "Cats (Australian Dollar)",
+            "format": "$,.0f"
+          }
+        ]
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "Arial"
+  }
+}

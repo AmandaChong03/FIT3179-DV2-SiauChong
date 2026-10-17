@@ -1,55 +1,305 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "title": {
-    "text": ["73 in 100 Australian households have a pet"],
-    "subtitle": ["Each square is 1 in every 100 households, year 2025"],
+    "text": [
+      "Pets live in nearly three-quarters of Australian homes."
+    ],
+    "subtitle": [
+      "Each square represents one in 100 households, 2025."
+    ],
     "anchor": "start",
-    "fontSize": 16,
-    "color": "#23303a",
+    "fontSize": 17,
+    "color": "#243238",
     "subtitleFontSize": 12,
-    "subtitleColor": "#5d6b75",
-    "offset": 14
+    "subtitleColor": "#56616B",
+    "offset": 14,
+    "font": "Georgia, 'Times New Roman', serif",
+    "subtitleFont": "Arial"
   },
   "data": {
     "url": "https://amandachong03.github.io/FIT3179-DV2-SiauChong/data/1_pet_ownership.csv"
   },
   "transform": [
-    {"filter": "datum.year == 2025"},
-    {"calculate": "sequence(0,100)", "as": "square"},
-    {"flatten": ["square"]},
-    {"calculate": "datum.square % 10", "as": "column"},
-    {"calculate": "floor(datum.square / 10)", "as": "row"},
+    {
+      "filter": "datum.year == 2025"
+    },
+    {
+      "calculate": "sequence(0,100)",
+      "as": "square"
+    },
+    {
+      "flatten": [
+        "square"
+      ]
+    },
+    {
+      "calculate": "datum.square % 10",
+      "as": "column"
+    },
+    {
+      "calculate": "floor(datum.square / 10)",
+      "as": "row"
+    },
     {
       "calculate": "datum.square < datum.households_with_pets_percent?'Has a pet':'No pet'",
       "as": "status"
+    },
+    {
+      "calculate": "datum.status == 'Has a pet' ? '73 in 100' : '27 in 100'",
+      "as": "group_share"
+    },
+    {
+      "calculate": "'1 in 100 households'",
+      "as": "square_value"
     }
   ],
-  "width": 240,
-  "height": 240,
-  "mark": {"type": "rect", "stroke": "white", "strokeWidth": 3},
-  "encoding": {
-    "x": {
-      "field": "column",
-      "type": "ordinal",
-      "axis": {
-        "title": "Source: Animal Medicines Australia, Pets in Australia 2025",
-        "titleAnchor": "start",
-        "titleFontSize": 10,
-        "titleFontWeight": "normal",
-        "titleColor": "#5d6b75",
-        "titlePadding": 12,
-        "domain": false,
-        "ticks": false,
-        "labels": false
-      }
+  "hconcat": [
+    {
+      "width": 300,
+      "height": 300,
+      "mark": {
+        "type": "rect",
+        "stroke": "white",
+        "strokeWidth": 3
+      },
+      "encoding": {
+        "x": {
+          "field": "column",
+          "type": "ordinal",
+          "axis": {
+            "title": "Source: Animal Medicines Australia, Pets in Australia 2025",
+            "titleAnchor": "start",
+            "titleFontSize": 10,
+            "titleFontWeight": "normal",
+            "titleColor": "#56616B",
+            "titlePadding": 12,
+            "titleFontStyle":"italic",
+            "domain": false,
+            "ticks": false,
+            "labels": false
+          }
+        },
+        "y": {
+          "field": "row",
+          "type": "ordinal",
+          "sort": "descending",
+          "axis": null
+        },
+        "color": {
+          "field": "status",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Has a pet",
+              "No pet"
+            ],
+            "range": [
+              "#176273",
+              "#D9E0E2"
+            ]
+          },
+          "legend": null
+        }
+      },
+      "tooltip": [
+        {
+          "field": "status",
+          "type": "nominal",
+          "title": "Household"
+        },
+        {
+          "field": "group_share",
+          "type": "nominal",
+          "title": "Group share"
+        },
+        {
+          "field": "square_value",
+          "type": "nominal",
+          "title": "This square"
+        }
+      ]
     },
-    "y": {
-      "field": "row",
-      "type": "ordinal",
-      "sort": "descending",
-      "axis": null
-    },
-    "color": {"field": "status", "type": "nominal"}
-  },
-  "config": {}
+    {
+      "width": 170,
+      "height": 300,
+      "data": {
+        "values": [
+          {}
+        ]
+      },
+      "layer": [
+        {
+          "mark": {
+            "type": "rect",
+            "color": "#176273"
+          },
+          "encoding": {
+            "x": {
+              "value": 0
+            },
+            "x2": {
+              "value": 18
+            },
+            "y": {
+              "value": 50
+            },
+            "y2": {
+              "value": 68
+            }
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "baseline": "middle",
+            "fontSize": 12,
+            "fontWeight": "bold",
+            "color": "#56616B"
+          },
+          "encoding": {
+            "x": {
+              "value": 26
+            },
+            "y": {
+              "value": 59
+            },
+            "text": {
+              "value": "TEAL"
+            }
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "baseline": "top",
+            "fontSize": 34,
+            "fontWeight": "bold",
+            "color": "#176273"
+          },
+          "encoding": {
+            "x": {
+              "value": 0
+            },
+            "y": {
+              "value": 78
+            },
+            "text": {
+              "value": "73 in 100"
+            }
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "baseline": "top",
+            "fontSize": 14,
+            "lineHeight": 18,
+            "lineBreak": "|",
+            "color": "#243238"
+          },
+          "encoding": {
+            "x": {
+              "value": 0
+            },
+            "y": {
+              "value": 120
+            },
+            "text": {
+              "value": "households have|a pet"
+            }
+          }
+        },
+        {
+          "mark": {
+            "type": "rect",
+            "color": "#D9E0E2",
+            "stroke": "#A8B3B7"
+          },
+          "encoding": {
+            "x": {
+              "value": 0
+            },
+            "x2": {
+              "value": 10
+            },
+            "y": {
+              "value": 190
+            },
+            "y2": {
+              "value": 200
+            }
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "baseline": "middle",
+            "fontSize": 9,
+            "fontWeight": "bold",
+            "color": "#8A959A"
+          },
+          "encoding": {
+            "x": {
+              "value": 16
+            },
+            "y": {
+              "value": 195
+            },
+            "text": {
+              "value": "PALE GREY"
+            }
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "baseline": "top",
+            "fontSize": 15,
+            "fontWeight": "bold",
+            "color": "#8A959A"
+          },
+          "encoding": {
+            "x": {
+              "value": 0
+            },
+            "y": {
+              "value": 208
+            },
+            "text": {
+              "value": "27 in 100"
+            }
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "baseline": "top",
+            "fontSize": 10,
+            "lineHeight": 13,
+            "lineBreak": "|",
+            "color": "#8A959A"
+          },
+          "encoding": {
+            "x": {
+              "value": 0
+            },
+            "y": {
+              "value": 228
+            },
+            "text": {
+              "value": "households do not|have a pet"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "config": {"view":{"stroke":null}},
+  "spacing": 80
 }

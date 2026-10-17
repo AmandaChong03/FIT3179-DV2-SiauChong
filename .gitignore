@@ -1,0 +1,10 @@
+# Mac system files
+.DS_Store
+
+# Local backups made while polishing (not part of the website)
+_layout_backup_*/
+
+# Local layout editor (a working tool, not part of the website)
+editor.html
+editor.css
+editor.js

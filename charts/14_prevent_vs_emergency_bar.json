@@ -1,0 +1,191 @@
+{
+  "schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "title": {
+    "text": [
+      "One tick emergency costs as much",
+      "as 29 years of prevention"
+    ],
+    "subtitle": [
+      "What an Australian dog owner spends in a year on",
+      "tick, flea, and worm products, compared with the average bill",
+      "for treating one dog with tick paralysis (Australian dollars)"
+    ],
+    "anchor": "start",
+    "font": "Georgia, 'Times New Roman', serif",
+    "fontSize": 17,
+    "color": "#243238",
+    "subtitleFont": "Arial",
+    "subtitleFontSize": 12,
+    "subtitleColor": "#56616B",
+    "offset": 14
+  },
+  "width": 407,
+  "height": 130,
+  "data": {
+    "url": "https://amandachong03.github.io/FIT3179-DV2-SiauChong/data/14_prevention_vs_emergency.csv",
+    "format": {
+      "parse": {
+        "cost": "number",
+        "bar_order": "number"
+      }
+    }
+  },
+  "encoding": {
+    "y": {
+      "field": "item",
+      "type": "nominal",
+      "sort": {
+        "field": "bar_order",
+        "op": "min",
+        "order": "ascending"
+      },
+      "scale": {
+        "paddingInner": 0.35,
+        "paddingOuter": 0.2
+      },
+      "axis": {
+        "title": null,
+        "domain": false,
+        "ticks": false,
+        "labelPadding": 8,
+        "labelFontSize": 11,
+        "labelColor": "#243238",
+        "labelLineHeight": 13,
+        "labelBaseline": "middle",
+        "labelExpr": "split(datum.label, '|')"
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "bar"
+      },
+      "encoding": {
+        "x": {
+          "field": "cost",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0,
+              3600
+            ]
+          },
+          "axis": null
+        },
+        "color": {
+          "field": "bar_order",
+          "type": "ordinal",
+          "scale": {
+            "domain": [
+              1,
+              2
+            ],
+            "range": [
+              "#3978A8",
+              "#B84D33"
+            ]
+          },
+          "legend": null
+        },
+        "tooltip": [
+          {
+            "field": "label",
+            "type": "nominal",
+            "title": "Cost"
+          },
+          {
+            "field": "source",
+            "type": "nominal",
+            "title": "Source"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.bar_order == 1"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 6,
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "color": "#3978A8"
+      },
+      "encoding": {
+        "x": {
+          "field": "cost",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "label"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.bar_order == 2"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "middle",
+        "dx": -8,
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "color": "white"
+      },
+      "encoding": {
+        "x": {
+          "field": "cost",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "label"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {}
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "top",
+        "fontSize": 10,
+        "color": "#56616B",
+        "fontStyle": "italic"
+      },
+      "encoding": {
+        "x": {
+          "value": -150
+        },
+        "y": {
+          "value": 145
+        },
+        "text": {
+          "value": [
+            "Sources: Animal Medicines Australia, Pets in Australia 2025, page 42;",
+            "PetSure, Pet Health Monitor 2026, page 23."
+          ]
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "Arial"
+  }
+}

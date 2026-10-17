@@ -1,35 +1,59 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "title": {
-    "text": ["More vets now work for corporate chains"],
+    "text": [
+      "More vets now work for big company chains"
+    ],
     "subtitle": [
       "Share of vets who answered the workforce survey",
-      "who work in a corporate-owned practice"
+      "who work at a clinic owned by a company"
     ],
     "anchor": "start",
-    "fontSize": 16,
-    "color": "#23303a",
+    "fontSize": 17,
+    "color": "#243238",
     "subtitleFontSize": 12,
-    "subtitleColor": "#5d6b75",
-    "offset": 14
+    "subtitleColor": "#56616B",
+    "offset": 14,
+    "font": "Georgia, 'Times New Roman', serif",
+    "subtitleFont": "Arial"
   },
-  "width": 320,
+  "width": 426,
   "height": 280,
   "data": {
     "url": "https://amandachong03.github.io/FIT3179-DV2-SiauChong/data/6_corporate_practices.csv"
   },
   "transform": [
-    {"calculate": "datum.percent_corporate + '%'", "as": "percent_label"}
+    {
+      "calculate": "datum.percent_corporate + '%'",
+      "as": "percent_label"
+    }
   ],
   "layer": [
     {
-      "data": {"values": [{}]},
-      "mark": {"type": "rect", "color": "#f5ead6"},
+      "data": {
+        "values": [
+          {}
+        ]
+      },
+      "mark": {
+        "type": "rect",
+        "color": "#F7E8CF"
+      },
       "encoding": {
-        "x": {"datum": 2021, "type": "quantitative"},
-        "x2": {"datum": 2023},
-        "y": {"datum": 0, "type": "quantitative"},
-        "y2": {"datum": 30}
+        "x": {
+          "datum": 2021,
+          "type": "quantitative"
+        },
+        "x2": {
+          "datum": 2023
+        },
+        "y": {
+          "datum": 0,
+          "type": "quantitative"
+        },
+        "y2": {
+          "datum": 30
+        }
       }
     },
     {
@@ -37,27 +61,49 @@
         "x": {
           "field": "year",
           "type": "quantitative",
-          "scale": {"domain": [2011, 2024.5], "zero": false},
+          "scale": {
+            "domain": [
+              2011,
+              2024.5
+            ],
+            "zero": false
+          },
           "axis": {
-            "values": [2012, 2016, 2018, 2021, 2023],
+            "values": [
+              2012,
+              2016,
+              2018,
+              2021,
+              2023
+            ],
             "labelExpr": "datum.value == 2023 ? '2023/24' : datum.value",
             "title": null,
             "grid": false,
             "domain": false,
             "ticks": false,
             "labelFontSize": 10,
-            "labelColor": "#23303a"
+            "labelColor": "#243238"
           }
         },
         "y": {
           "field": "percent_corporate",
           "type": "quantitative",
-          "scale": {"domain": [0, 30]},
+          "scale": {
+            "domain": [
+              0,
+              30
+            ]
+          },
           "axis": {
             "title": null,
-            "values": [0, 10, 20, 30],
+            "values": [
+              0,
+              10,
+              20,
+              30
+            ],
             "labelExpr": "datum.value + '%'",
-            "labelColor": "#5d6b75",
+            "labelColor": "#56616B",
             "domain": false,
             "ticks": false,
             "gridColor": "#e6eaec"
@@ -65,22 +111,32 @@
         }
       },
       "layer": [
-        {"mark": {"type": "line", "color": "#9a6100", "strokeWidth": 3}},
+        {
+          "mark": {
+            "type": "line",
+            "color": "#3978A8",
+            "strokeWidth": 3
+          }
+        },
         {
           "mark": {
             "type": "point",
             "filled": true,
             "size": 80,
             "opacity": 1,
-            "color": "#9a6100"
+            "color": "#3978A8"
           },
           "encoding": {
             "tooltip": [
-              {"field": "year_label", "type": "nominal", "title": "Survey"},
+              {
+                "field": "year_label",
+                "type": "nominal",
+                "title": "Survey"
+              },
               {
                 "field": "percent_label",
                 "type": "nominal",
-                "title": "Vets in corporate-owned practices"
+                "title": "Vets at company-owned clinics"
               }
             ]
           }
@@ -90,80 +146,120 @@
             "type": "text",
             "fontSize": 11,
             "fontWeight": "bold",
-            "color": "#9a6100",
-            "dy": {"expr": "datum.year == 2021 ? 12 : -14"},
-            "dx": {"expr": "datum.year == 2021 ? 6 : 0"},
-            "align": {"expr": "datum.year == 2021 ? 'left' : 'center'"}
+            "color": "#3978A8",
+            "dy": {
+              "expr": "datum.year == 2021 ? 12 : -14"
+            },
+            "dx": {
+              "expr": "datum.year == 2021 ? 6 : 0"
+            },
+            "align": {
+              "expr": "datum.year == 2021 ? 'left' : 'center'"
+            }
           },
-          "encoding": {"text": {"field": "percent_label"}}
+          "encoding": {
+            "text": {
+              "field": "percent_label"
+            }
+          }
         }
       ]
     },
     {
-      "data": {"values": [{}]},
+      "data": {
+        "values": [
+          {}
+        ]
+      },
       "mark": {
         "type": "text",
         "align": "right",
         "baseline": "top",
         "fontSize": 11,
         "fontWeight": "bold",
-        "color": "#23303a",
+        "color": "#243238",
         "lineBreak": "|",
         "dx": -6
       },
       "encoding": {
-        "x": {"datum": 2021, "type": "quantitative"},
-        "y": {"datum": 22, "type": "quantitative"},
-        "text": {"value": "Nearly tripled|in two years"}
+        "x": {
+          "datum": 2021,
+          "type": "quantitative"
+        },
+        "y": {
+          "datum": 22,
+          "type": "quantitative"
+        },
+        "text": {
+          "value": "Nearly tripled|in two years"
+        }
       }
     },
     {
-      "data": {"values": [{}]},
+      "data": {
+        "values": [
+          {}
+        ]
+      },
       "mark": {
         "type": "text",
         "align": "right",
         "baseline": "top",
         "fontSize": 10,
-        "color": "#5d6b75",
+        "color": "#56616B",
         "dx": -6
-      },
-      "encoding": {
-        "x": {"datum": 2021, "type": "quantitative"},
-        "y": {"datum": 18.4, "type": "quantitative"},
-        "text": {"value": "8% → 23%"}
       }
     },
     {
-      "data": {"values": [{}]},
+      "data": {
+        "values": [
+          {}
+        ]
+      },
       "mark": {
         "type": "text",
         "align": "left",
         "baseline": "top",
         "fontSize": 9.5,
         "fontStyle": "italic",
-        "color": "#5d6b75",
+        "color": "#56616B",
         "lineBreak": "|"
       },
       "encoding": {
-        "x": {"datum": 2011.6, "type": "quantitative"},
-        "y": {"datum": 29.5, "type": "quantitative"},
+        "x": {
+          "datum": 2011.6,
+          "type": "quantitative"
+        },
+        "y": {
+          "datum": 29.5,
+          "type": "quantitative"
+        },
         "text": {
-          "value": "Corporate-owned practice: a clinic run by|a company or chain, not by its own vets"
+          "value": "Company-owned clinic: run by a business| or chain, not by its own vets"
         }
       }
     },
     {
-      "data": {"values": [{}]},
+      "data": {
+        "values": [
+          {}
+        ]
+      },
       "mark": {
         "type": "text",
         "align": "left",
         "baseline": "top",
-        "fontSize": 9,
-        "color": "#5d6b75"
+        "fontSize": 10,
+        "fontStyle":"italic",
+        "color": "#56616B"
       },
       "encoding": {
-        "x": {"value": -30},
-        "y": {"value": 305},
+        "x": {
+          "value": -30
+        },
+        "y": {
+          "value": 305
+        },
         "text": {
           "value": [
             "Source: Australian Veterinary Association,",
@@ -173,5 +269,9 @@
       }
     }
   ],
-  "config": {"view": {"stroke": null}}
+  "config": {
+    "view": {
+      "stroke": null
+    }
+  }
 }

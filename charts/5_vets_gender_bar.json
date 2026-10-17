@@ -1,19 +1,25 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "title": {
-    "text": ["Young vets are mostly women,"],
-    "subtitle": ["older vets mostly men"],
+    "text": [
+      "Young vets are mostly women,"
+    ],
+    "subtitle": [
+      "older vets mostly men"
+    ],
     "anchor": "start",
-    "fontSize": 16,
-    "color": "#c2185b",
+    "fontSize": 17,
+    "color": "#7A4E9C",
     "subtitleFontSize": 16,
     "subtitleFontWeight": "bold",
-    "subtitleColor": "#1f5fa8",
+    "subtitleColor": "#2B7F80",
     "subtitlePadding": 2,
-    "offset": 8
+    "offset": 8,
+    "font": "Georgia, 'Times New Roman', serif",
+    "subtitleFont": "Georgia, 'Times New Roman', serif"
   },
-  "width": 320,
-  "height": 270,
+  "width": 697,
+  "height": 220,
   "data": {
     "url": "https://amandachong03.github.io/FIT3179-DV2-SiauChong/data/5_vets_age_gender.csv"
   },
@@ -24,9 +30,15 @@
     },
     {
       "joinaggregate": [
-        {"op": "sum", "field": "respondents", "as": "age_group_total"}
+        {
+          "op": "sum",
+          "field": "respondents",
+          "as": "age_group_total"
+        }
       ],
-      "groupby": ["age_group"]
+      "groupby": [
+        "age_group"
+      ]
     },
     {
       "calculate": "datum.respondents / datum.age_group_total",
@@ -59,7 +71,7 @@
         "title": null,
         "domain": false,
         "ticks": false,
-        "labelColor": "#23303a",
+        "labelColor": "#243238",
         "labelFontSize": 10,
         "labelPadding": 4
       }
@@ -67,37 +79,69 @@
   },
   "layer": [
     {
-      "mark": {"type": "bar", "height": 16},
+      "mark": {
+        "type": "bar",
+        "height": 14
+      },
       "encoding": {
         "x": {
           "field": "signed_respondents",
           "type": "quantitative",
-          "scale": {"domain": [-260, 260]},
+          "scale": {
+            "domain": [
+              -260,
+              260
+            ]
+          },
           "axis": {
             "title": "Number of vets who answered",
             "titleFontSize": 10,
             "titleFontWeight": "normal",
-            "titleColor": "#5d6b75",
+            "titleColor": "#56616B",
             "labelExpr": "abs(datum.value)",
-            "labelColor": "#5d6b75",
-            "values": [-200, -100, 0, 100, 200],
+            "labelColor": "#56616B",
+            "values": [
+              -200,
+              -100,
+              0,
+              100,
+              200
+            ],
             "domain": false,
             "ticks": false,
             "gridColor": "#e6eaec"
           }
         },
         "color": {
+          "condition": {
+            "test":"datum.gender == 'Women' && datum.age_group == '30-34'",
+            "value":"#4E2C70"
+          },
           "field": "gender",
           "type": "nominal",
           "scale": {
-            "domain": ["Women", "Men"],
-            "range": ["#c2185b", "#1f5fa8"]
+            "domain": [
+              "Women",
+              "Men"
+            ],
+            "range": [
+              "#7A4E9C",
+              "#3AA0A0"
+            ]
           },
           "legend": null
         },
         "tooltip": [
-          {"field": "age_label", "type": "nominal", "title": "Age"},
-          {"field": "gender", "type": "nominal", "title": "Gender"},
+          {
+            "field": "age_label",
+            "type": "nominal",
+            "title": "Age"
+          },
+          {
+            "field": "gender",
+            "type": "nominal",
+            "title": "Gender"
+          },
           {
             "field": "respondents",
             "type": "quantitative",
@@ -115,8 +159,16 @@
     {
       "data": {
         "values": [
-          {"label": "Women", "x": -140, "colour": "#c2185b"},
-          {"label": "Men", "x": 140, "colour": "#1f5fa8"}
+          {
+            "label": "Women",
+            "x": -140,
+            "colour": "#7A4E9C"
+          },
+          {
+            "label": "Men",
+            "x": 140,
+            "colour": "#2B7F80"
+          }
         ]
       },
       "mark": {
@@ -127,57 +179,116 @@
         "dy": 3
       },
       "encoding": {
-        "x": {"field": "x", "type": "quantitative"},
-        "y": {"value": 0},
-        "text": {"field": "label"},
-        "color": {"field": "colour", "type": "nominal", "scale": null}
+        "x": {
+          "field": "x",
+          "type": "quantitative"
+        },
+        "y": {
+          "value": 0
+        },
+        "text": {
+          "field": "label"
+        },
+        "color": {
+          "field": "colour",
+          "type": "nominal",
+          "scale": null
+        }
       }
     },
     {
-      "data": {"values": [{}]},
+      "data": {
+        "values": [
+          {}
+        ]
+      },
       "mark": {
         "type": "rule",
-        "color": "#5d6b75",
+        "color": "#56616B",
         "strokeWidth": 1,
-        "strokeDash": [4, 3],
+        "strokeDash": [
+          4,
+          3
+        ],
         "yOffset": 1
       },
       "encoding": {
-        "x": {"datum": -280},
-        "x2": {"datum": 280},
-        "y": {"datum": "65–69", "bandPosition": 1}
+        "x": {
+          "datum": -280
+        },
+        "x2": {
+          "datum": 280
+        },
+        "y": {
+          "datum": "65–69",
+          "bandPosition": 1
+        }
       }
     },
     {
-      "data": {"values": [{}]},
-      "mark": {"type": "rect", "fill": "white", "yOffset": -29, "y2Offset": -1},
+      "data": {
+        "values": [
+          {}
+        ]
+      },
+      "mark": {
+        "type": "rect",
+        "fill": "white",
+        "yOffset": -29,
+        "y2Offset": -1
+      },
       "encoding": {
-        "x": {"datum": 104},
-        "x2": {"datum": 270},
-        "y": {"datum": "65–69", "bandPosition": 1},
-        "y2": {"datum": "65–69", "bandPosition": 1}
+        "x": {
+          "datum": 104
+        },
+        "x2": {
+          "datum": 270
+        },
+        "y": {
+          "datum": "65–69",
+          "bandPosition": 1
+        },
+        "y2": {
+          "datum": "65–69",
+          "bandPosition": 1
+        }
       }
     },
     {
-      "data": {"values": [{}]},
+      "data": {
+        "values": [
+          {}
+        ]
+      },
       "mark": {
         "type": "text",
         "align": "left",
         "baseline": "top",
-        "fontSize": 9,
+        "fontSize": 10,
         "fontWeight": "bold",
-        "color": "#23303a",
+        "color": "#243238",
         "lineBreak": "|",
         "dy": -23
       },
       "encoding": {
-        "x": {"datum": 110},
-        "y": {"datum": "65–69", "bandPosition": 1},
-        "text": {"value": "From 65, men|outnumber women"}
+        "x": {
+          "datum": 110
+        },
+        "y": {
+          "datum": "65–69",
+          "bandPosition": 1
+        },
+        "text": {
+          "value": "From 65, men|outnumber women"
+        }
       }
     },
     {
-      "data": {"values": [{}]},
+      "data": {
+        "values": [
+          {}
+        ]
+      },
       "mark": {
         "type": "text",
         "align": "left",
@@ -187,41 +298,65 @@
         "color": "white"
       },
       "encoding": {
-        "x": {"datum": -246},
-        "y": {"datum": "30–34", "bandPosition": 0.5},
-        "text": {"value": "Largest group: 252 women"}
+        "x": {
+          "datum": -246
+        },
+        "y": {
+          "datum": "30–34",
+          "bandPosition": 0.5
+        },
+        "text": {
+          "value": "Largest group: 252 women"
+        }
       }
     },
     {
-      "data": {"values": [{}]},
+      "data": {
+        "values": [
+          {}
+        ]
+      },
       "mark": {
         "type": "text",
         "align": "left",
         "baseline": "top",
-        "fontSize": 10,
-        "color": "#5d6b75",
+        "fontSize": 12,
+        "color": "#56616B",
         "lineBreak": "|"
       },
       "encoding": {
-        "x": {"value": -62},
-        "y": {"value": -42},
+        "x": {
+          "value": -62
+        },
+        "y": {
+          "value": -42
+        },
         "text": {
           "value": "Vets who answered the 2023/24 workforce|survey, by age and gender"
         }
       }
     },
     {
-      "data": {"values": [{}]},
+      "data": {
+        "values": [
+          {}
+        ]
+      },
       "mark": {
         "type": "text",
         "align": "left",
         "baseline": "top",
-        "fontSize": 9,
-        "color": "#5d6b75"
+        "fontSize": 10,
+        "fontStyle":"italic",
+        "color": "#56616B"
       },
       "encoding": {
-        "x": {"value": -62},
-        "y": {"value": 310},
+        "x": {
+          "value": -62
+        },
+        "y": {
+          "value": 260
+        },
         "text": {
           "value": [
             "Source: Australian Veterinary Association,",
@@ -231,5 +366,9 @@
       }
     }
   ],
-  "config": {"view": {"stroke": null}}
+  "config": {
+    "view": {
+      "stroke": null
+    }
+  }
 }

@@ -1,20 +1,25 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "title": {
-    "text": ["Clinics with only one vet wait", "longest to fill a job"],
+    "text": [
+      "Clinics with only one vet wait",
+      "longest to fill a job"
+    ],
     "subtitle": [
-      "Each row shows how long jobs took to fill at clinics",
-      "of that size, 2023/24. Each row adds up to 100%."
+      "Each row shows job-filling time by clinic size.",
+      "Data covers 2023/24; each row totals 100%."
     ],
     "anchor": "start",
-    "fontSize": 16,
-    "color": "#23303a",
+    "fontSize": 17,
+    "color": "#243238",
     "subtitleFontSize": 12,
-    "subtitleColor": "#5d6b75",
-    "offset": 14
+    "subtitleColor": "#56616B",
+    "offset": 14,
+    "font": "Georgia, 'Times New Roman', serif",
+    "subtitleFont": "Arial"
   },
-  "width": 330,
-  "height": 230,
+  "width": 424,
+  "height": 247,
   "data": {
     "url": "https://amandachong03.github.io/FIT3179-DV2-SiauChong/data/8_time_to_fill_by_clinic_size.csv"
   },
@@ -34,17 +39,19 @@
         "x": {
           "field": "time_to_fill",
           "type": "ordinal",
-          "sort": {"field": "time_order"},
+          "sort": {
+            "field": "time_order"
+          },
           "axis": {
             "title": "How long the job took to fill →",
             "titleAnchor": "start",
             "titleFontSize": 10,
             "titleFontWeight": "bold",
-            "titleColor": "#23303a",
+            "titleColor": "#243238",
             "orient": "top",
             "labelAngle": 0,
             "labelFontSize": 9,
-            "labelColor": "#23303a",
+            "labelColor": "#243238",
             "domain": false,
             "ticks": false,
             "labelPadding": 4
@@ -53,13 +60,15 @@
         "y": {
           "field": "size_label",
           "type": "ordinal",
-          "sort": {"field": "size_order"},
+          "sort": {
+            "field": "size_order"
+          },
           "axis": {
             "title": null,
             "labelExpr": "split(datum.value, '|')",
             "labelLineHeight": 13,
             "labelFontSize": 10,
-            "labelColor": "#23303a",
+            "labelColor": "#243238",
             "domain": false,
             "ticks": false
           }
@@ -67,12 +76,25 @@
       },
       "layer": [
         {
-          "mark": {"type": "rect", "stroke": "white", "strokeWidth": 2},
+          "mark": {
+            "type": "rect",
+            "stroke": "white",
+            "strokeWidth": 2
+          },
           "encoding": {
             "color": {
               "field": "percent_of_clinic_size",
               "type": "quantitative",
-              "scale": {"domain": [0, 70], "range": ["#f6efe3", "#9a6100"]},
+              "scale": {
+                "domain": [
+                  0,
+                  70
+                ],
+                "range": [
+                  "#E6F1EF",
+                  "#176273"
+                ]
+              },
               "legend": null
             },
             "tooltip": [
@@ -100,66 +122,99 @@
           }
         },
         {
-          "mark": {"type": "text", "fontSize": 11, "fontWeight": "bold"},
+          "mark": {
+            "type": "text",
+            "fontSize": 11,
+            "fontWeight": "bold"
+          },
           "encoding": {
-            "text": {"field": "percent_label"},
+            "text": {
+              "field": "percent_label"
+            },
             "color": {
               "condition": {
                 "test": "datum.percent_of_clinic_size >= 60",
                 "value": "white"
               },
-              "value": "#23303a"
+              "value": "#243238"
             }
           }
         }
       ]
     },
     {
-      "data": {"values": [{}]},
+      "data": {
+        "values": [
+          {}
+        ]
+      },
       "mark": {
         "type": "text",
         "align": "right",
         "baseline": "bottom",
         "fontSize": 10,
         "fontWeight": "bold",
-        "color": "#23303a"
+        "color": "#243238"
       },
       "encoding": {
-        "x": {"value": -6},
-        "y": {"value": 10},
-        "text": {"value": "Clinic size"}
+        "x": {
+          "value": -6
+        },
+        "y": {
+          "value": 10
+        },
+        "text": {
+          "value": "Clinic size"
+        }
       }
     },
     {
-      "data": {"values": [{}]},
+      "data": {
+        "values": [
+          {}
+        ]
+      },
       "mark": {
         "type": "text",
         "align": "left",
         "baseline": "middle",
         "fontSize": 10,
-        "color": "#23303a",
+        "color": "#243238",
         "lineBreak": "|"
       },
       "encoding": {
-        "x": {"value": 340},
-        "y": {"value": 15},
+        "x": {
+          "value": 434
+        },
+        "y": {
+          "value": 15
+        },
         "text": {
           "value": "7 in 10 jobs at|one-vet clinics|stayed empty for|over a year"
         }
       }
     },
     {
-      "data": {"values": [{}]},
+      "data": {
+        "values": [
+          {}
+        ]
+      },
       "mark": {
         "type": "text",
         "align": "left",
         "baseline": "top",
         "fontSize": 10,
-        "color": "#5d6b75"
+        "fontStyle":"italic",
+        "color": "#56616B"
       },
       "encoding": {
-        "x": {"value": -150},
-        "y": {"value": 245},
+        "x": {
+          "value": -150
+        },
+        "y": {
+          "value": 262
+        },
         "text": {
           "value": [
             "Source: Australian Veterinary Association, Workforce Survey 2023/24,",
@@ -169,5 +224,9 @@
       }
     }
   ],
-  "config": {"view": {"stroke": null}}
+  "config": {
+    "view": {
+      "stroke": null
+    }
+  }
 }

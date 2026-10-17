@@ -1,13 +1,13 @@
 :root {                                   
-  --page: #eef5f4;                        /* pale mint page background */
+  --page: #FAF6EE;                        /* warm, calm clinic background */
   --panel: #ffffff;                       /* white chart cards */
-  --ink: #1f2d33;                         /* main text colour (near black) */
-  --muted: #56666d;                       /* grey for small, less important text */
-  --teal: #0f6e6e;                        /* links; same teal as the charts */
-  --deep: #0b4a4d;                        /* dark teal for the banner, footer and headings */
-  --mint: #cfe3e0;                        /* soft mint for text cards */
-  --amber: #f2c46d;                       /* number badges, kicker label, ticks */
-  --rule: #d6e4e2;                        /* thin lines, dashed placeholder border */
+  --ink: #243238;                         /* gentle charcoal */
+  --muted: #56616B;                       /* slate for supporting text */
+  --teal: #3978A8;                        /* accessible primary blue */
+  --deep: #164B5B;                        /* calm veterinary-clinic blue */
+  --mint: #DCEBE8;                        /* soft sea-glass text cards */
+  --amber: #E3A44F;                       /* warm pet-tag accent */
+  --rule: #CADAD7;                        /* subtle sea-glass dividers */
   --shadow: 0 1px 2px rgba(11, 74, 77, 0.06), 0 6px 18px rgba(11, 74, 77, 0.08);  /* two soft shadows: a tight one + a wide blurry one */
   --heading-font: "Lexend", "Helvetica Neue", Arial, sans-serif;    /* first font that loads is used; the others are backups */
   --body-font: "Nunito Sans", "Helvetica Neue", Arial, sans-serif;
@@ -36,9 +36,17 @@ body {
 
 /* Title */
 .page-header {
-  position: relative;                     /* lets the paw print (::after) be placed inside it */
-  padding-top: 64px;                      /* space above the title */
-  padding-bottom: 64px;                   /* space below the intro */
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(320px, .95fr) 120px;
+  grid-template-areas:
+    "kicker intro art"
+    "title  intro art";
+  column-gap: clamp(24px, 3vw, 44px);
+  row-gap: 12px;
+  align-items: center;
+  padding-top: 44px;
+  padding-bottom: 44px;
   color: #fff;                            /* white text */
   background: var(--deep);
   box-shadow: 0 0 0 100vmax var(--deep);  /* a huge shadow in the same colour stretches the band to both screen edges */
@@ -47,43 +55,53 @@ body {
 /* soft circles in the corner, a hint of paw pads (drawn by CSS, no image file) */
 .page-header::after {                     /* ::after = an extra decorative box added after the header's content */
   content: "";                            /* needed for ::after to appear; empty because it is only a picture */
-  position: absolute;                     /* placed freely inside the header */
-  right: 24px; top: 50%;                  /* right side, vertically in the middle */
-  width: 170px; height: 150px;
-  transform: translateY(-50%);            /* moves it up by half its height so it is truly centred */
+  grid-area: art;
+  width: 120px; height: 106px;
+  justify-self: center;
+  align-self: center;
   background:                             /* five see-through white circles: one big pad + four toes */
-    radial-gradient(circle at 50% 72%, rgba(255,255,255,.12) 0 38px, transparent 39px),
-    radial-gradient(circle at 18% 34%, rgba(255,255,255,.12) 0 17px, transparent 18px),
-    radial-gradient(circle at 40% 14%, rgba(255,255,255,.12) 0 17px, transparent 18px),
-    radial-gradient(circle at 62% 14%, rgba(255,255,255,.12) 0 17px, transparent 18px),
-    radial-gradient(circle at 84% 34%, rgba(255,255,255,.12) 0 17px, transparent 18px);
+    radial-gradient(circle at 50% 72%, rgba(255,255,255,.12) 0 27px, transparent 28px),
+    radial-gradient(circle at 18% 34%, rgba(255,255,255,.12) 0 12px, transparent 13px),
+    radial-gradient(circle at 40% 14%, rgba(255,255,255,.12) 0 12px, transparent 13px),
+    radial-gradient(circle at 62% 14%, rgba(255,255,255,.12) 0 12px, transparent 13px),
+    radial-gradient(circle at 84% 34%, rgba(255,255,255,.12) 0 12px, transparent 13px);
 }
 .kicker {                                 /* the small amber label above the title */
+  grid-area: kicker;
+  justify-self: start;
+  align-self: end;
   display: inline-block;                  /* only as wide as its text, so it looks like a pill */
-  margin: 0 0 14px;                       /* margin order: top right bottom left (left/right missing = same as right) */
+  margin: 0;
   padding: 4px 12px;                      /* 4 px top and bottom, 12 px left and right */
   border-radius: 999px;                   /* very round corners = pill shape */
   background: var(--amber);
-  color: var(--deep);
+  color: var(--ink);
   font-weight: 700;                       /* bold */
   font-size: 0.8rem;                      /* 0.8 × 16 px ≈ 13 px */
   letter-spacing: 0.06em;                 /* a little space between letters */
   text-transform: uppercase;              /* shown in CAPITALS (the HTML text stays normal) */
 }
 h1 {                                      /* the main page title */
-  margin: 0 0 14px;
+  grid-area: title;
+  align-self: start;
+  margin: 0;
   max-width: 20ch;                        /* about 20 characters per line, so the title breaks nicely */
-  font-family: var(--heading-font);
-  font-weight: 600;                       /* semi-bold */
+  font-family: "Bree Serif", Georgia, serif;
+  font-weight: 400;
   font-size: 2.9rem; 
-  line-height: 1.12;                      /* tight lines for big text */
+  line-height: 1.08;
+  letter-spacing: .01em;
   color: #fff;
 }
 .intro {
-  max-width: 58ch;                        
+  grid-area: intro;
+  width: 100%;
+  max-width: 39ch;
   margin: 0;
+  padding: 18px 0 18px 22px;
+  border-left: 3px solid var(--amber);
   font-size: 1.15rem;
-  color: #d9ecea;                         
+  color: #DCEBE8;                         
 }
 
 
@@ -102,7 +120,7 @@ h2 .num {                                 /* the amber number badge inside each 
   width: 40px; height: 40px; line-height: 40px;
   border-radius: 63px; 
   background: var(--amber);
-  color: var(--deep);
+  color: var(--ink);
   font-size: 1.05rem;
   text-align: center;
 }
@@ -149,9 +167,9 @@ h3 { margin: 0 0 6px; font-family: var(--heading-font); font-weight: 600; font-s
   border-radius: 10px;
 }
 /* once the chart has loaded (the loader adds class "loaded"): no placeholder, the card wraps the chart exactly */
-.chart.loaded { width: auto; min-height: 0; border: none; display: block; }   /* size now comes from the chart itself */
-.chart.loaded .vega-embed { display: block; padding: 0; }                    /* the wrapper Vega-Embed adds: no extra space */
-.chart.loaded svg { display: block; max-width: 100%; height: auto; }         /* the chart picture; only shrinks on screens narrower than the chart */
+.chart.loaded { width: 100%; min-height: 0; border: none; display: block; }   /* use the card width so small charts do not sit in a corner */
+.chart.loaded .vega-embed { display: block; width: 100%; padding: 0; }        /* the wrapper Vega-Embed adds: no extra space */
+.chart.loaded svg { display: block; width: 100%; max-width: 100%; height: auto; } /* scale each SVG evenly to its card */
 .chart.loaded .vega-bindings { margin-top: 6px; }                            /* the Dogs/Cats switch under charts 10 and 11 */
 
 
@@ -177,7 +195,7 @@ h3 { margin: 0 0 6px; font-family: var(--heading-font); font-weight: 600; font-s
   width: 24px; height: 24px; line-height: 24px;
   border-radius: 50%;                     /* 50% = a perfect circle */
   background: var(--amber);
-  color: var(--deep);
+  color: var(--ink);
   font-weight: 700;
   text-align: center;
   font-size: 0.85rem;
@@ -193,14 +211,14 @@ h3 { margin: 0 0 6px; font-family: var(--heading-font); font-weight: 600; font-s
   box-shadow: 0 0 0 100vmax var(--deep);  /* same full-width trick as the banner */
   clip-path: inset(0 -100vmax);
   font-size: 0.9rem;                      /* slightly smaller text */
-  color: #cfe3e0;                         /* light mint text on dark teal */
+  color: #DCEBE8;                         /* light sea-glass text on deep blue */
 }
 .page-footer h2 { font-size: 1.3rem; color: #fff; }
 .page-footer h3 { color: #fff; margin-top: 3px; }
 .sources { margin: 0; padding-left: 1.2em; }       /* source list: small indent for the bullets */
 .sources li { margin-bottom: 4px; }                /* a little space between sources */
 a { color: var(--teal); }                          /* link colour on the light page */
-.page-footer a { color: #9fe0d6; }                 /* lighter link colour so it shows on the dark footer */
+.page-footer a { color: #9ED9E2; }                 /* light aqua link on the dark footer */
 
 
 /* Phones and narrow windows (860 px wide or less) */
@@ -208,5 +226,291 @@ a { color: var(--teal); }                          /* link colour on the light p
   .text-box { max-width: none; flex-basis: 100%; }   /* text cards use the full width */
   h1 { font-size: 2.1rem; }               /* smaller title so it fits */
   .page-header::after { display: none; }  /* hide the paw print, no room for it */
+  .page-header { display: block; padding-top: 44px; padding-bottom: 44px; }
+  .kicker { margin-bottom: 14px; }
+  h1 { margin-bottom: 16px; }
+  .intro { max-width: 58ch; padding: 0; border-left: 0; }
   .section-intro { margin-left: 0; }      /* no indent on small screens */
 }
+
+
+/* ---------- Story grid: 12 equal columns, 18 px gutters ----------
+   Every row fills the full width, so the left and right edges line up
+   in every section (sightlines). Text cards sit ABOVE or BESIDE the chart
+   they explain, as their own cards. Cards in the same grid row get the
+   same height, so rows have straight tops and bottoms (no ragged gaps). */
+.story-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));   /* 12 equal columns */
+  gap: 14px 18px;
+  align-items: stretch;                   /* every card in a row shares the same top AND bottom edge */
+  margin-bottom: 18px;
+}
+
+.story-grid > * { min-width: 0; margin: 0; }   /* let cards shrink to their column */
+.span-3 { grid-column: span 3; }          /* a quarter of the width */
+.span-4 { grid-column: span 4; }          /* a third */
+.span-5 { grid-column: span 5; }
+.span-6 { grid-column: span 6; }          /* a half */
+.span-7 { grid-column: span 7; }
+.span-8 { grid-column: span 8; }
+.span-12 { grid-column: span 12; }
+.tall   { grid-row: span 2; }             /* covers two grid rows (text row + chart row) */
+
+/* chart cards in the grid: chart centred inside the card */
+.story-grid .chart-box { display: flex; align-items: center; justify-content: center; }
+
+/* text cards: mint, same corners as the chart cards */
+.text-card {
+  padding: 13px 16px;
+  background: var(--mint);
+  border-radius: 14px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.text-card p { margin: 0 0 8px; }
+.text-card p:last-child { margin-bottom: 0; }
+.text-card strong { color: var(--deep); }   /* numbers in dark teal so the eye finds them on the chart */
+.text-card h3 { margin: 14px 0 6px; }
+.text-card h3:first-child { margin-top: 0; }
+
+/* cards taller than their text: spread the content evenly from top to bottom */
+.spread { display: flex; flex-direction: column; justify-content: space-between; }
+#section-2 .spread { justify-content: space-evenly; }   /* the pyramid's text card: even spacing, no empty bottom */
+
+/* a column of cards beside a tall chart: the last card grows to fill the column */
+.stack { display: flex; flex-direction: column; gap: 18px; }
+.stack .fill { flex: 1; display: flex; flex-direction: column; }
+.fill ul { flex: 1; display: flex; flex-direction: column; justify-content: space-evenly; margin-bottom: 0; }
+
+/* Section 1 begins with one compact, aligned overview row. */
+.section-one-title {
+  grid-column: 1 / span 3;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 18px 0;
+}
+.kpi-strip {
+  grid-column: 4 / span 9;
+  align-self: stretch;
+  display: grid;
+  grid-template-columns:
+    minmax(150px, .7fr)
+    minmax(150px, .7fr)
+    minmax(300px, 1.45fr);
+  gap: clamp(18px, 2.4vw, 34px);
+  align-items: center;
+  padding: 20px 24px;
+}
+.section-title-block h2 {
+  margin: 0;
+  align-items: center;
+  font-size: 1.3rem;
+}
+.section-title-block h2 .num {
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  font-size: .95rem;
+}
+.section-title-block .section-intro {
+  margin: 8px 0 0 48px;
+  font-size: .85rem;
+  line-height: 1.4;
+}
+.kpi-strip > .stat {
+  justify-self: stretch;
+  margin: 0;
+  padding-left: clamp(16px, 2vw, 26px);
+  border-left: 1px solid rgba(11, 74, 77, .16);
+}
+.kpi-strip > .overview-copy {
+  justify-self: stretch;
+  padding-left: clamp(16px, 2vw, 26px);
+  border-left: 1px solid rgba(11, 74, 77, .16);
+}
+.kpi-strip .stat-num {
+  font-size: clamp(1.55rem, 2.2vw, 1.9rem);
+  letter-spacing: -.025em;
+  white-space: nowrap;
+}
+.kpi-strip .overview-copy { font-size: .9rem; }
+#section-1 .ownership-copy { grid-column: 1 / span 6; }   /* left half, above the waffle */
+#section-1 .spending-copy { grid-column: 7 / span 6; }    /* right half, above the bar chart */
+#section-1 .ownership-copy,
+#section-1 .spending-copy {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+}
+#section-1 .ownership-copy p,
+#section-1 .spending-copy p { width: 100%; }
+#section-1 .ownership-copy p { display: grid; gap: 3px; }
+#section-1 .spending-copy p { display: grid; gap: 3px; }
+
+/* Pair each section title with its short introduction. */
+.section-heading-row {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 24px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.section-heading-row h2 { margin: 0; }
+.section-heading-row .section-intro {
+  max-width: 46ch;
+  margin: 0;
+  padding-left: 20px;
+  border-left: 1px solid rgba(11, 74, 77, .18);
+}
+
+/* big-number cards */
+.stat { line-height: 1.25; }
+.stat-num {
+  display: block;
+  font-family: var(--heading-font);
+  font-weight: 700;
+  font-size: 2.3rem;
+  color: var(--deep);
+}
+.small-note { font-size: 0.8rem; color: var(--muted); }
+
+/* the dark closing card (checklist) inside the grid */
+.story-grid .checklist { max-width: none; background: var(--deep); color: #fff; }
+.checklist p { color: #E8F3F1; }
+.checklist h3 { margin-top: 14px; }
+
+/* phones and narrow windows: one column, text first and then its chart */
+@media (max-width: 1050px) {
+  .section-one-title { grid-column: auto; padding-bottom: 4px; }
+  .kpi-strip { grid-column: auto; grid-template-columns: 1fr; }
+  .section-title-block .section-intro { margin-left: 48px; }
+  .kpi-strip > .stat,
+  .kpi-strip > .overview-copy {
+    justify-self: start;
+    width: 100%;
+    padding-left: 0;
+    border-left: 0;
+  }
+  .story-grid { display: flex; flex-direction: column; }
+  .story-grid > *, .stack > * { order: var(--o); }
+  .stack { display: contents; }
+  .story-grid .chart-box { overflow-x: auto; justify-content: center; }
+  .section-heading-row { display: block; margin-bottom: 12px; }
+  .section-heading-row h2 { margin-bottom: 8px; }
+  .section-heading-row .section-intro {
+    max-width: 65ch;
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+
+/* ---------- Tighter spacing between sections ---------- */
+section { padding-top: 12px; padding-bottom: 0; }
+section .story-grid:last-child { margin-bottom: 0; }
+h2 { margin-bottom: 8px; }
+.section-intro { margin-bottom: 14px; }
+.page-footer { margin-top: 36px; }
+.text-card br + * { margin-top: 0; }
+.checklist li strong { color: #fff; }
+.checklist .li-note { font-size: 0.85rem; color: #DCEBE8; }   /* why each habit matters, in one short line */
+
+
+/* =====================================================================
+   SIGHTLINES
+   One 12-column grid (18 px gutters) runs from the header to the footer.
+   The page's CENTRE LINE is the middle of the gutter between columns 6
+   and 7. Every divider line sits exactly on it (header intro rule,
+   section intros, the KPI strip), and every row either splits on it
+   (6 | 6) or mirrors across it (5 | 7 then 7 | 5, 4 | 8 then 8 | 4).
+   The other sightlines are the thirds (4 | 4 | 4).
+   ===================================================================== */
+:root { --gap: 18px; }
+
+/* Header: title in the left half, intro in the right half.
+   The amber rule sits exactly on the centre line. */
+.page-header {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-areas:
+    "kicker intro"
+    "title  intro";
+  column-gap: var(--gap);
+}
+.page-header::after {                     /* paw print: pinned to the right edge, out of the grid */
+  position: absolute;
+  right: 24px; top: 50%;
+  transform: translateY(-50%);
+}
+.intro {
+  margin-left: calc(var(--gap) / -2 - 1.5px);   /* pull the 3 px rule back onto the centre line */
+  padding-left: calc(var(--gap) / 2 + 20px);
+}
+
+/* Section headings: title left half, intro right half, divider on the centre line */
+.section-heading-row {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--gap);
+}
+.section-heading-row h2 { font-size: 1.5rem; }
+.section-heading-row .section-intro {
+  max-width: none;
+  margin-left: calc(var(--gap) / -2 - .5px);    /* 1 px divider exactly on the centre line */
+  padding-left: calc(var(--gap) / 2 + 20px);
+}
+
+/* Section 1 overview: title over the first third, KPI strip over the
+   other two thirds. The KPI strip borrows the page grid (subgrid), so its
+   dividers land on the centre line and on the two-thirds line. */
+.section-one-title { grid-column: 1 / span 4; }
+.kpi-strip {
+  grid-column: 5 / span 8;
+  grid-template-columns: subgrid;
+  column-gap: var(--gap);
+  padding: 20px 0;
+}
+.kpi-strip > .stat { grid-column: span 2; padding-left: 20px; border-left: 0; position: relative; }
+.kpi-strip > .overview-copy { grid-column: span 4; padding-left: 10px; padding-right: 20px; border-left: 0; position: relative; }
+.kpi-strip > .stat + .stat { padding-left: 10px; }
+.kpi-strip .stat-num { font-size: 1.65rem; }
+.kpi-strip > .stat + .stat::before,
+.kpi-strip > .overview-copy::before {     /* the divider, drawn in the middle of the gutter */
+  content: "";
+  position: absolute;
+  left: calc(var(--gap) / -2 - .5px);
+  top: 4px; bottom: 4px;
+  border-left: 1px solid rgba(11, 74, 77, .16);
+}
+
+/* Chart cards: the chart fills the card width and sits in the middle
+   when its partner in the row is taller. */
+.story-grid .chart-box { align-items: center; }
+.chart.loaded svg { margin: 0 auto; }
+#section-1 .ownership-copy, #section-1 .spending-copy { align-items: flex-start; }
+
+/* Section 5: the right-hand column stretches to the bottom of the streamgraph */
+.stack { align-self: stretch; }
+
+/* Footer: sources in the left half, author in the right half */
+.page-footer .row-2 {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--gap);
+  justify-content: stretch;
+}
+
+@media (max-width: 1050px) {
+  .kpi-strip { grid-template-columns: 1fr; padding: 20px 24px; }
+  .kpi-strip > .stat, .kpi-strip > .overview-copy { grid-column: auto; padding-left: 0; padding-right: 0; }
+  .kpi-strip > .stat + .stat { padding-left: 0; }
+  .kpi-strip > .stat + .stat::before, .kpi-strip > .overview-copy::before { display: none; }
+  .section-heading-row .section-intro { margin-left: 0; padding-left: 0; }
+  .page-footer .row-2 { grid-template-columns: 1fr; }
+}
+@media (max-width: 860px) {
+  .intro { margin-left: 0; padding-left: 0; }
+}
+
+/* footer: space above the "Use of AI" heading */
+.page-footer .ai-heading { margin-top: 18px; }

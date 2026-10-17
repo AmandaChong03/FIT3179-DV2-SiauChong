@@ -1,4 +1,5 @@
-<!DOCTYPE html>                                  
+<!DOCTYPE html>
+<html lang="en">                           
 <head>                                          
   <meta charset="utf-8">                         
   <meta name="viewport" content="width=device-width, initial-scale=1"> 
@@ -7,8 +8,8 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">           
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  
-  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&display=swap" rel="stylesheet">  
-  <link rel="stylesheet" href="style.css">       
+  <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&amp;family=Lexend:wght@400;600;700&amp;family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&amp;display=swap" rel="stylesheet">  
+  <link rel="stylesheet" href="style.css?v=20261016">       
   
   <!-- Vega, Vega-Lite and Vega-Embed draw the charts (version 6 to match the charts' schema) -->
   <script src="https://cdn.jsdelivr.net/npm/vega@6"></script>
@@ -23,114 +24,179 @@
     <p class="kicker">Pets and vets in Australia</p>
     <h1>Who Cares for Australia's 31.6 Million Pets?</h1>
     <p class="intro">
-      Australia has more pets than people. This page looks at who looks after them, what goes wrong,
-      what it costs, and what a pet owner can do about it.
+      Australia has more pets than people.<br>
+      But who cares for them all?<br>
+      We follow pets from home to the vet.<br>
+      We meet the vets and see what care costs.<br>
+      Then we ask what owners can do.<br>
+      All costs are in Australian dollars.
     </p>
   </header>
 
-  <main> 
+  <main>
     <!-- SECTION 1 -->
-    <section id="section-1"> 
-      <h2><span class="num">1</span> A nation of pet lovers</h2>
-      <div class="row row-3">
-        <figure class="chart-box">
-          <div class="chart" id="chart01">Chart 1 Waffle chart<br>73 in 100 households own a pet</div> 
-        <figure class="chart-box">
-          <div class="chart" id="chart02">Chart 2 Bar chart<br>Where the $21.3 billion goes</div>
-        </figure>
-        <div class="text-box"> 
-          <p>Text for section 1.</p>
+    <section id="section-1">
+      <div class="story-grid">
+        <div class="section-title-block section-one-title" style="--o:1">
+          <h2><span class="num">1</span> A nation of pet lovers</h2>
+          <p class="section-intro">Pets are part of family life in Australia.</p>
         </div>
+        <div class="text-card kpi-strip" style="--o:1">
+          <p class="stat"><span class="stat-num">31.6 million</span> pets</p>
+          <p class="stat"><span class="stat-num">27.9 million</span> people</p>
+          <div class="overview-copy">
+            <p>Pets outnumber people in Australia.<br>Owners spend generously on their care.<br>But how much of it reaches the vet?</p>
+            <p class="small-note">Pets: Animal Medicines Australia, 2025.<br>People: Australian Bureau of Statistics, March 2026.</p>
+          </div>
+        </div>
+        <div class="text-card ownership-copy" style="--o:2">
+          <p><span>Pets live in <strong>73 of every 100</strong> Australian homes.</span><span>Each square is one home in a hundred.</span></p>
+        </div>
+        <div class="text-card spending-copy" style="--o:4">
+          <p><span>Owners spend <strong>$21.3 billion</strong> a year on pets.</span><span>Food takes almost half of it.</span><span>Vet care gets just 9%, about <strong>$1.9 billion</strong>.</span></p>
+        </div>
+        <figure class="chart-box span-6" style="--o:3"><div class="chart" id="chart01">Chart 1 Waffle chart</div></figure>
+        <figure class="chart-box span-6" style="--o:5"><div class="chart" id="chart02">Chart 2 Bar chart</div></figure>
       </div>
     </section>
 
     <!-- SECTION 2 -->
     <section id="section-2">
-      <h2><span class="num">2</span> Who looks after them</h2>
-      <p class="section-intro">
-        Australia is made up of six states and two territories. Most people live along the east and
-        south-east coast, and vets are not spread evenly between them.
-      </p>
-      <div class="row row-3">
-        <figure class="chart-box">
-          <div class="chart" id="chart03">Chart 3 Choropleth map<br>Vet businesses with staff per 100,000 people</div>
-        </figure>
-        <figure class="chart-box">
-          <div class="chart" id="chart04">Chart 4 Dot map<br>Where vets are trained</div>
-        </figure>
-        <figure class="chart-box">
-          <div class="chart" id="chart05">Chart 5 Population pyramid<br>Vets by age and gender</div>
-        </figure>
+      <div class="section-heading-row">
+        <h2><span class="num">2</span> Who looks after them</h2>
+        <p class="section-intro">Australia has six states and two territories.<br>Its vets are not spread evenly across them.</p>
+      </div>
+      <div class="story-grid">
+        <div class="text-card span-6" style="--o:1">
+          <p>Darker states have more vet businesses per person.<br>The Northern Territory has the most.<br>Victoria and the Australian Capital Territory have the fewest.<br>One business can run several clinics.</p>
+        </div>
+        <div class="text-card span-6" style="--o:3">
+          <p>Vets train at only <strong>seven</strong> Australian universities.<br>Each dot marks one vet school.<br>Tasmania and both territories have none.</p>
+        </div>
+        <figure class="chart-box span-6" style="--o:2"><div class="chart" id="chart03">Chart 3 Choropleth map</div></figure>
+        <figure class="chart-box span-6" style="--o:4"><div class="chart" id="chart04">Chart 4 Dot map</div></figure>
+        <div class="text-card span-4 spread" style="--o:5">
+          <p>Most young vets are women.</p>
+          <p class="stat"><span class="stat-num">252</span> women aged 30 to 34, the largest group</p>
+          <p>From age 65, men outnumber women.</p>
+        </div>
+        <figure class="chart-box span-8" style="--o:6"><div class="chart" id="chart05">Chart 5 Population pyramid</div></figure>
       </div>
     </section>
 
-    <!-- ============ SECTION 3 ============ -->
+    <!-- SECTION 3 -->
     <section id="section-3">
-      <h2><span class="num">3</span> A profession stretched thin</h2>
-      <div class="row row-text-3">
-        <div class="text-box">
-          <p>Text for section 3.</p>
+      <div class="section-heading-row">
+        <h2><span class="num">3</span> A profession stretched thin</h2>
+        <p class="section-intro">Now the problem: Australia is short of vets.<br>And who owns the clinics is changing.</p>
+      </div>
+      <div class="story-grid">
+        <div class="text-card span-5" style="--o:1">
+          <p>More vets now work for big company chains.<br>Their share grew from <strong>2%</strong> to <strong>23%</strong>.<br>Most of that growth came in two years.</p>
         </div>
-        <figure class="chart-box">
-          <div class="chart" id="chart06">Chart 6 Line chart<br>Share of vets working for corporate chains, 2012 to 2023/24</div>
-        </figure>
-        <figure class="chart-box">
-          <div class="chart" id="chart07">Chart 7 Proportional symbol map<br>Vet jobs still unfilled after a year</div>
-        </figure>
-        <figure class="chart-box">
-          <div class="chart" id="chart08">Chart 8 Heatmap<br>Time to fill a vet job, by clinic size</div>
-        </figure>
+        <div class="text-card span-7" style="--o:3">
+          <p>Small clinics struggle most to hire a vet.<br>At one-vet clinics, <strong>70%</strong> of jobs stayed empty<br>for over a year.<br>Only 20 jobs were advertised, so read this carefully.</p>
+        </div>
+        <figure class="chart-box span-5" style="--o:2"><div class="chart" id="chart06">Chart 6 Line chart</div></figure>
+        <figure class="chart-box span-7" style="--o:4"><div class="chart" id="chart08">Chart 8 Heatmap</div></figure>
+        <figure class="chart-box span-7" style="--o:6"><div class="chart" id="chart07">Chart 7 Proportional symbol map</div></figure>
+        <div class="text-card stat-card spread span-5" style="--o:5">
+          <p>Across Australia, many vet jobs stay empty for a year.<br>Bigger circles mean more jobs still empty.<br>Tasmania (<strong>70%</strong>) and the Northern Territory fare worst.<br>Few clinics answered there, so read with care.</p>
+          <h3>Section 3 in three numbers</h3>
+          <p class="stat"><span class="stat-num">23%</span> of vets work for a chain</p>
+          <p class="stat"><span class="stat-num">37%</span> of vet jobs stay empty after one year</p>
+          <p class="stat"><span class="stat-num">70%</span> of jobs at one-vet clinics stay empty</p>
+          <p>So where do sick pets go?<br>And what does their care cost?</p>
+        </div>
       </div>
     </section>
 
     <!-- SECTION 4 -->
     <section id="section-4">
-      <h2><span class="num">4</span> Where pets get care, and what for</h2>
-      <div class="row row-2 narrow-wide">
-        <figure class="chart-box">
-          <div class="chart" id="chart09">Chart 9 Pie chart<br>Where vets work</div>
-        </figure>
-        <figure class="chart-box">
-          <div class="chart" id="chart10">Chart 10 Bar chart with dog/cat switch<br>Top 10 problems and their average cost</div>
-        </figure>
+      <div class="section-heading-row">
+        <h2><span class="num">4</span> Where pets get care, and what for</h2>
+        <p class="section-intro">Most sick pets go to a local clinic.<br>Their bills are rising, and some are huge.</p>
       </div>
-      <div class="row row-2">
-        <figure class="chart-box">
-          <div class="chart" id="chart11">Chart 11 Dumbbell chart<br>The problems with the biggest bills</div>
-        </figure>
-        <figure class="chart-box">
-          <div class="chart" id="chart12">Chart 12 Line chart<br>Cost of treating stomach and gut problems, 2015 to 2025</div>
-        </figure>
+      <div class="story-grid">
+        <div class="text-card span-5" style="--o:1">
+          <p>Three in four vets work at local clinics: <strong>76.3%</strong>.<br>Far fewer work in emergency or specialist hospitals.</p>
+        </div>
+        <div class="text-card span-7" style="--o:3">
+          <p>The most common problems are everyday ones.<br>Skin problems top the list for dogs, about <strong>$700</strong>.<br>These costs come from insured pets only.<br>Use the switch to see cats.</p>
+        </div>
+        <figure class="chart-box span-5" style="--o:2"><div class="chart" id="chart09">Chart 9 Pie chart</div></figure>
+        <figure class="chart-box span-7" style="--o:4"><div class="chart" id="chart10">Chart 10 Bar chart</div></figure>
+        <div class="text-card span-6" style="--o:5">
+          <p>An emergency is a different story.<br>One slipped-disc bill for a dog reached <strong>$72,732</strong>.<br>That is about 15 times the average bill.<br>Insurance only pays up to its yearly limit.</p>
+        </div>
+        <div class="text-card span-6" style="--o:7">
+          <p>Even everyday care costs more each year.<br>Treating a stomach upset has doubled in price.<br>It rose from <strong>$457</strong> in 2015 to <strong>$956</strong> in 2025.</p>
+        </div>
+        <figure class="chart-box span-6" style="--o:6"><div class="chart" id="chart11">Chart 11 Dumbbell chart</div></figure>
+        <figure class="chart-box span-6" style="--o:8"><div class="chart" id="chart12">Chart 12 Line chart</div></figure>
       </div>
     </section>
 
     <!-- SECTION 5 -->
     <section id="section-5">
-      <h2><span class="num">5</span> Caring for pets when money is tight</h2>
-      <div class="row row-2">
-        <figure class="chart-box">
-          <div class="chart" id="chart13">Chart 13dumbbell chart<br>what owners cut back on</div>
-        </figure>
-        <figure class="chart-box">
-          <div class="chart" id="chart14">Chart 14 bar chart<br>a year of prevention vs one emergency</div>
-        </figure>
+      <div class="section-heading-row">
+        <h2><span class="num">5</span> Caring for pets when money is tight</h2>
+        <p class="section-intro">Rising bills put pressure on owners.<br>When money is tight, some cut back on care.</p>
       </div>
-      <div class="row row-2 wide-narrow">
-        <figure class="chart-box">
-          <div class="chart" id="chart15">Chart 15 streamgraph<br>animals entering RSPCA shelters, 2005–06 to 2024–25</div>
-        </figure>
-        <div class="text-box checklist"> 
-          <h3>What a responsible owner does</h3>
-          <ul>
-            <li>Vaccinate</li>
-            <li>Desex</li>
-            <li>Microchip</li>
-            <li>Get a yearly check-up</li>
-          </ul>
+      <div class="story-grid">
+        <div class="text-card span-6" style="--o:1">
+          <p>Some owners save money by cutting vet care.<br><strong>18%</strong> of cat owners and 14% of dog owners did.<br>Each icon is two owners in every hundred.</p>
+        </div>
+        <div class="text-card span-6" style="--o:3">
+          <p>Yet prevention costs far less than an emergency.<br>A year of tick, flea and worm care: <strong>$122</strong>.<br>One tick-paralysis bill averages <strong>$3,484</strong>.</p>
+        </div>
+        <figure class="chart-box span-6 tall" style="--o:2"><div class="chart" id="chart13">Chart 13 Pictogram</div></figure>
+        <figure class="chart-box span-6" style="--o:4"><div class="chart" id="chart14">Chart 14 Bar chart</div></figure>
+        <div class="text-card span-6" style="--o:5">
+          <h3>What is tick paralysis?</h3>
+          <p>Paralysis ticks live along Australia's east coast.<br>Their bite can stop a pet walking or breathing.<br>Regular treatment helps protect pets.<br>These costs come from two different reports.</p>
+        </div>
+        <figure class="chart-box span-8" style="--o:7"><div class="chart" id="chart15">Chart 15 Streamgraph</div></figure>
+        <div class="stack span-4">
+          <div class="text-card" style="--o:6">
+            <p>There is good news, too.<br>Fewer dogs and cats now enter RSPCA shelters.<br>Dogs fell from <strong>70,514</strong> a year to 15,852.<br>Rabbits, birds and other animals rose.<br>Use the menu to see each group alone.</p>
+          </div>
+          <div class="text-card checklist fill" style="--o:8">
+            <h3>What a responsible owner does</h3>
+            <p>Simple habits keep pets healthy and costs down.</p>
+            <ul>
+              <li>Vaccinate</li>
+              <li>Desex</li>
+              <li>Microchip</li>
+              <li>Get a yearly check-up</li>
+              <li>Use tick, flea and worm care</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
 
+    <!-- SECTION 6: CONCLUSION -->
+    <section id="section-6">
+      <div class="section-heading-row">
+        <h2><span class="num">6</span> What it all means</h2>
+        <p class="section-intro">Three lessons emerge from the data.<br>They can also help pet owners in Malaysia.</p>
+      </div>
+      <div class="story-grid">
+        <div class="text-card span-4" style="--o:1">
+          <h3>Pets are family</h3>
+          <p>Most Australian homes have a pet.<br>Owners spend billions on them each year.</p>
+        </div>
+        <div class="text-card span-4" style="--o:2">
+          <h3>Vets are stretched thin</h3>
+          <p>Many vet jobs stay empty for over a year.<br>Small clinics struggle most to hire.</p>
+        </div>
+        <div class="text-card span-4" style="--o:3">
+          <h3>Prevention pays</h3>
+          <p>Vet bills rise every year.<br>Prevention costs less than one emergency.</p>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- FOOTER: sources, author, date -->
@@ -144,14 +210,17 @@
           <li><a href="https://ava.com.au/siteassets/advocacy/workforce-survey/ava-2023_2024-workforce-survey-report.pdf">Australian Veterinary Association, Workforce Survey 2023/24</a></li>
           <li><a href="https://petsure.com.au/wp-content/uploads/2024/07/PHM-2026_Digital.pdf">PetSure, Pet Health Monitor 2026</a></li>
           <li><a href="https://www.abs.gov.au/statistics/economy/business-indicators/counts-australian-businesses-including-entries-and-exits/jul2021-jun2025">Australian Bureau of Statistics, Counts of Australian Businesses, June 2025</a></li>
-          <li><a href="https://www.abs.gov.au/statistics/people/population/national-state-and-territory-population/jun-2025">Australian Bureau of Statistics, National, state and territory population, June 2025</a></li>
+          <li><a href="https://www.abs.gov.au/statistics/people/population/national-state-and-territory-population/jun-2025">Australian Bureau of Statistics, National, state and territory population,<br>June 2025</a></li>
           <li><a href="https://rspca.org.au/about/annual-statistics">RSPCA Australia, annual statistics</a></li>
           <li><a href="https://avbc.asn.au/wp-content/uploads/2025/04/VetScienceInAustralia-Apr2025.pdf">Australasian Veterinary Boards Council, Veterinary Science in Australia, 2025</a></li>
+          <li><a href="https://phosphoricons.com">Icons: Phosphor Icons (MIT licence)</a></li>
         </ul>
       </div>
       <div>
         <h3>Author</h3>
-        <p>Chong Siau Xian. FIT3179 Data Visualisation 2, Monash University. October 2026.</p>
+        <p>Chong Siau Xian.<br>FIT3179 Data Visualisation 2, Monash University.<br>October 2026.</p>
+        <h3 class="ai-heading">Use of AI</h3>
+        <p>This page was produced with assistance from Claude (Anthropic),<br>an AI model used for design and coding support.<br>It assisted with chart refinement and<br>colour accessibility checks for colour-blind readers,<br>and cross-checking figures against the original sources.<br>The author made all editorial decisions and final checks.</p>
       </div>
     </div>
   </footer>
@@ -170,11 +239,20 @@
       { id: "chart09", spec: "charts/9_where_vets_work_piechart.json" },
       { id: "chart10", spec: "charts/10_top_conditions_bars.json" },
       { id: "chart11", spec: "charts/11_avg_highest_dumbbell.json" },
+      { id: "chart12", spec: "charts/12_gastro_cost_line.json" },
+      { id: "chart13", spec: "charts/13_cut_cost_pictogram.json" },
+      { id: "chart14", spec: "charts/14_prevent_vs_emergency_bar.json" },
+      { id: "chart15", spec: "charts/15_streamgraph.json" }
     ];
 
     charts.forEach(function (c) { 
       vegaEmbed("#" + c.id, c.spec, { actions: false, renderer: "svg" })
-        .then(function () { document.getElementById(c.id).classList.add("loaded"); })
+        .then(function () {
+          const el = document.getElementById(c.id);
+          const svg = el.querySelector("svg");
+          if (svg) svg.style.maxWidth = svg.getAttribute("width") + "px";   /* fill the card, but never blow a chart up past its drawn size */
+          el.classList.add("loaded");
+        })
         .catch(console.error);
     });
   </script>
