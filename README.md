@@ -29,8 +29,11 @@ Links to each source are in the footer of the page.
 
 ## Author
 
-[Your name], [student ID]. October 2026.
+Chong Siau Xian, 32202806. October 2026.
 
 ## Use of AI
 
-[Say here which AI tools you used and what for.]
+This page was produced with assistance from Claude (Anthropic),an AI model used for design and coding support.
+It assisted with chart refinement and colour accessibility checks for colour-blind readers,
+and cross-checking figures against the original sources. 
+The author made all editorial decisions and final checks.
